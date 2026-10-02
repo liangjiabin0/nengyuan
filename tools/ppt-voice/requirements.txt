@@ -1,0 +1,10 @@
+Pillow>=10.0
+httpx[socks]>=0.28
+lxml>=5.0
+mutagen>=1.47
+pydantic>=2.0
+pydantic-settings>=2.0
+python-dotenv>=1.0
+python-pptx>=1.0
+pywin32>=306; sys_platform == "win32"
+PyYAML>=6.0

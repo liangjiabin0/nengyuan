@@ -1,14 +1,15 @@
 ﻿param(
   # dev (default) | prod (next start, requires npm run build)
   [ValidateSet('dev', 'prod')]
-  [string]$Mode = 'dev',
-  [switch]$LocalOnly
+  [string]$Mode = 'dev'
 )
 
 $ErrorActionPreference = "Stop"
 
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $ProjectRoot
+. (Join-Path $PSScriptRoot 'project-env.ps1')
+Import-Ai4esProjectEnv $ProjectRoot
 
 function Assert-Command([string]$Name) {
   if (-not (Get-Command $Name -ErrorAction SilentlyContinue)) {
@@ -42,9 +43,16 @@ if (-not (Test-Path -LiteralPath $opencodeExe) -or -not (Test-Path -LiteralPath 
   }
 }
 
+& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "ensure-empty-corpus.ps1")
 $corpusManifest = Join-Path $ProjectRoot "storage\knowledge-corpus\MANIFEST.md"
 if (-not (Test-Path -LiteralPath $corpusManifest)) {
   throw "Missing corpus manifest: $corpusManifest"
+}
+
+Write-Info "Checking PostgreSQL..."
+& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "ensure-postgres.ps1")
+if ($LASTEXITCODE -ne 0) {
+  throw "PostgreSQL is required. Install 16, create database ai4es, set DATABASE_URL in .env.local."
 }
 
 Write-Info "Starting OpenCode sidecar..."
@@ -53,8 +61,19 @@ if ($LASTEXITCODE -ne 0) {
   throw "OpenCode sidecar failed to start."
 }
 
+$modelicaPython = Join-Path $ProjectRoot 'tools\openmodelica-gateway-venv\Scripts\python.exe'
+if (Test-Path -LiteralPath $modelicaPython) {
+  Write-Info "Starting OpenModelica gateway..."
+  & npm run modelica:start
+  if ($LASTEXITCODE -ne 0) {
+    Write-Warning "OpenModelica gateway did not start. Run npm run modelica:status for details."
+  }
+} else {
+  Write-Warning "OpenModelica gateway environment is missing. Run npm run modelica:install."
+}
+
 $settingsPath = Join-Path $ProjectRoot "storage\settings.json"
-$modelUrl = "http://10.1.4.166:11435/v1"
+$modelUrl = "http://10.1.4.166:8000/v1"
 if (Test-Path -LiteralPath $settingsPath) {
   try {
     $settings = Get-Content -Raw -Encoding UTF8 $settingsPath | ConvertFrom-Json
@@ -74,7 +93,7 @@ if ($useProd) {
 }
 $port = if ($env:PORT) { [int]$env:PORT } else { 3000 }
 $apiPort = if ($env:API_PORT) { [int]$env:API_PORT } else { 4000 }
-$opencodePort = 4097
+$opencodePort = if ($env:OPENCODE_SERVER_PORT) { [int]$env:OPENCODE_SERVER_PORT } else { 4097 }
 
 # 防止重复 start:intranet：两个看门狗会互相杀端口，并把 WMI 进程扫描打满整机
 $script:IntranetMutex = New-Object System.Threading.Mutex($false, "Global\AI4ES-intranet-$port-$apiPort")
@@ -88,9 +107,11 @@ if (-not $script:HasIntranetMutex) {
   Write-Warning "Another intranet-start is already running on ports $port/$apiPort. Exiting."
   exit 0
 }
-# next dev 内存阈值；超过则主动重启，避免卡死在无响应状态
-$webMaxMemoryMb = if ($env:AI4ES_WEB_MAX_MB) { [int]$env:AI4ES_WEB_MAX_MB } else { 2500 }
-$webHealthFailLimit = 3
+# 仅在进程已死或健康检查连续失败时重启。不要按工作集杀 next dev：
+# webpack 子进程正常就会到 2–3GB，误杀后浏览器会整页刷新并卡一下。
+# Fast Refresh / 编译期间 /healthz 可能短暂 500，进程还活着时要多容忍几次。
+$webHealthFailLimit = if ($env:AI4ES_WEB_HEALTH_FAILS) { [int]$env:AI4ES_WEB_HEALTH_FAILS } else { 6 }
+$webAliveFailLimit = if ($env:AI4ES_WEB_ALIVE_HEALTH_FAILS) { [int]$env:AI4ES_WEB_ALIVE_HEALTH_FAILS } else { 20 }
 
 function Get-LanIPv4Addresses {
   $addrs = @()
@@ -176,29 +197,9 @@ function Wait-HttpOk([string]$Url, [int]$TimeoutSec = 60) {
   return $false
 }
 
-function Get-Win32ProcessSnapshot {
-  @(Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
-    Select-Object ProcessId, ParentProcessId, WorkingSetSize, CommandLine)
-}
-
-function Get-ChildPidMap($snapshot) {
-  $map = @{}
-  foreach ($p in @($snapshot)) {
-    if (-not $p) { continue }
-    $ppid = [int]$p.ParentProcessId
-    if (-not $map.ContainsKey($ppid)) {
-      $map[$ppid] = New-Object System.Collections.Generic.List[int]
-    }
-    [void]$map[$ppid].Add([int]$p.ProcessId)
-  }
-  return $map
-}
-
-function Stop-TreeByPid([int]$ProcessId, $snapshot = $null) {
+function Stop-TreeByPid([int]$ProcessId) {
   if ($ProcessId -le 0) { return }
   try {
-    if (-not $snapshot) { $snapshot = Get-Win32ProcessSnapshot }
-    $childMap = Get-ChildPidMap $snapshot
     $ids = New-Object System.Collections.Generic.List[int]
     $queue = New-Object System.Collections.Generic.Queue[int]
     $seen = New-Object 'System.Collections.Generic.HashSet[int]'
@@ -207,8 +208,10 @@ function Stop-TreeByPid([int]$ProcessId, $snapshot = $null) {
       $current = $queue.Dequeue()
       if (-not $seen.Add($current)) { continue }
       [void]$ids.Add($current)
-      if ($childMap.ContainsKey($current)) {
-        foreach ($cid in $childMap[$current]) { $queue.Enqueue([int]$cid) }
+      $children = @(Get-CimInstance Win32_Process -Filter "ParentProcessId=$current" -ErrorAction SilentlyContinue |
+        Select-Object -ExpandProperty ProcessId)
+      foreach ($cid in $children) {
+        if ($cid) { $queue.Enqueue([int]$cid) }
       }
     }
     for ($i = $ids.Count - 1; $i -ge 0; $i--) {
@@ -239,30 +242,6 @@ function Clear-ListenPort([int]$ListenPort) {
   }
 }
 
-function Get-ProcessTreeMemoryMb([int]$ProcessId, $snapshot = $null) {
-  if ($ProcessId -le 0) { return -1 }
-  if (-not $snapshot) { $snapshot = Get-Win32ProcessSnapshot }
-  $childMap = Get-ChildPidMap $snapshot
-  $ws = @{}
-  foreach ($p in @($snapshot)) {
-    if ($p) { $ws[[int]$p.ProcessId] = [int64]$p.WorkingSetSize }
-  }
-  $total = 0L
-  $queue = New-Object System.Collections.Generic.Queue[int]
-  $seen = New-Object 'System.Collections.Generic.HashSet[int]'
-  $queue.Enqueue($ProcessId) | Out-Null
-  while ($queue.Count -gt 0) {
-    $current = $queue.Dequeue()
-    if (-not $seen.Add($current)) { continue }
-    if ($ws.ContainsKey($current)) { $total += $ws[$current] }
-    if ($childMap.ContainsKey($current)) {
-      foreach ($cid in $childMap[$current]) { $queue.Enqueue([int]$cid) }
-    }
-  }
-  if ($total -le 0) { return -1 }
-  return [math]::Round($total / 1MB)
-}
-
 function Write-PidFile($apiProc, $workerProc, $webProc) {
   $pidPath = Join-Path $ProjectRoot "storage\intranet.pids.json"
   $payload = @{
@@ -276,12 +255,9 @@ function Write-PidFile($apiProc, $workerProc, $webProc) {
   Set-Content -LiteralPath $pidPath -Value $payload -Encoding UTF8
 }
 
-if (-not $LocalOnly) {
-  Ensure-FirewallRule $port
-  Ensure-FirewallRule $apiPort
-}
-$lanIps = if ($LocalOnly) { @() } else { @(Get-LanIPv4Addresses) }
-$webHostname = if ($LocalOnly) { '127.0.0.1' } else { '::' }
+Ensure-FirewallRule $port
+Ensure-FirewallRule $apiPort
+$lanIps = Get-LanIPv4Addresses
 
 $apiProc = $null
 $workerProc = $null
@@ -339,9 +315,9 @@ function Start-WebProcess {
   $webOut = Join-Path $ProjectRoot "storage\web-server.out.log"
   $webErr = Join-Path $ProjectRoot "storage\web-server.err.log"
   $nextArgs = if ($useProd) {
-    @($nextCli, 'start', "--hostname=$webHostname", '-p', "$port")
+    @($nextCli, 'start', '--hostname=::', '-p', "$port")
   } else {
-    @($nextCli, 'dev', '--webpack', "--hostname=$webHostname", '-p', "$port")
+    @($nextCli, 'dev', '--webpack', '--hostname=::', '-p', "$port")
   }
   return Start-Process -FilePath $nodeExe `
     -ArgumentList $nextArgs `
@@ -366,7 +342,7 @@ try {
   Write-Info "Starting Web (:$port) with health watchdog..."
   $webProc = Start-WebProcess
   $webUrl = "http://127.0.0.1:$port/healthz"
-  if (-not (Wait-HttpOk $webUrl 120)) {
+  if (-not (Wait-HttpOk $webUrl 300)) {
     throw "Web not ready: $webUrl (see storage/web-server.out.log / web-server.err.log)"
   }
   Write-PidFile $apiProc $workerProc $webProc
@@ -381,8 +357,6 @@ try {
     foreach ($ip in $lanIps) {
       Write-Host "  LAN:        http://${ip}:$port" -ForegroundColor Yellow
     }
-  } elseif ($LocalOnly) {
-    Write-Host "  Access:     local computer only" -ForegroundColor Green
   } else {
     Write-Host "  LAN:        (no LAN IP detected)" -ForegroundColor Yellow
   }
@@ -392,7 +366,7 @@ try {
   } else {
     Write-Host "  Mode:       dev (next dev + watchdog)" -ForegroundColor Green
   }
-  Write-Host "  Watchdog:   health + memory>${webMaxMemoryMb}MB auto-restart" -ForegroundColor DarkGray
+  Write-Host "  Watchdog:   /healthz fail x$webHealthFailLimit (dead) / x$webAliveFailLimit (alive) or process death" -ForegroundColor DarkGray
   Write-Host "  Stop:       Ctrl+C (also stops API/Worker/Web)" -ForegroundColor DarkGray
   Write-Host "========================================" -ForegroundColor Green
   Write-Host ""
@@ -427,47 +401,34 @@ try {
       }
     }
 
-    $procSnap = Get-Win32ProcessSnapshot
-
-    # Worker 守护：仅当句柄退出且没有同名残留时再拉起，避免叠多个 worker
+    # Worker 守护：句柄退出后再拉起，避免叠多个 worker
     $workerAlive = Test-ProcessAlive $workerProc
     if (-not $workerAlive) {
-      $orphanWorker = @($procSnap) |
-        Where-Object { $_.CommandLine -and ($_.CommandLine -match 'server[\\/]+worker[\\/]+index\.ts') } |
-        Select-Object -First 1
-      if ($orphanWorker) {
-        try { $workerProc = Get-Process -Id ([int]$orphanWorker.ProcessId) -ErrorAction Stop } catch {
-          Write-Warning "Worker exited — restarting..."
-          $workerProc = Start-WorkerProcess
-          Write-Info "Worker restarted (PID $($workerProc.Id))"
-        }
-      } else {
-        Write-Warning "Worker exited — restarting..."
-        $workerProc = Start-WorkerProcess
-        Write-Info "Worker restarted (PID $($workerProc.Id))"
-      }
+      Write-Warning "Worker exited — restarting..."
+      $workerProc = Start-WorkerProcess
+      Write-Info "Worker restarted (PID $($workerProc.Id))"
     }
 
-    # Web 守护：HTTP 连续失败才重启；编译期偶发超时不立刻杀进程
+    # Web 守护：只看 /healthz 和进程是否还在。编译期首页会卡住，不能拿 `/` 当心跳。
     $webAlive = Test-ProcessAlive $webProc
-    $webHttpOk = Test-HttpOkRetry $webUrl 10 2
+    $webHttpOk = Test-HttpOkRetry $webUrl 3 2
     $webListenPid = Get-ListenPid $port
     if ($webHttpOk -and -not $webAlive -and $webListenPid -gt 0) {
       try { $webProc = Get-Process -Id $webListenPid -ErrorAction Stop } catch { }
       $webAlive = Test-ProcessAlive $webProc
     }
-    $webMem = if ($webAlive) { Get-ProcessTreeMemoryMb ([int]$webProc.Id) $procSnap } else { -1 }
-    $webOverMem = ($webMem -ge $webMaxMemoryMb)
 
-    if (-not $webHttpOk) {
+    if ($webHttpOk) {
+      $webFailStreak = 0
+    } elseif ($webAlive -or $webListenPid -gt 0) {
       $webFailStreak++
     } else {
-      $webFailStreak = 0
+      $webFailStreak = $webHealthFailLimit
     }
 
-    if ($webOverMem -or $webFailStreak -ge $webHealthFailLimit) {
-      $reason = if ($webOverMem) { "memory ${webMem}MB >= ${webMaxMemoryMb}MB" } else { "health fail x$webFailStreak" }
-      Write-Warning "Web unhealthy ($reason) — restarting..."
+    $webRestartLimit = if ($webAlive -or $webListenPid -gt 0) { $webAliveFailLimit } else { $webHealthFailLimit }
+    if ($webFailStreak -ge $webRestartLimit) {
+      Write-Warning "Web unhealthy (health fail x$webFailStreak) — restarting..."
       Stop-ChildProcess $webProc
       Clear-ListenPort $port
       Start-Sleep -Seconds 1

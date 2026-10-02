@@ -1,0 +1,15 @@
+version: "1.0"
+task: {name: "IEEE30 DC OPF", mode: single_period_operation}
+case: {case_id: ieee30, source: pandapower_builtin}
+capabilities:
+  hierarchy: transmission
+  time_scales: [single_period]
+  power_control: P
+  rolling_optimization: false
+objective:
+  operating_cost: {enabled: true, weight: 1.0}
+constraints:
+  line_loading_max_pct: 100
+solver: {backend: pandapower_dcopf, time_limit_s: 60}
+outputs: [objective, generator_p, branch_flow]
+metadata: {purpose: reference_example, note: "DC OPF requires AC validation before engineering interpretation."}

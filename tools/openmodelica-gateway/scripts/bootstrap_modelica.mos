@@ -1,0 +1,4 @@
+updatePackageIndex();
+installPackage(Modelica, "4.1.0", true);
+loadModel(Modelica, {"4.1.0"}, false, "", true);
+getVersion(Modelica);

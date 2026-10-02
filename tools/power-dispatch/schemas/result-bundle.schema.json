@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Power Dispatch ResultBundle",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "run_id",
+    "status",
+    "input_digest",
+    "backend",
+    "validation",
+    "artifacts"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "success",
+        "failed",
+        "infeasible",
+        "unsupported"
+      ]
+    },
+    "input_digest": {
+      "type": "string"
+    },
+    "backend": {
+      "type": "object"
+    },
+    "solver": {
+      "type": "object"
+    },
+    "objective": {
+      "type": "object"
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "series": {
+      "type": "object"
+    },
+    "boundary_ports": {
+      "type": "object"
+    },
+    "validation": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

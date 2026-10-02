@@ -62,8 +62,8 @@ New-Item -ItemType Directory -Force -Path (Join-Path $ProjectRoot "storage") | O
 
 $settingsPath = Join-Path $ProjectRoot "storage\settings.json"
 $portableSettings = [ordered]@{
-  baseUrl = "http://10.1.4.166:11435/v1"
-  model = "qwen3.6:35b-a3b"
+  baseUrl = "http://10.1.4.166:8000/v1"
+  model = "Arc"
   apiKey = ""
   think = $false
   # Relative to project root so the pack still works after copy/rename.
@@ -83,8 +83,8 @@ if (Test-Path -LiteralPath $settingsPath) {
 
 $envLocal = @"
 LLM_API_KEY=
-LLM_BASE_URL=http://10.1.4.166:11435/v1
-LLM_MODEL=qwen3.6:35b-a3b
+LLM_BASE_URL=http://10.1.4.166:8000/v1
+LLM_MODEL=Arc
 LLM_THINK=0
 SEMANTIC_SEARCH=0
 DATABASE_PATH=storage/rag.sqlite
@@ -97,7 +97,7 @@ $readmeText = @"
 要求
 - Windows x64
 - 已安装 Node.js 20+（x64），且 node / npm 在 PATH 中
-- 能访问内网模型（默认 http://10.1.4.166:11435/v1）
+- 能访问内网模型（默认 http://10.1.4.166:8000/v1，Arc）
 
 启动（一条命令）
 1. 进入本目录

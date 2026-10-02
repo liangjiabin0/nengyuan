@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""整理 E:\\研究院数据\\DATA 目录为 01_论文 / 02_专利 / 03_导师信息 三个子目录。"""
+"""整理项目数据目录为 01_论文 / 02_专利 / 03_导师信息 三个子目录。"""
 from __future__ import annotations
 
 import os
@@ -8,7 +8,7 @@ import shutil
 import zipfile
 from pathlib import Path
 
-BASE = Path(r"E:\研究院数据\DATA")
+BASE = Path(os.environ.get("DATA_ROOT_DIR", Path(__file__).resolve().parents[1] / "数据")).resolve()
 PAPERS = BASE / "01_论文"
 PATENTS = BASE / "02_专利"
 MENTORS = BASE / "03_导师信息"

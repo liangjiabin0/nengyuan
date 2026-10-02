@@ -1,0 +1,4 @@
+interface:
+  display_name: "模块化主配微有功无功协同调度"
+  short_description: "输入文件后一键生成程序、展示求解过程并交付完整结果"
+  default_prompt: "基于输入文件的边界条件，调用 $tdmg-acopf-dispatch 完成主配微有功无功协同优化，展示生成程序和求解过程，并交付程序、日志、结果及模型文档。"

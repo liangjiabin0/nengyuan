@@ -1,0 +1,58 @@
+version: "1.0"
+task:
+  name: "主配微日前-日内 P/Q 协同优化组合样例"
+  mode: multi_timescale_coordination
+  description: "IEEE14 上层 + case33bw 配电层 + 两个光储微网模板。"
+case:
+  case_id: main_dist_micro_demo
+  source: composite_template
+  main_grid: ieee14
+  distribution: case33bw
+  microgrids:
+    - {id: mg1, pcc_bus: 18, template: pv_storage_load}
+    - {id: mg2, pcc_bus: 25, template: pv_storage_load}
+capabilities:
+  hierarchy: main_distribution_microgrid
+  time_scales: [day_ahead, intra_day]
+  power_control: PQ
+  rolling_optimization: true
+timeseries:
+  profile_file: examples/profiles/day_ahead_24h.csv
+  day_ahead: {steps: 24, step_minutes: 60}
+  intra_day:
+    steps: 16
+    step_minutes: 15
+    rolling_window_steps: 16
+    update_every_steps: 4
+resources:
+  microgrid_template:
+    pv: {p_max_mw: 0.8}
+    storage: {energy_mwh: 1.5, p_max_mw: 0.4, soc0: 0.60, soc_min: 0.10, soc_max: 0.90}
+objective:
+  operating_cost: {enabled: true, weight: 1.0}
+  voltage_deviation: {enabled: true, weight: 0.20}
+  renewable_curtailment: {enabled: true, weight: 0.50}
+  boundary_tracking: {enabled: true, weight: 0.80}
+constraints:
+  v_min_pu: 0.95
+  v_max_pu: 1.05
+  line_loading_max_pct: 100
+  enforce_pcc_balance: true
+  inherit_soc: true
+solver:
+  backend: custom_pyomo
+  solver_name: highs
+  time_limit_s: 300
+outputs:
+  - day_ahead_schedule
+  - intra_day_schedule
+  - pcc_pqv
+  - bus_voltage
+  - line_loading
+  - storage_soc
+  - renewable_curtailment
+  - objective_components
+  - validation
+metadata:
+  purpose: research_backend_example
+  case_disclaimer: "This is a composite demonstration case, not an official IEEE main-distribution-microgrid standard case."

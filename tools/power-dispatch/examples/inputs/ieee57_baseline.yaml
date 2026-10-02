@@ -1,0 +1,9 @@
+version: "1.0"
+task: {name: "IEEE57 接口联调", mode: single_period_operation}
+case: {case_id: ieee57, source: pandapower_builtin}
+capabilities: {hierarchy: transmission, time_scales: [single_period], power_control: PQ, rolling_optimization: false}
+objective: {operating_cost: {enabled: true, weight: 1.0}}
+constraints: {v_min_pu: 0.94, v_max_pu: 1.06}
+solver: {backend: reference_dry_run}
+outputs: [case_summary, requested_outputs]
+metadata: {purpose: dry_run_example}

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * OpenAlex REST / OQL / Collections / Content CLI for the 能元 agent.
- * Auth: OPENALEX_API_KEY, else the bundled free key.
+ * Auth: OPENALEX_API_KEY (no bundled key; set it in .env.local).
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { gunzipSync } from 'node:zlib';
@@ -293,7 +293,7 @@ const HELP = `OpenAlex CLI（能元技能脚本）
   --sample 50 --seed 42     --corpus core|all|expansion
   --group-by type    --json   --yes
 
-鉴权: 环境变量 OPENALEX_API_KEY，否则用技能内置免费 key。
+鉴权: 环境变量 OPENALEX_API_KEY（写在 .env.local；不再内置 key）。
 禁止: /text（已弃用且贵）、from_updated_date（本 key 无付费同步权限）。
 `;
 

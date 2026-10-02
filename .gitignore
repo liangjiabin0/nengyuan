@@ -95,3 +95,8 @@ tools/ses-iesp-esopt/case*/sSEP/opentepes_Model_Info.*
 .pytest_cache/
 .mypy_cache/
 logs/
+
+# 【合并版】线上 .opencode 运行所需的自定义工具与路由配置一并入库（不含 node_modules）
+!.opencode/tools/
+!.opencode/tools/**
+!.opencode/subagent-router.json

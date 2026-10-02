@@ -1,0 +1,22 @@
+{
+  "name": "power_dispatch_run",
+  "description": "Validate and run a power-system dispatch RunSpec.",
+  "input_schema": {
+    "type": "object",
+    "required": [
+      "spec"
+    ],
+    "properties": {
+      "spec": {
+        "type": "object"
+      },
+      "dry_run": {
+        "type": "boolean",
+        "default": false
+      }
+    }
+  },
+  "output_schema": {
+    "$ref": "../schemas/result-bundle.schema.json"
+  }
+}

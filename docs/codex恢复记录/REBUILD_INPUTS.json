@@ -1,0 +1,22 @@
+{
+  "inputs": {
+    "server_preview": "Copied from /data/ai4es/.codex-preview-root-3010",
+    "server_support": "Copied from /data/ai4es/scripts, tools, .opencode",
+    "production_archive": "E:/能元备份_20260930/01_代码与运行环境.tar.gz",
+    "earlier_source": "E:\\电元系统-e856183"
+  },
+  "added_support": [
+    {
+      "path": "postcss.config.js",
+      "origin": "production archive"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "origin": "production archive"
+    },
+    {
+      "path": "ecosystem.config.cjs",
+      "origin": "production archive"
+    }
+  ]
+}

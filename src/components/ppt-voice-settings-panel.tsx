@@ -1,4 +1,5 @@
 'use client';
+// 【合并版】本文件取自 codex 版（比 claude 版新：健康检查含 LibreOffice/ffmpeg/嵌入引擎与 Linux 说明）
 
 import { useEffect, useState } from 'react';
 import { CheckCircle2, Loader2 } from 'lucide-react';
@@ -29,6 +30,9 @@ type Health = {
   package?: boolean;
   pptx?: boolean;
   powerpoint?: boolean;
+  libreoffice?: boolean;
+  ffmpeg?: boolean;
+  embedEngine?: string;
   hasApiKey?: boolean;
   error?: string;
 };
@@ -141,7 +145,7 @@ export function PptVoiceSettingsPanel() {
         <div>
           <h2 className="text-base font-semibold">PPT 配音 / 百炼 CosyVoice</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            备注撰写走系统大模型；语音合成走阿里云百炼北京地域 CosyVoice。嵌入成品需要本机安装桌面版 PowerPoint。
+            备注撰写走系统大模型；语音合成走阿里云百炼北京地域 CosyVoice。Windows 可用桌面版 PowerPoint 嵌入成品；Linux 使用 LibreOffice 渲染预览、OOXML 嵌入音频，导出视频需要 ffmpeg。
           </p>
         </div>
 
@@ -150,7 +154,9 @@ export function PptVoiceSettingsPanel() {
             ['Python', health.python || '未检测'],
             ['配音包', health.package ? '已就绪' : '未安装'],
             ['PPTX 解析', health.pptx ? '可用' : '不可用'],
-            ['PowerPoint', health.powerpoint ? '已安装' : '未检测到']
+            ['嵌入引擎', health.powerpoint ? 'PowerPoint' : health.embedEngine === 'ooxml' ? 'OOXML' : '未检测到'],
+            ['LibreOffice', health.libreoffice ? '已安装' : '未检测到'],
+            ['ffmpeg', health.ffmpeg ? '已安装' : '未检测到']
           ].map(([label, value]) => (
             <div key={label} className="rounded-md border border-border bg-muted/40 px-3 py-2">
               <div className="text-muted-foreground">{label}</div>

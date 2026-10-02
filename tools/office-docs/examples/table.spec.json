@@ -1,0 +1,11 @@
+{
+  "encoding": "utf-8-sig",
+  "delimiter": ",",
+  "columns": ["time", "load_mw", "pv_mw"],
+  "rows": [
+    { "time": "00:00", "load_mw": 62.1, "pv_mw": 0.0 },
+    { "time": "06:00", "load_mw": 55.4, "pv_mw": 4.2 },
+    { "time": "12:00", "load_mw": 88.0, "pv_mw": 41.6 },
+    { "time": "18:00", "load_mw": 93.5, "pv_mw": 6.8 }
+  ]
+}

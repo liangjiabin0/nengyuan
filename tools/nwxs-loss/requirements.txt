@@ -1,0 +1,29 @@
+# 南网理论线损计算Skill依赖库清单
+
+# 数据处理核心库
+pandas>=1.5.0,<3
+numpy>=1.21.0
+
+# 拓扑图构建
+networkx>=2.6.0
+
+# 潮流计算核心库（关键依赖）
+power-grid-model>=1.0.0
+
+# 日志和终端美化
+loguru>=0.6.0
+rich>=12.0.0
+
+# 可视化库
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# Excel生成
+openpyxl>=3.0.0
+
+# HTML模板
+jinja2>=3.0.0
+
+# 其他工具库
+python-dateutil>=2.8.0
+pytz>=2022.0

@@ -1,0 +1,25 @@
+version: "1.0"
+task:
+  name: "IEEE14 单时刻 AC 最优潮流"
+  mode: single_period_operation
+  description: "用于 Web/Agent 的首个标准算例联调。"
+case:
+  case_id: ieee14
+  source: pandapower_builtin
+capabilities:
+  hierarchy: transmission
+  time_scales: [single_period]
+  power_control: PQ
+  rolling_optimization: false
+objective:
+  operating_cost: {enabled: true, weight: 1.0}
+constraints:
+  v_min_pu: 0.94
+  v_max_pu: 1.06
+  line_loading_max_pct: 100
+solver:
+  backend: pandapower_acopf
+  time_limit_s: 60
+outputs: [objective, bus_voltage, line_loading, generator_pq]
+metadata:
+  purpose: reference_example

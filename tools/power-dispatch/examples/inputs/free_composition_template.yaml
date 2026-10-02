@@ -1,0 +1,11 @@
+version: "1.0"
+task: {name: "自由组合模板", mode: composed_task}
+case: {case_id: main_dist_micro_demo, main_grid: ieee14, distribution: case33bw, microgrids: [{id: mg1, pcc_bus: 18, template: pv_storage_load}]}
+capabilities: {hierarchy: main_distribution_microgrid, time_scales: [day_ahead, intra_day], power_control: PQ, rolling_optimization: true}
+timeseries: {profile_file: examples/profiles/day_ahead_24h.csv, day_ahead: {steps: 24, step_minutes: 60}, intra_day: {steps: 16, step_minutes: 15}}
+resources: {pv: {enabled: true}, storage: {enabled: true}}
+objective: {operating_cost: {enabled: true, weight: 1.0}, boundary_tracking: {enabled: true, weight: 0.5}}
+constraints: {v_min_pu: 0.95, v_max_pu: 1.05, enforce_pcc_balance: true, inherit_soc: true}
+solver: {backend: reference_dry_run}
+outputs: [execution_plan, pcc_pqv, validation]
+metadata: {purpose: composition_ui_template}

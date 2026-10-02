@@ -1,0 +1,15 @@
+{
+  "variables": [
+    {"name": "bread", "lb": 0, "ub": 10, "domain": "continuous"},
+    {"name": "milk", "lb": 0, "ub": 10, "domain": "continuous"}
+  ],
+  "constraints": [
+    {"name": "protein", "terms": [{"var": "bread", "coef": 4}, {"var": "milk", "coef": 8}], "sense": ">=", "rhs": 20},
+    {"name": "budget", "terms": [{"var": "bread", "coef": 2}, {"var": "milk", "coef": 3}], "sense": "<=", "rhs": 12}
+  ],
+  "objective": {
+    "sense": "minimize",
+    "terms": [{"var": "bread", "coef": 2}, {"var": "milk", "coef": 3}]
+  },
+  "parameters": {"presolve": "on"}
+}

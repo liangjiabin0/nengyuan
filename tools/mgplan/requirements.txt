@@ -1,0 +1,13 @@
+# 多能系统规划计算 Skill 依赖
+pandas
+numpy
+numpy-financial
+pyoptinterface
+gurobipy
+psutil
+matplotlib
+altair
+plotly
+colour
+memory-profiler
+setuptools

@@ -1,0 +1,1026 @@
+{
+    "dms_oca_result_unit_scandev": [
+        12220,
+        0
+    ],
+    "dms_pas_se_noobs_info": [
+        12106,
+        0
+    ],
+    "dms_oca_plan_line_current": [
+        12233,
+        0
+    ],
+    "dms_oca_assess_rslt_node_stat": [
+        12256,
+        0
+    ],
+    "dms_oca_result_load_scandev": [
+        12223,
+        0
+    ],
+    "pas_se_noobs_info": [
+        2014,
+        0
+    ],
+    "pas_ra_da_park_statics": [
+        2322,
+        0
+    ],
+    "pas_ra_da_serious_risk": [
+        2325,
+        0
+    ],
+    "dms_pas_se_para_esti": [
+        12109,
+        0
+    ],
+    "dms_pas_se_statics": [
+        12113,
+        0
+    ],
+    "pas_ra_fault_group_mem": [
+        2303,
+        0
+    ],
+    "dms_oca_assess_rslt_unit_crv": [
+        12249,
+        0
+    ],
+    "dms_oca_assess_rslt_zone_crv": [
+        12251,
+        0
+    ],
+    "pas_lf_secure_statics": [
+        2112,
+        0
+    ],
+    "dms_pas_se_info": [
+        12103,
+        0
+    ],
+    "dms_def_pvgen": [
+        12023,
+        0
+    ],
+    "dms_oca_zone_unit_part": [
+        12209,
+        0
+    ],
+    "dms_pas_se_badmeas": [
+        12101,
+        0
+    ],
+    "pas_ra_serious_risk": [
+        2315,
+        0
+    ],
+    "pas_ra_park_statics": [
+        2313,
+        0
+    ],
+    "dms_pas_se_notusemeas": [
+        12107,
+        0
+    ],
+    "dms_oca_assess_rslt_trfm_def": [
+        12242,
+        0
+    ],
+    "dms_oca_assess_rslt_load_def": [
+        12246,
+        0
+    ],
+    "pas_ra_dev_statics": [
+        2317,
+        0
+    ],
+    "dms_oca_uncrv": [
+        12203,
+        0
+    ],
+    "pas_ra_fault_group_def": [
+        2302,
+        0
+    ],
+    "dms_oca_assess_rslt_line_crv": [
+        12241,
+        0
+    ],
+    "pas_se_para_esti": [
+        2015,
+        0
+    ],
+    "pas_sens_result": [
+        2205,
+        0
+    ],
+    "dms_oca_assess_rslt_node_def": [
+        12244,
+        0
+    ],
+    "sys_host_group_define": [
+        39,
+        0
+    ],
+    "dms_oca_assess_rslt_sys_crv": [
+        12253,
+        0
+    ],
+    "dms_oca_zone_load": [
+        12210,
+        0
+    ],
+    "pas_sens_info": [
+        2203,
+        0
+    ],
+    "dms_def_shuntcppa": [
+        12016,
+        0
+    ],
+    "dms_oca_ldcrv": [
+        12204,
+        0
+    ],
+    "pas_se_psemeas_define": [
+        2011,
+        0
+    ],
+    "dms_pas_se_para": [
+        12108,
+        0
+    ],
+    "pas_ra_fault_def": [
+        2304,
+        0
+    ],
+    "pas_se_info": [
+        2003,
+        0
+    ],
+    "sys_meas_pagestat_define": [
+        31,
+        0
+    ],
+    "sys_dev_pagestat_define": [
+        21,
+        0
+    ],
+    "dms_pas_se_meas": [
+        12104,
+        0
+    ],
+    "dms_oca_plan_dev_runout": [
+        12236,
+        0
+    ],
+    "dms_pas_se_susstat": [
+        12114,
+        0
+    ],
+    "dms_pas_se_nomeas": [
+        12105,
+        0
+    ],
+    "pas_se_filtermeas": [
+        2004,
+        0
+    ],
+    "sys_dev_page_define": [
+        12,
+        0
+    ],
+    "dms_def_pvpa": [
+        12022,
+        0
+    ],
+    "dms_oca_result_load": [
+        12224,
+        0
+    ],
+    "dms_def_chargingpile": [
+        12027,
+        0
+    ],
+    "dms_oca_zone_unit": [
+        12208,
+        0
+    ],
+    "pas_se_meas": [
+        2007,
+        0
+    ],
+    "dms_def_chargingplug": [
+        12028,
+        0
+    ],
+    "dms_oca_node_para": [
+        12215,
+        0
+    ],
+    "load_transfer_def": [
+        434,
+        0
+    ],
+    "pas_se_psemeas": [
+        2005,
+        0
+    ],
+    "compensator_p": [
+        419,
+        0
+    ],
+    "sys_meas_dyncolor_define": [
+        25,
+        0
+    ],
+    "sys_stat_dyncolor_define": [
+        26,
+        0
+    ],
+    "sys_dev_dyncolor_define": [
+        18,
+        0
+    ],
+    "pas_se_nomeas": [
+        2013,
+        0
+    ],
+    "pas_lf_info": [
+        2103,
+        0
+    ],
+    "dms_def_lnsegpara": [
+        12008,
+        0
+    ],
+    "his_rtdb_efile_index": [
+        200,
+        0
+    ],
+    "sys_fileinfo_define": [
+        33,
+        0
+    ],
+    "dms_def_disttrfm": [
+        12003,
+        0
+    ],
+    "sys_dev_prop_define": [
+        13,
+        0
+    ],
+    "sys_meas_menu_define": [
+        29,
+        0
+    ],
+    "sys_web_schema_user": [
+        61,
+        0
+    ],
+    "app_error_refresh": [
+        105,
+        0
+    ],
+    "sys_dev_dyndata_define": [
+        15,
+        0
+    ],
+    "dms_def_realbs": [
+        12005,
+        0
+    ],
+    "dms_def_lnseg_dot": [
+        12010,
+        0
+    ],
+    "dms_def_qs": [
+        12034,
+        0
+    ],
+    "mng_hisdata_info": [
+        102,
+        0
+    ],
+    "statics_def_pnt": [
+        81,
+        0
+    ],
+    "dms_oca_zone": [
+        12207,
+        0
+    ],
+    "dms_def_trwdpha": [
+        12014,
+        0
+    ],
+    "dms_def_qspa": [
+        12033,
+        0
+    ],
+    "dms_def_unit": [
+        12021,
+        0
+    ],
+    "app_log_refresh": [
+        103,
+        0
+    ],
+    "grounddisconnector": [
+        409,
+        0
+    ],
+    "sys_delete_table_data": [
+        65,
+        0
+    ],
+    "dms_def_cb": [
+        12030,
+        0
+    ],
+    "sys_dev_mpcolor_define": [
+        19,
+        0
+    ],
+    "sys_mobile_define": [
+        27,
+        0
+    ],
+    "dms_def_node": [
+        12006,
+        0
+    ],
+    "dms_def_lnseg": [
+        12009,
+        0
+    ],
+    "sys_web_schema_define": [
+        53,
+        0
+    ],
+    "dms_def_espa": [
+        12024,
+        0
+    ],
+    "dms_def_fupa": [
+        12035,
+        0
+    ],
+    "dms_def_ter": [
+        12007,
+        0
+    ],
+    "dms_def_ql": [
+        12032,
+        0
+    ],
+    "pas_lf_para": [
+        2101,
+        0
+    ],
+    "sys_oper_define": [
+        37,
+        0
+    ],
+    "transformerwinding": [
+        417,
+        0
+    ],
+    "sys_web_role_define": [
+        52,
+        0
+    ],
+    "voltagelevel": [
+        402,
+        0
+    ],
+    "sys_samp_field_define": [
+        22,
+        0
+    ],
+    "sys_dev_symbol_define": [
+        11,
+        0
+    ],
+    "app_refresh_info": [
+        100,
+        0
+    ],
+    "dms_oca_para": [
+        12201,
+        0
+    ],
+    "sys_web_schema_module": [
+        62,
+        0
+    ],
+    "mng_process_info": [
+        164,
+        0
+    ],
+    "dms_def_feeder": [
+        12002,
+        0
+    ],
+    "sys_topo_color_define": [
+        17,
+        0
+    ],
+    "dms_def_fu": [
+        12036,
+        0
+    ],
+    "tiedev": [
+        432,
+        0
+    ],
+    "sys_schema_define": [
+        35,
+        0
+    ],
+    "taptype": [
+        418,
+        0
+    ],
+    "dms_def_load": [
+        12020,
+        0
+    ],
+    "sys_compute_define": [
+        28,
+        0
+    ],
+    "mng_node_info": [
+        160,
+        0
+    ],
+    "dms_def_trwd": [
+        12013,
+        0
+    ],
+    "sys_menu_info": [
+        5,
+        0
+    ],
+    "loadtype": [
+        422,
+        0
+    ],
+    "ems_model_define": [
+        201,
+        0
+    ],
+    "energyconsumer": [
+        412,
+        0
+    ],
+    "tiedef": [
+        431,
+        0
+    ],
+    "tiesens": [
+        433,
+        0
+    ],
+    "loadarea": [
+        423,
+        0
+    ],
+    "subcontrolarea": [
+        404,
+        0
+    ],
+    "dms_def_area": [
+        12038,
+        0
+    ],
+    "island": [
+        429,
+        0
+    ],
+    "basevalue": [
+        400,
+        0
+    ],
+    "bay": [
+        406,
+        0
+    ],
+    "breaker": [
+        407,
+        0
+    ],
+    "dms_oca_assess_rslt_unit_stat": [
+        12258,
+        0
+    ],
+    "dms_oca_assess_rslt_trfm_stat": [
+        12255,
+        0
+    ],
+    "dms_oca_assess_rslt_zone_stat": [
+        12259,
+        0
+    ],
+    "dms_oca_assess_rslt_line_stat": [
+        12254,
+        0
+    ],
+    "dms_oca_assess_rslt_load_stat": [
+        12257,
+        0
+    ],
+    "dms_oca_assess_rslt_sys_stat": [
+        12260,
+        0
+    ],
+    "pas_ra_da_cause_statics": [
+        2324,
+        0
+    ],
+    "pas_ra_da_dev_statics": [
+        2323,
+        0
+    ],
+    "dms_oca_result_unit_part": [
+        12222,
+        0
+    ],
+    "pas_ra_fault_dev": [
+        2305,
+        0
+    ],
+    "dms_pas_se_weight": [
+        12115,
+        0
+    ],
+    "dms_oca_assess_rslt_unit_def": [
+        12248,
+        0
+    ],
+    "dms_oca_result_load_part": [
+        12225,
+        0
+    ],
+    "dms_oca_stdcrv_def": [
+        12202,
+        0
+    ],
+    "dms_oca_plan_line_new": [
+        12232,
+        0
+    ],
+    "pas_ra_cause_statics": [
+        2316,
+        0
+    ],
+    "dms_pas_se_psemeas_define": [
+        12111,
+        0
+    ],
+    "dms_pas_se_psestat_define": [
+        12112,
+        0
+    ],
+    "pas_lf_secure_result": [
+        2111,
+        0
+    ],
+    "dms_oca_zone_load_part": [
+        12211,
+        0
+    ],
+    "pas_ra_risktype_def": [
+        2306,
+        0
+    ],
+    "dms_oca_assess_rslt_zone_def": [
+        12250,
+        0
+    ],
+    "dms_oca_assess_rslt_trfm_crv": [
+        12243,
+        0
+    ],
+    "dms_oca_assess_rslt_line_def": [
+        12240,
+        0
+    ],
+    "pas_se_statics": [
+        2009,
+        0
+    ],
+    "dms_oca_assess_rslt_node_crv": [
+        12245,
+        0
+    ],
+    "dms_oca_assess_rslt_load_crv": [
+        12247,
+        0
+    ],
+    "dms_pas_se_filtermeas": [
+        12102,
+        0
+    ],
+    "pas_se_weight": [
+        2002,
+        0
+    ],
+    "sys_oper_group_define": [
+        38,
+        0
+    ],
+    "dms_oca_assess_rslt_sys_def": [
+        12252,
+        0
+    ],
+    "dms_oca_plan_feeder_increase": [
+        12234,
+        0
+    ],
+    "dms_def_seriescppa": [
+        12018,
+        0
+    ],
+    "pas_se_notusemeas": [
+        2010,
+        0
+    ],
+    "pas_se_psestat_define": [
+        2012,
+        0
+    ],
+    "pas_se_badmeas": [
+        2006,
+        0
+    ],
+    "dms_oca_result_unit": [
+        12221,
+        0
+    ],
+    "pas_lf_statics": [
+        2109,
+        0
+    ],
+    "pas_lf_secure_def": [
+        2110,
+        0
+    ],
+    "sys_schema_table_define": [
+        36,
+        0
+    ],
+    "dms_oca_plan_dev_increase": [
+        12235,
+        0
+    ],
+    "sys_dev_showpara_define": [
+        16,
+        0
+    ],
+    "dms_pas_se_psemeas": [
+        12110,
+        0
+    ],
+    "dms_def_trfmpa": [
+        12011,
+        0
+    ],
+    "dms_oca_plan_feeder_new": [
+        12231,
+        0
+    ],
+    "dms_oca_storage_para": [
+        12216,
+        0
+    ],
+    "dms_oca_feeder_para": [
+        12214,
+        0
+    ],
+    "mng_app_duty_info": [
+        172,
+        0
+    ],
+    "pas_ra_fault_prob": [
+        2301,
+        0
+    ],
+    "dms_def_chargingst": [
+        12026,
+        0
+    ],
+    "pas_ra_risk_list": [
+        2314,
+        0
+    ],
+    "pas_ra_info": [
+        2312,
+        0
+    ],
+    "pas_ra_para": [
+        2311,
+        0
+    ],
+    "dms_oca_trfm_para": [
+        12213,
+        0
+    ],
+    "dms_oca_unit_part": [
+        12205,
+        0
+    ],
+    "dms_oca_line_para": [
+        12212,
+        0
+    ],
+    "load_transfer_dev": [
+        435,
+        0
+    ],
+    "dc_conv_equdev": [
+        439,
+        0
+    ],
+    "dms_oca_load_part": [
+        12206,
+        0
+    ],
+    "dms_def_trfm": [
+        12012,
+        0
+    ],
+    "pas_se_para": [
+        2001,
+        0
+    ],
+    "dms_def_seriescp": [
+        12019,
+        0
+    ],
+    "dms_def_shuntcp": [
+        12017,
+        0
+    ],
+    "dms_def_source": [
+        12004,
+        0
+    ],
+    "mng_app_status_info": [
+        166,
+        0
+    ],
+    "pas_se_susstat": [
+        2008,
+        0
+    ],
+    "statics_def_src": [
+        82,
+        0
+    ],
+    "mng_hard_disk_info": [
+        167,
+        0
+    ],
+    "sys_meas_stat_define": [
+        30,
+        0
+    ],
+    "sys_dev_menu_define": [
+        14,
+        0
+    ],
+    "sys_web_module_page": [
+        63,
+        0
+    ],
+    "pas_lf_result": [
+        2104,
+        0
+    ],
+    "sys_dev_stat_define": [
+        20,
+        0
+    ],
+    "mng_node_app_info": [
+        162,
+        0
+    ],
+    "app_warn_refresh": [
+        104,
+        0
+    ],
+    "sys_opergrp_info": [
+        10,
+        0
+    ],
+    "sys_web_permission_define": [
+        56,
+        0
+    ],
+    "mng_disk_netinfo": [
+        177,
+        0
+    ],
+    "app_main_graph": [
+        101,
+        0
+    ],
+    "pas_sens_para": [
+        2201,
+        0
+    ],
+    "dms_def_qlpa": [
+        12031,
+        0
+    ],
+    "sys_fld_disp_info": [
+        6,
+        0
+    ],
+    "mng_cpu_mem_info": [
+        168,
+        0
+    ],
+    "dms_def_bulk": [
+        12001,
+        0
+    ],
+    "statics_def_para": [
+        80,
+        0
+    ],
+    "sys_logtype_info": [
+        7,
+        0
+    ],
+    "geo_path_info": [
+        92,
+        0
+    ],
+    "dms_def_xfdot": [
+        12015,
+        0
+    ],
+    "geo_node_info": [
+        91,
+        0
+    ],
+    "dms_oca_plan_name": [
+        12230,
+        0
+    ],
+    "dms_def_cbpa": [
+        12029,
+        0
+    ],
+    "dcgroundterm": [
+        428,
+        0
+    ],
+    "aclineend": [
+        415,
+        0
+    ],
+    "compensator_s": [
+        420,
+        0
+    ],
+    "generatingunit": [
+        411,
+        0
+    ],
+    "sys_formula_define": [
+        23,
+        0
+    ],
+    "sys_web_page_define": [
+        55,
+        0
+    ],
+    "sys_web_module_define": [
+        54,
+        0
+    ],
+    "sys_host_info": [
+        9,
+        0
+    ],
+    "sys_web_user_define": [
+        51,
+        0
+    ],
+    "sys_user_info": [
+        8,
+        0
+    ],
+    "dclinesegment": [
+        426,
+        0
+    ],
+    "sys_devobj_define": [
+        34,
+        0
+    ],
+    "aclinesegment": [
+        414,
+        0
+    ],
+    "dms_def_vr": [
+        12037,
+        0
+    ],
+    "tpnode": [
+        436,
+        0
+    ],
+    "powertransformer": [
+        416,
+        0
+    ],
+    "dms_def_switchgear": [
+        12039,
+        0
+    ],
+    "basevoltage": [
+        401,
+        0
+    ],
+    "sys_graph_menu_define": [
+        32,
+        0
+    ],
+    "rectifierinverter": [
+        425,
+        0
+    ],
+    "sys_menu_replace": [
+        4,
+        0
+    ],
+    "dclineend": [
+        427,
+        0
+    ],
+    "sys_proc_info": [
+        178,
+        0
+    ],
+    "sys_web_user": [
+        24,
+        0
+    ],
+    "color_config": [
+        90,
+        0
+    ],
+    "energystorage": [
+        430,
+        0
+    ],
+    "dms_def_es": [
+        12025,
+        0
+    ],
+    "busbarsection": [
+        410,
+        0
+    ],
+    "acline": [
+        413,
+        0
+    ],
+    "sys_column_info": [
+        2,
+        0
+    ],
+    "disconnector": [
+        408,
+        0
+    ],
+    "dcsystem": [
+        424,
+        0
+    ],
+    "sys_table_info": [
+        1,
+        0
+    ],
+    "company": [
+        403,
+        0
+    ],
+    "substation": [
+        405,
+        0
+    ],
+    "ln_type": [
+        441,
+        0
+    ],
+    "test_test": [
+        9852,
+        0
+    ]
+}

@@ -1,0 +1,48 @@
+version: "1.0"
+task:
+  name: "case33bw 24h P/Q 协同调度接口样例"
+  mode: time_series_dispatch
+case:
+  case_id: case33bw
+  source: pandapower_builtin
+capabilities:
+  hierarchy: distribution
+  time_scales: [day_ahead]
+  power_control: PQ
+  rolling_optimization: false
+timeseries:
+  profile_file: examples/profiles/day_ahead_24h.csv
+  steps: 24
+  step_minutes: 60
+resources:
+  pv:
+    enabled: true
+    bus: 17
+    p_max_mw: 1.2
+    profile_column: pv_pu
+  storage:
+    enabled: true
+    bus: 24
+    energy_mwh: 2.0
+    p_charge_max_mw: 0.5
+    p_discharge_max_mw: 0.5
+    soc0: 0.60
+    soc_min: 0.10
+    soc_max: 0.90
+objective:
+  operating_cost: {enabled: true, weight: 1.0}
+  voltage_deviation: {enabled: true, weight: 0.20}
+  renewable_curtailment: {enabled: true, weight: 0.50}
+constraints:
+  v_min_pu: 0.95
+  v_max_pu: 1.05
+  line_loading_max_pct: 100
+  enforce_storage_soc: true
+solver:
+  backend: custom_pyomo
+  solver_name: highs
+  time_limit_s: 120
+outputs: [bus_voltage, line_loading, pv_dispatch, storage_p, storage_soc, objective_components]
+metadata:
+  purpose: research_backend_example
+  note: "custom_pyomo is an extension slot; implement the project-specific multi-period P/Q formulation."

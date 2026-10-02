@@ -1,0 +1,6 @@
+{
+  "status": "planned",
+  "backend": {"name": "reference_dry_run", "model_fidelity": "no_numerical_execution"},
+  "validation": {"numeric_execution": false, "ac_powerflow_converged": null, "violations": []},
+  "warnings": ["Dry-run only: no power-flow or optimization result was computed."]
+}

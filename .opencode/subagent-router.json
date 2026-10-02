@@ -1,0 +1,44 @@
+{
+  "enabled": true,
+  "defaultModel": "thunder",
+  "defaultThinking": "medium",
+  "routerTimeoutMs": 6000,
+  "tiers": [
+    {
+      "id": "lookup",
+      "enabled": true,
+      "title": "取数核验",
+      "when": "指令明确、路径唯一的执行型子任务：按给定条件读文件、检索语料、抽取字段、转换格式、核对一条事实。不需要权衡取舍，也不需要子代理自己拆解步骤。",
+      "model": "arc",
+      "thinking": "medium",
+      "builtin": true
+    },
+    {
+      "id": "analyze",
+      "enabled": true,
+      "title": "综合分析",
+      "when": "需要判断但路径清楚的子任务：多份材料交叉综合、方案比较、机理解释、成段写作或改写、按标准审阅并给出修改意见。一般几步之内能收敛。",
+      "model": "thunder",
+      "thinking": "medium",
+      "builtin": true
+    },
+    {
+      "id": "deep",
+      "enabled": true,
+      "title": "长链路攻坚",
+      "when": "需要子代理自己拆解步骤并反复试错的子任务：论文复现、跨多文件工程改动、建模求解与调参、实验编排、复杂方案设计、要连续调用大量工具并自我纠错。",
+      "model": "storm",
+      "thinking": "high",
+      "builtin": true
+    },
+    {
+      "id": "rule-mu6cn58q-4",
+      "enabled": true,
+      "title": "高阶任务",
+      "when": "做PPT、分析逻辑、分析算法",
+      "model": "storm",
+      "thinking": "high",
+      "builtin": false
+    }
+  ]
+}

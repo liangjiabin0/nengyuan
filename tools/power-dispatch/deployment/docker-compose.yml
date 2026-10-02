@@ -1,0 +1,11 @@
+services:
+  power-dispatch-api:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../runs:/app/runs
+    environment:
+      - PYTHONUNBUFFERED=1

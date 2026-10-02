@@ -1,0 +1,5 @@
+pymupdf>=1.24.0
+rapidocr-onnxruntime>=1.4.0
+Pillow>=10.0.0
+numpy>=1.26.0
+onnxruntime>=1.17.0

@@ -1,0 +1,35 @@
+{
+  "note": "Original server copies are retained locally; only the GitHub export is redacted. SERVER_SOURCE_MANIFEST.json records original server checksums; the following exported files intentionally differ.",
+  "files": [
+    {
+      "path": "scripts/ensure-postgres.ps1",
+      "reason": "Removed literal database credentials from setup example",
+      "server_sha256": "a7b69bfc1e57d6c8e2fc60cdc5b30bb9ddc9eaa01a66e8bb64795d9ab3e6ca8c",
+      "backup_sha256": "b3605af8f768b4d8280a59e63a42c3c5325eb51587e34efcfc6a6ade2c732eff"
+    },
+    {
+      "path": "scripts/openmodelica-gateway.ps1",
+      "reason": "Removed fallback gateway key; configure OMG_API_KEY",
+      "server_sha256": "cea9b41903cbb4987b8fc8ce17003712afeaec4ac110489744391375bf742a41",
+      "backup_sha256": "62ecf55d1bb4a727e7aceff86cdace9d7e6128c24fe855fe6f6110c1bade2ae6"
+    },
+    {
+      "path": ".opencode/skills/openalex/scripts/openalex.mjs",
+      "reason": "Removed embedded OpenAlex key; use OPENALEX_API_KEY environment variable",
+      "server_sha256": "2ee2bea34f94fb2ddf23a2f8c58827502543e6a4dd7ce61081849fc614880d2d",
+      "backup_sha256": "b1533482e16499bb3c44def279e965ad770cdb0d607bd97d55b717c1bdcc7d11"
+    },
+    {
+      "path": "tools/openalex/scripts/openalex.mjs",
+      "reason": "Removed embedded OpenAlex key; use OPENALEX_API_KEY environment variable",
+      "server_sha256": "2ee2bea34f94fb2ddf23a2f8c58827502543e6a4dd7ce61081849fc614880d2d",
+      "backup_sha256": "b1533482e16499bb3c44def279e965ad770cdb0d607bd97d55b717c1bdcc7d11"
+    },
+    {
+      "path": "tools/nwxs-loss/scripts/lib/dms/dms_model.py",
+      "reason": "Removed database password from commented legacy connection example",
+      "server_sha256": "5f8edc23b34d750ffa69b64dcccc5f43efaf8eec0c95901c6fd5dc00725d15ac",
+      "backup_sha256": "75f88362b0210e49704beab9755332e1e446d0839cbb815a8ae9c31dd2e6d9f6"
+    }
+  ]
+}

@@ -1,0 +1,362 @@
+{
+  "import:readonly": {
+    "command": "tsx scripts/run-import-readonly.ts",
+    "missingFiles": [
+      "scripts/run-import-readonly.ts"
+    ]
+  },
+  "import:nkrd": {
+    "command": "tsx scripts/import-nkrd.ts",
+    "missingFiles": [
+      "scripts/import-nkrd.ts"
+    ]
+  },
+  "corpus:export": {
+    "command": "tsx scripts/export-knowledge-corpus.ts",
+    "missingFiles": [
+      "scripts/export-knowledge-corpus.ts"
+    ]
+  },
+  "test:corpus": {
+    "command": "tsx scripts/test-markdown-corpus.ts",
+    "missingFiles": [
+      "scripts/test-markdown-corpus.ts"
+    ]
+  },
+  "test:chat-workspace-guard": {
+    "command": "tsx scripts/test-chat-workspace-guard.ts",
+    "missingFiles": [
+      "scripts/test-chat-workspace-guard.ts"
+    ]
+  },
+  "test:chat-workspace-retention": {
+    "command": "tsx scripts/test-chat-workspace-retention.ts",
+    "missingFiles": [
+      "scripts/test-chat-workspace-retention.ts"
+    ]
+  },
+  "test:chat-title": {
+    "command": "tsx scripts/test-chat-title.ts",
+    "missingFiles": [
+      "scripts/test-chat-title.ts"
+    ]
+  },
+  "test:chat-title-ownership": {
+    "command": "tsx scripts/test-chat-title-ownership.ts",
+    "missingFiles": [
+      "scripts/test-chat-title-ownership.ts"
+    ]
+  },
+  "test:chat-history-sanitization": {
+    "command": "tsx scripts/test-chat-history-sanitization.ts",
+    "missingFiles": [
+      "scripts/test-chat-history-sanitization.ts"
+    ]
+  },
+  "test:chat-ask": {
+    "command": "tsx scripts/test-chat-ask.ts",
+    "missingFiles": [
+      "scripts/test-chat-ask.ts"
+    ]
+  },
+  "test:chat-message-integrity": {
+    "command": "tsx scripts/test-chat-message-integrity.ts",
+    "missingFiles": [
+      "scripts/test-chat-message-integrity.ts"
+    ]
+  },
+  "test:chat-attachment-isolation": {
+    "command": "tsx scripts/test-chat-attachment-isolation.ts",
+    "missingFiles": [
+      "scripts/test-chat-attachment-isolation.ts"
+    ]
+  },
+  "test:chat-conversation-list": {
+    "command": "tsx scripts/test-chat-conversation-list.ts",
+    "missingFiles": [
+      "scripts/test-chat-conversation-list.ts"
+    ]
+  },
+  "test:chat-conversation-load": {
+    "command": "tsx scripts/test-chat-conversation-load.ts",
+    "missingFiles": [
+      "scripts/test-chat-conversation-load.ts"
+    ]
+  },
+  "test:chat-composer-draft": {
+    "command": "tsx scripts/test-chat-composer-draft.ts",
+    "missingFiles": [
+      "scripts/test-chat-composer-draft.ts"
+    ]
+  },
+  "test:chat-send-queue": {
+    "command": "tsx scripts/test-chat-send-queue-concurrency.ts",
+    "missingFiles": [
+      "scripts/test-chat-send-queue-concurrency.ts"
+    ]
+  },
+  "test:chat-multi-instance": {
+    "command": "tsx scripts/test-chat-multi-instance.ts",
+    "missingFiles": [
+      "scripts/test-chat-multi-instance.ts"
+    ]
+  },
+  "test:chat-stream": {
+    "command": "tsx scripts/test-chat-stream-client.ts",
+    "missingFiles": [
+      "scripts/test-chat-stream-client.ts"
+    ]
+  },
+  "test:llm-gateway-retry": {
+    "command": "tsx scripts/test-llm-gateway-retry.ts",
+    "missingFiles": [
+      "scripts/test-llm-gateway-retry.ts"
+    ]
+  },
+  "test:llm-gateway-thought": {
+    "command": "tsx scripts/test-llm-gateway-thought.ts",
+    "missingFiles": [
+      "scripts/test-llm-gateway-thought.ts"
+    ]
+  },
+  "test:llm-gateway-sessions": {
+    "command": "tsx scripts/test-llm-gateway-sessions.ts",
+    "missingFiles": [
+      "scripts/test-llm-gateway-sessions.ts"
+    ]
+  },
+  "test:opencode-runtime-events": {
+    "command": "tsx scripts/test-opencode-runtime-events.ts",
+    "missingFiles": [
+      "scripts/test-opencode-runtime-events.ts"
+    ]
+  },
+  "test:opencode-session-map": {
+    "command": "tsx scripts/test-opencode-session-map-concurrency.ts",
+    "missingFiles": [
+      "scripts/test-opencode-session-map-concurrency.ts"
+    ]
+  },
+  "test:chat-subagents": {
+    "command": "tsx scripts/test-chat-subagents.ts",
+    "missingFiles": [
+      "scripts/test-chat-subagents.ts"
+    ]
+  },
+  "test:subagent-router": {
+    "command": "tsx scripts/test-subagent-router.ts",
+    "missingFiles": [
+      "scripts/test-subagent-router.ts"
+    ]
+  },
+  "test:task-model": {
+    "command": "tsx scripts/test-task-model.ts",
+    "missingFiles": [
+      "scripts/test-task-model.ts"
+    ]
+  },
+  "test:chat-live": {
+    "command": "tsx scripts/test-chat-live-e2e.ts",
+    "missingFiles": [
+      "scripts/test-chat-live-e2e.ts"
+    ]
+  },
+  "test:chat-live-sync": {
+    "command": "tsx scripts/test-chat-live-sync.ts",
+    "missingFiles": [
+      "scripts/test-chat-live-sync.ts"
+    ]
+  },
+  "test:api-routes": {
+    "command": "tsx scripts/test-api-route-registry.ts",
+    "missingFiles": [
+      "scripts/test-api-route-registry.ts"
+    ]
+  },
+  "test:self-learning": {
+    "command": "tsx scripts/test-self-learning.ts",
+    "missingFiles": [
+      "scripts/test-self-learning.ts"
+    ]
+  },
+  "test:self-learning:db": {
+    "command": "tsx scripts/test-self-learning-db.ts",
+    "missingFiles": [
+      "scripts/test-self-learning-db.ts"
+    ]
+  },
+  "test:openalex": {
+    "command": "tsx scripts/test-openalex.ts",
+    "missingFiles": [
+      "scripts/test-openalex.ts"
+    ]
+  },
+  "test:office-docs": {
+    "command": "tsx scripts/test-office-docs.ts",
+    "missingFiles": [
+      "scripts/test-office-docs.ts"
+    ]
+  },
+  "test:build-docx": {
+    "command": "tsx scripts/test-build-docx.ts",
+    "missingFiles": [
+      "scripts/test-build-docx.ts"
+    ]
+  },
+  "test:office-preflight": {
+    "command": "tsx scripts/test-office-preflight.ts",
+    "missingFiles": [
+      "scripts/test-office-preflight.ts"
+    ]
+  },
+  "test:powershell-utf8": {
+    "command": "tsx scripts/test-powershell-utf8.ts",
+    "missingFiles": [
+      "scripts/test-powershell-utf8.ts"
+    ]
+  },
+  "test:patent:docx-math": {
+    "command": "tsx scripts/test-patent-docx-math.ts",
+    "missingFiles": [
+      "scripts/test-patent-docx-math.ts"
+    ]
+  },
+  "convert:reimport": {
+    "command": "tsx scripts/reconvert-documents.ts",
+    "missingFiles": [
+      "scripts/reconvert-documents.ts"
+    ]
+  },
+  "convert:check": {
+    "command": "tsx scripts/check-convert-quality.ts",
+    "missingFiles": [
+      "scripts/check-convert-quality.ts"
+    ]
+  },
+  "test:opencode": {
+    "command": "tsx scripts/test-opencode-e2e.ts",
+    "missingFiles": [
+      "scripts/test-opencode-e2e.ts"
+    ]
+  },
+  "test:power-compute": {
+    "command": "tsx scripts/test-power-compute-e2e.ts",
+    "missingFiles": [
+      "scripts/test-power-compute-e2e.ts"
+    ]
+  },
+  "test:scheme-solvers": {
+    "command": "tsx scripts/audit-scheme-solvers.ts",
+    "missingFiles": [
+      "scripts/audit-scheme-solvers.ts"
+    ]
+  },
+  "test:capability-gaps": {
+    "command": "tsx scripts/test-capability-gaps.ts",
+    "missingFiles": [
+      "scripts/test-capability-gaps.ts"
+    ]
+  },
+  "api:dev": {
+    "command": "tsx server/api/index.ts",
+    "missingFiles": [
+      "server/api/index.ts"
+    ]
+  },
+  "worker:dev": {
+    "command": "tsx server/worker/index.ts",
+    "missingFiles": [
+      "server/worker/index.ts"
+    ]
+  },
+  "api:start": {
+    "command": "tsx server/api/index.ts",
+    "missingFiles": [
+      "server/api/index.ts"
+    ]
+  },
+  "worker:start": {
+    "command": "tsx server/worker/index.ts",
+    "missingFiles": [
+      "server/worker/index.ts"
+    ]
+  },
+  "portable:audit": {
+    "command": "tsx scripts/audit-portability.ts",
+    "missingFiles": [
+      "scripts/audit-portability.ts"
+    ]
+  },
+  "ragpack:export": {
+    "command": "tsx scripts/ragpack-cli.ts export",
+    "missingFiles": [
+      "scripts/ragpack-cli.ts"
+    ]
+  },
+  "ragpack:import": {
+    "command": "tsx scripts/ragpack-cli.ts import",
+    "missingFiles": [
+      "scripts/ragpack-cli.ts"
+    ]
+  },
+  "clean:distribute": {
+    "command": "tsx scripts/clean-for-distribution.ts",
+    "missingFiles": [
+      "scripts/clean-for-distribution.ts"
+    ]
+  },
+  "test:patent": {
+    "command": "tsx scripts/test-patent-generation.ts",
+    "missingFiles": [
+      "scripts/test-patent-generation.ts"
+    ]
+  },
+  "test:patent:delivery": {
+    "command": "tsx scripts/test-patent-delivery.ts",
+    "missingFiles": [
+      "scripts/test-patent-delivery.ts"
+    ]
+  },
+  "test:patent:core": {
+    "command": "tsx scripts/test-patent-core.ts",
+    "missingFiles": [
+      "scripts/test-patent-core.ts"
+    ]
+  },
+  "test:patent:real": {
+    "command": "tsx scripts/test-patent-real-e2e.ts",
+    "missingFiles": [
+      "scripts/test-patent-real-e2e.ts"
+    ]
+  },
+  "test:patent:isolation": {
+    "command": "tsx scripts/test-patent-isolation.ts",
+    "missingFiles": [
+      "scripts/test-patent-isolation.ts"
+    ]
+  },
+  "enrich:papers": {
+    "command": "tsx scripts/enrich-paper-metadata.ts",
+    "missingFiles": [
+      "scripts/enrich-paper-metadata.ts"
+    ]
+  },
+  "postgres:check": {
+    "command": "tsx scripts/check-postgres.ts",
+    "missingFiles": [
+      "scripts/check-postgres.ts"
+    ]
+  },
+  "audit:recent": {
+    "command": "tsx scripts/audit-recent-system.ts",
+    "missingFiles": [
+      "scripts/audit-recent-system.ts"
+    ]
+  },
+  "db:migrate-pg": {
+    "command": "tsx scripts/migrate-sqlite-to-pg.ts",
+    "missingFiles": [
+      "scripts/migrate-sqlite-to-pg.ts"
+    ]
+  }
+}

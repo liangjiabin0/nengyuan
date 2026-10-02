@@ -1,0 +1,21 @@
+services:
+  openmodelica-gateway:
+    build: .
+    image: openmodelica-agent-gateway:1.0.0
+    container_name: openmodelica-agent-gateway
+    restart: unless-stopped
+    environment:
+      OMG_API_KEY: ${OMG_API_KEY:-change-me}
+      OMG_DATA_DIR: /data
+      OMG_MAX_WORKERS: ${OMG_MAX_WORKERS:-2}
+      OMG_MAX_CODE_BYTES: ${OMG_MAX_CODE_BYTES:-1000000}
+      OMG_MAX_RESULT_POINTS: ${OMG_MAX_RESULT_POINTS:-5000}
+      OMG_MODELICA_VERSION: ${OMG_MODELICA_VERSION:-4.1.0}
+    ports:
+      - "18088:8000"
+    volumes:
+      - om_results:/data
+    mem_limit: 4g
+    cpus: 2.0
+volumes:
+  om_results:

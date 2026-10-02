@@ -1,0 +1,6 @@
+PyYAML>=6.0
+jsonschema>=4.20
+pandas>=2.0
+numpy>=1.26
+fastapi>=0.110
+uvicorn>=0.27

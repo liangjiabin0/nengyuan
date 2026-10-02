@@ -1,0 +1,37 @@
+bailian:
+  region: "cn-beijing"
+  model: "cosyvoice-v3.5-plus"
+  preview_model: "cosyvoice-v3.5-flash"
+  request_timeout_seconds: 180
+  max_retries: 3
+  sample_rate: 24000
+  prices_per_10k_chars:
+    cosyvoice-v3.5-plus: "3.5"
+    cosyvoice-v3.5-flash: "2.0"
+
+voice:
+  profile_name: "正式科技汇报男声"
+  voice_id: null
+  prompt: "30至40岁的中文专业汇报人员，声音沉稳自然，吐字清晰。"
+  preview_text: "各位专家，大家好。下面开始本项目汇报。"
+  instruction: "正式自然的技术汇报语气，语速稍慢，停顿清晰，避免新闻播音腔。"
+  rate: 0.95
+  pitch: 1.0
+  volume: 50
+  seed: 12345
+
+timing:
+  transition_buffer_seconds: 0.8
+  last_slide_hold_seconds: 4.0
+  minimum_slide_seconds: 2.0
+  advance_on_click: false
+
+notes:
+  empty_note_policy: "error"
+
+project:
+  output_suffix: "_自动配音版"
+  cache_dir: "./cache"
+  work_dir: "./work"
+  output_dir: "./output"
+  pronunciation_file: "./profiles/pronunciation.yaml"

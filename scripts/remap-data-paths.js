@@ -5,8 +5,12 @@ const path = require('path');
 const dbPath = path.join(process.cwd(), 'storage', 'ragpack', 'active', 'database', 'rag.sqlite');
 const db = new Database(dbPath);
 db.pragma('busy_timeout = 120000');
-const oldP = 'D:\\工作\\电元系统';
-const newP = 'D:\\电元系统';
+const oldArg = process.argv[2];
+if (!oldArg) {
+  throw new Error('Usage: node scripts/remap-data-paths.js <old-project-root> [new-project-root]');
+}
+const oldP = path.resolve(oldArg);
+const newP = path.resolve(process.argv[3] || process.cwd());
 
 const updates = [
   ['paper_documents', 'file_path'],

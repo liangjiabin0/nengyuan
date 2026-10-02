@@ -1,0 +1,27 @@
+{
+  "preset": "cn-workbook",
+  "title": "方案指标对照表",
+  "author": "能元",
+  "sheets": [
+    {
+      "name": "汇总",
+      "freeze": "A2",
+      "filter": true,
+      "columns": [
+        { "key": "name", "title": "方案", "width": 16 },
+        { "key": "capex", "title": "投资 / 万元", "format": "number", "width": 14 },
+        { "key": "om", "title": "运维 / 万元", "format": "number", "width": 14 },
+        { "key": "total", "title": "合计 / 万元", "format": "number", "formula": "={col:capex}+{col:om}", "width": 14 }
+      ],
+      "rows": [
+        { "name": "无储能", "capex": 80, "om": 46.4 },
+        { "name": "有储能", "capex": 110, "om": -8.3 }
+      ],
+      "totals": { "sum": ["capex", "om", "total"] },
+      "charts": [
+        { "kind": "bar", "title": "投资与运维", "x": "name", "y": ["capex", "om"], "anchor": "F2" }
+      ],
+      "notes": "合计列为 Excel 公式，打开后由 Excel 计算。"
+    }
+  ]
+}

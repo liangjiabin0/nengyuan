@@ -1,0 +1,294 @@
+/*
+Copyright 2025 Haihao Lu
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+#include "cupdlpx.h"
+#include "solver.h"
+#include "utils.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// create an lp_problem_t from a matrix
+lp_problem_t *create_lp_problem(const double *objective_c,
+                                const matrix_desc_t *A_desc,
+                                const double *con_lb,
+                                const double *con_ub,
+                                const double *var_lb,
+                                const double *var_ub,
+                                const double *objective_constant,
+                                const objective_sense_t *objective_sense)
+{
+    lp_problem_t *prob = (lp_problem_t *)safe_malloc(sizeof(lp_problem_t));
+    prob->primal_start = NULL;
+    prob->dual_start = NULL;
+
+    prob->num_variables = A_desc->n;
+    prob->num_constraints = A_desc->m;
+
+    // handle matrix by format
+    switch (A_desc->fmt)
+    {
+        case matrix_dense:
+            dense_to_csr(A_desc,
+                         &prob->constraint_matrix_row_pointers,
+                         &prob->constraint_matrix_col_indices,
+                         &prob->constraint_matrix_values,
+                         &prob->constraint_matrix_num_nonzeros);
+            break;
+
+        case matrix_csc:
+        {
+            int *row_ptr = NULL, *col_ind = NULL;
+            double *vals = NULL;
+            if (csc_to_csr(A_desc, &row_ptr, &col_ind, &vals) != 0)
+            {
+                fprintf(stderr, "[interface] CSC->CSR failed.\n");
+                free(prob);
+                return NULL;
+            }
+            prob->constraint_matrix_num_nonzeros = A_desc->data.csc.nnz;
+            prob->constraint_matrix_row_pointers = row_ptr;
+            prob->constraint_matrix_col_indices = col_ind;
+            prob->constraint_matrix_values = vals;
+            break;
+        }
+
+        case matrix_coo:
+        {
+            int *row_ptr = NULL, *col_ind = NULL;
+            double *vals = NULL;
+            if (coo_to_csr(A_desc, &row_ptr, &col_ind, &vals) != 0)
+            {
+                fprintf(stderr, "[interface] COO->CSR failed.\n");
+                free(prob);
+                return NULL;
+            }
+            prob->constraint_matrix_num_nonzeros = A_desc->data.coo.nnz;
+            prob->constraint_matrix_row_pointers = row_ptr;
+            prob->constraint_matrix_col_indices = col_ind;
+            prob->constraint_matrix_values = vals;
+            break;
+        }
+
+        case matrix_csr:
+            prob->constraint_matrix_num_nonzeros = A_desc->data.csr.nnz;
+            prob->constraint_matrix_row_pointers = (int *)safe_malloc((size_t)(A_desc->m + 1) * sizeof(int));
+            prob->constraint_matrix_col_indices = (int *)safe_malloc((size_t)A_desc->data.csr.nnz * sizeof(int));
+            prob->constraint_matrix_values = (double *)safe_malloc((size_t)A_desc->data.csr.nnz * sizeof(double));
+            memcpy(
+                prob->constraint_matrix_row_pointers, A_desc->data.csr.row_ptr, (size_t)(A_desc->m + 1) * sizeof(int));
+            memcpy(prob->constraint_matrix_col_indices,
+                   A_desc->data.csr.col_ind,
+                   (size_t)A_desc->data.csr.nnz * sizeof(int));
+            memcpy(
+                prob->constraint_matrix_values, A_desc->data.csr.vals, (size_t)A_desc->data.csr.nnz * sizeof(double));
+            break;
+
+        default:
+            fprintf(stderr, "[interface] make_problem_from_matrix: unsupported matrix format %d.\n", A_desc->fmt);
+            free(prob);
+            return NULL;
+    }
+
+    // default fill values
+    prob->objective_constant = objective_constant ? *objective_constant : 0.0;
+    prob->objective_sense = objective_sense ? *objective_sense : OBJECTIVE_SENSE_MINIMIZE;
+    fill_or_copy(&prob->objective_vector, prob->num_variables, objective_c, 0.0);
+    fill_or_copy(&prob->variable_lower_bound, prob->num_variables, var_lb, -INFINITY);
+    fill_or_copy(&prob->variable_upper_bound, prob->num_variables, var_ub, INFINITY);
+    fill_or_copy(&prob->constraint_lower_bound, prob->num_constraints, con_lb, -INFINITY);
+    fill_or_copy(&prob->constraint_upper_bound, prob->num_constraints, con_ub, INFINITY);
+
+    return prob;
+}
+
+void cupdlpx_result_free(cupdlpx_result_t *results)
+{
+    if (results == NULL)
+    {
+        return;
+    }
+
+    free(results->primal_solution);
+    free(results->dual_solution);
+    free(results->reduced_cost);
+    free(results);
+}
+
+void lp_problem_free(lp_problem_t *prob)
+{
+    if (!prob)
+        return;
+    free(prob->constraint_matrix_row_pointers);
+    free(prob->constraint_matrix_col_indices);
+    free(prob->constraint_matrix_values);
+    free(prob->variable_lower_bound);
+    free(prob->variable_upper_bound);
+    free(prob->objective_vector);
+    free(prob->constraint_lower_bound);
+    free(prob->constraint_upper_bound);
+    free(prob->primal_start);
+    free(prob->dual_start);
+    memset(prob, 0, sizeof(*prob));
+    free(prob);
+}
+
+void set_start_values(lp_problem_t *prob, const double *primal, const double *dual)
+{
+    if (!prob)
+        return;
+
+    int n = prob->num_variables;
+    int m = prob->num_constraints;
+
+    // Free previous if any
+    if (prob->primal_start)
+    {
+        free(prob->primal_start);
+        prob->primal_start = NULL;
+    }
+    if (prob->dual_start)
+    {
+        free(prob->dual_start);
+        prob->dual_start = NULL;
+    }
+
+    if (primal)
+    {
+        prob->primal_start = (double *)safe_malloc(n * sizeof(double));
+        memcpy(prob->primal_start, primal, n * sizeof(double));
+    }
+    if (dual)
+    {
+        prob->dual_start = (double *)safe_malloc(m * sizeof(double));
+        memcpy(prob->dual_start, dual, m * sizeof(double));
+    }
+}
+
+/* The single authority on parameter ranges. Front ends only parse and convert
+   types; every semantic check lives here. */
+#define CUPDLPX_CHECK_PARAM(cond, ...)                                                                                 \
+    do                                                                                                                 \
+    {                                                                                                                  \
+        if (!(cond))                                                                                                   \
+        {                                                                                                              \
+            if (error_message && error_message_size > 0)                                                               \
+            {                                                                                                          \
+                snprintf(error_message, error_message_size, __VA_ARGS__);                                              \
+            }                                                                                                          \
+            return 1;                                                                                                  \
+        }                                                                                                              \
+    } while (0)
+
+int cupdlpx_validate_parameters(const pdhg_parameters_t *p, char *error_message, size_t error_message_size)
+{
+    CUPDLPX_CHECK_PARAM(p != NULL, "params must not be NULL");
+    CUPDLPX_CHECK_PARAM(p->termination_evaluation_frequency >= 3,
+                        "termination_evaluation_frequency must be >= 3 (got %d)",
+                        p->termination_evaluation_frequency);
+    CUPDLPX_CHECK_PARAM(p->termination_criteria.iteration_limit >= 0,
+                        "iteration_limit must be nonnegative (got %d)",
+                        p->termination_criteria.iteration_limit);
+    CUPDLPX_CHECK_PARAM(p->geometric_mean_iterations >= 0,
+                        "geometric_mean_iterations must be nonnegative (got %d)",
+                        p->geometric_mean_iterations);
+    CUPDLPX_CHECK_PARAM(
+        p->l_inf_ruiz_iterations >= 0, "l_inf_ruiz_iterations must be nonnegative (got %d)", p->l_inf_ruiz_iterations);
+    CUPDLPX_CHECK_PARAM(p->sv_max_iter > 0, "sv_max_iter must be positive (got %d)", p->sv_max_iter);
+    CUPDLPX_CHECK_PARAM(p->termination_criteria.eps_optimal_relative > 0.0,
+                        "eps_optimal_relative must be positive (got %g)",
+                        p->termination_criteria.eps_optimal_relative);
+    CUPDLPX_CHECK_PARAM(p->termination_criteria.eps_feasible_relative > 0.0,
+                        "eps_feasible_relative must be positive (got %g)",
+                        p->termination_criteria.eps_feasible_relative);
+    CUPDLPX_CHECK_PARAM(p->termination_criteria.eps_infeasible_relative > 0.0,
+                        "eps_infeasible_relative must be positive (got %g)",
+                        p->termination_criteria.eps_infeasible_relative);
+    CUPDLPX_CHECK_PARAM(p->termination_criteria.eps_feas_polish_relative > 0.0,
+                        "eps_feas_polish_relative must be positive (got %g)",
+                        p->termination_criteria.eps_feas_polish_relative);
+    CUPDLPX_CHECK_PARAM(p->sv_tol > 0.0, "sv_tol must be positive (got %g)", p->sv_tol);
+    CUPDLPX_CHECK_PARAM(p->termination_criteria.time_sec_limit >= 0.0,
+                        "time_sec_limit must be nonnegative (got %g)",
+                        p->termination_criteria.time_sec_limit);
+    CUPDLPX_CHECK_PARAM(p->infinite_bound > 0.0, "infinite_bound must be positive (got %g)", p->infinite_bound);
+    CUPDLPX_CHECK_PARAM(p->matrix_zero_tol >= 0.0, "matrix_zero_tol must be nonnegative (got %g)", p->matrix_zero_tol);
+    CUPDLPX_CHECK_PARAM(isfinite(p->asb_activation_tol) && p->asb_activation_tol >= 0.0,
+                        "asb_activation_tol must be finite and >= 0 (got %g)",
+                        p->asb_activation_tol);
+    CUPDLPX_CHECK_PARAM(p->asb_window_iter > 0, "asb_window_iter must be positive (got %d)", p->asb_window_iter);
+    CUPDLPX_CHECK_PARAM(isfinite(p->asb_safety_factor) && p->asb_safety_factor > 0.0,
+                        "asb_safety_factor must be finite and positive (got %g)",
+                        p->asb_safety_factor);
+    CUPDLPX_CHECK_PARAM(p->asb_max_reverts >= 0, "asb_max_reverts must be nonnegative (got %d)", p->asb_max_reverts);
+    CUPDLPX_CHECK_PARAM(isfinite(p->asb_min_raise_ratio) && p->asb_min_raise_ratio >= 1.0,
+                        "asb_min_raise_ratio must be finite and >= 1 (got %g)",
+                        p->asb_min_raise_ratio);
+    CUPDLPX_CHECK_PARAM(isfinite(p->asb_reestimate_change_ratio) && p->asb_reestimate_change_ratio >= 0.0,
+                        "asb_reestimate_change_ratio must be finite and >= 0 (got %g)",
+                        p->asb_reestimate_change_ratio);
+    CUPDLPX_CHECK_PARAM(isfinite(p->asb_constraint_tol) && p->asb_constraint_tol >= 0.0,
+                        "asb_constraint_tol must be finite and >= 0 (got %g)",
+                        p->asb_constraint_tol);
+    CUPDLPX_CHECK_PARAM(isfinite(p->asb_variable_tol) && p->asb_variable_tol >= 0.0,
+                        "asb_variable_tol must be finite and >= 0 (got %g)",
+                        p->asb_variable_tol);
+    CUPDLPX_CHECK_PARAM(p->asb_divergence_ceiling_ratio > 0.0 && p->asb_divergence_ceiling_ratio <= 1.0,
+                        "asb_divergence_ceiling_ratio must be in (0, 1] (got %g)",
+                        p->asb_divergence_ceiling_ratio);
+    CUPDLPX_CHECK_PARAM(isfinite(p->asb_divergence_margin) && p->asb_divergence_margin >= 0.0,
+                        "asb_divergence_margin must be finite and >= 0 (got %g)",
+                        p->asb_divergence_margin);
+    return 0;
+}
+
+#undef CUPDLPX_CHECK_PARAM
+
+cupdlpx_result_t *solve_lp_problem(lp_problem_t *prob, const pdhg_parameters_t *params)
+{
+    // argument checks
+    if (!prob)
+    {
+        fprintf(stderr, "[interface] solve_lp_problem: invalid arguments.\n");
+        return NULL;
+    }
+
+    // prepare parameters: use defaults if not provided
+    pdhg_parameters_t local_params;
+    if (params)
+    {
+        local_params = *params;
+    }
+    else
+    {
+        set_default_parameters(&local_params);
+    }
+    if (local_params.debug)
+    {
+        local_params.verbose = true;
+    }
+
+    // call optimizer
+    cupdlpx_result_t *res = optimize(&local_params, prob);
+    if (!res)
+    {
+        fprintf(stderr, "[interface] optimize returned NULL.\n");
+        return NULL;
+    }
+
+    return res;
+}

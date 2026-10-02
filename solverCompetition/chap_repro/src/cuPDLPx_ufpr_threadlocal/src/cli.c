@@ -1,0 +1,590 @@
+/*
+Copyright 2025 Haihao Lu
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+#include "cupdlpx.h"
+#include "mps_parser.h"
+#include "presolve.h"
+#include "solver.h"
+#include "utils.h"
+#include <errno.h>
+#include <getopt.h>
+#include <inttypes.h>
+#include <libgen.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+typedef struct
+{
+    const char *output_dir;
+} snapshot_writer_context_t;
+
+static bool write_snapshot_field(FILE *file, const void *data, size_t size, size_t count)
+{
+    return fwrite(data, size, count, file) == count;
+}
+
+static void save_snapshot_files(const cupdlpx_snapshot_t *snapshot, void *user_data)
+{
+    const snapshot_writer_context_t *context = (const snapshot_writer_context_t *)user_data;
+    char binary_path[4096];
+    char metadata_path[4096];
+    snprintf(binary_path,
+             sizeof(binary_path),
+             "%s/snapshot_%08" PRId64 ".bin",
+             context->output_dir,
+             snapshot->iteration);
+    snprintf(metadata_path,
+             sizeof(metadata_path),
+             "%s/snapshot_%08" PRId64 ".meta",
+             context->output_dir,
+             snapshot->iteration);
+
+    FILE *binary = fopen(binary_path, "wb");
+    if (binary == NULL)
+    {
+        fprintf(stderr, "Error opening snapshot binary %s: %s\n", binary_path, strerror(errno));
+        return;
+    }
+
+    const char magic[8] = {'C', 'U', 'P', 'D', 'L', 'P', 'X', 'S'};
+    const uint32_t version = 1;
+    const int64_t n_primal = snapshot->num_primal;
+    const int64_t n_dual = snapshot->num_dual;
+    bool ok = write_snapshot_field(binary, magic, sizeof(char), 8) &&
+              write_snapshot_field(binary, &version, sizeof(version), 1) &&
+              write_snapshot_field(binary, &snapshot->iteration, sizeof(snapshot->iteration), 1) &&
+              write_snapshot_field(binary, &n_primal, sizeof(n_primal), 1) &&
+              write_snapshot_field(binary, &n_dual, sizeof(n_dual), 1) &&
+              write_snapshot_field(binary, &snapshot->elapsed_sec, sizeof(double), 1) &&
+              write_snapshot_field(binary, &snapshot->primal_objective, sizeof(double), 1) &&
+              write_snapshot_field(binary, &snapshot->dual_objective, sizeof(double), 1) &&
+              write_snapshot_field(binary, &snapshot->absolute_primal_residual, sizeof(double), 1) &&
+              write_snapshot_field(binary, &snapshot->relative_primal_residual, sizeof(double), 1) &&
+              write_snapshot_field(binary, &snapshot->absolute_dual_residual, sizeof(double), 1) &&
+              write_snapshot_field(binary, &snapshot->relative_dual_residual, sizeof(double), 1) &&
+              write_snapshot_field(binary, &snapshot->objective_gap, sizeof(double), 1) &&
+              write_snapshot_field(binary, &snapshot->relative_objective_gap, sizeof(double), 1) &&
+              write_snapshot_field(binary, snapshot->primal, sizeof(double), (size_t)snapshot->num_primal) &&
+              write_snapshot_field(binary, snapshot->dual, sizeof(double), (size_t)snapshot->num_dual) &&
+              write_snapshot_field(
+                  binary, snapshot->reduced_cost, sizeof(double), (size_t)snapshot->num_primal);
+    if (fclose(binary) != 0)
+    {
+        ok = false;
+    }
+    if (!ok)
+    {
+        fprintf(stderr, "Error writing snapshot binary %s\n", binary_path);
+        return;
+    }
+
+    FILE *metadata = fopen(metadata_path, "w");
+    if (metadata == NULL)
+    {
+        fprintf(stderr, "Error opening snapshot metadata %s: %s\n", metadata_path, strerror(errno));
+        return;
+    }
+    fprintf(metadata, "format_version=1\n");
+    fprintf(metadata, "process_id=%ld\n", (long)getpid());
+    fprintf(metadata, "iteration=%" PRId64 "\n", snapshot->iteration);
+    fprintf(metadata, "elapsed_sec=%.17g\n", snapshot->elapsed_sec);
+    fprintf(metadata, "n_primal=%d\n", snapshot->num_primal);
+    fprintf(metadata, "n_dual=%d\n", snapshot->num_dual);
+    fprintf(metadata,
+            "coordinate_system=%s\n",
+            snapshot->original_coordinates ? "original_mps" : "internal_presolved");
+    fprintf(metadata, "primal_objective=%.17g\n", snapshot->primal_objective);
+    fprintf(metadata, "dual_objective=%.17g\n", snapshot->dual_objective);
+    fprintf(metadata, "absolute_primal_residual=%.17g\n", snapshot->absolute_primal_residual);
+    fprintf(metadata, "relative_primal_residual=%.17g\n", snapshot->relative_primal_residual);
+    fprintf(metadata, "absolute_dual_residual=%.17g\n", snapshot->absolute_dual_residual);
+    fprintf(metadata, "relative_dual_residual=%.17g\n", snapshot->relative_dual_residual);
+    fprintf(metadata, "objective_gap=%.17g\n", snapshot->objective_gap);
+    fprintf(metadata, "relative_objective_gap=%.17g\n", snapshot->relative_objective_gap);
+    fprintf(metadata, "binary_layout=magic[8],version_u32,iteration_i64,n_primal_i64,n_dual_i64,9_f64,primal_f64[n_primal],dual_f64[n_dual],reduced_cost_f64[n_primal]\n");
+    fclose(metadata);
+
+    printf("Checkpoint snapshot saved: iteration=%" PRId64 " path=%s\n", snapshot->iteration, binary_path);
+}
+
+char *get_output_path(const char *output_dir, const char *instance_name, const char *suffix)
+{
+    size_t path_len = strlen(output_dir) + strlen(instance_name) + strlen(suffix) + 2;
+    char *full_path = safe_malloc(path_len * sizeof(char));
+    snprintf(full_path, path_len, "%s/%s%s", output_dir, instance_name, suffix);
+    return full_path;
+}
+
+char *extract_instance_name(const char *filename)
+{
+    char *filename_copy = strdup(filename);
+    if (filename_copy == NULL)
+    {
+        perror("Memory allocation failed");
+        return NULL;
+    }
+
+    char *base = basename(filename_copy);
+    char *dot = strchr(base, '.');
+    if (dot)
+    {
+        *dot = '\0';
+    }
+
+    char *instance_name = strdup(base);
+    free(filename_copy);
+    return instance_name;
+}
+
+void save_solution(const double *data, int size, const char *output_dir, const char *instance_name, const char *suffix)
+{
+    char *file_path = get_output_path(output_dir, instance_name, suffix);
+    if (file_path == NULL || data == NULL)
+    {
+        return;
+    }
+
+    FILE *outfile = fopen(file_path, "w");
+    if (outfile == NULL)
+    {
+        perror("Error opening solution file");
+        free(file_path);
+        return;
+    }
+
+    for (int i = 0; i < size; ++i)
+    {
+        fprintf(outfile, "%.10g\n", data[i]);
+    }
+
+    fclose(outfile);
+    free(file_path);
+}
+
+void save_solver_summary(const cupdlpx_result_t *result, const char *output_dir, const char *instance_name)
+{
+    char *file_path = get_output_path(output_dir, instance_name, "_summary.txt");
+    if (file_path == NULL)
+    {
+        return;
+    }
+
+    FILE *outfile = fopen(file_path, "w");
+    if (outfile == NULL)
+    {
+        perror("Error opening summary file");
+        free(file_path);
+        return;
+    }
+    fprintf(outfile, "Termination Reason: %s\n", termination_reason_to_string(result->termination_reason));
+    if (result->presolve_time > 0.0)
+    {
+        fprintf(outfile, "Presolve Status: %s\n", get_presolve_status_str(result->presolve_status));
+        fprintf(outfile, "Presolve Time (sec): %e\n", result->presolve_time);
+        fprintf(outfile, "Reduced Rows: %d\n", result->num_reduced_constraints);
+        fprintf(outfile, "Reduced Columns: %d\n", result->num_reduced_variables);
+        fprintf(outfile, "Reduced Nonzeros: %d\n", result->num_reduced_nonzeros);
+
+        // if (result->presolve_stats.n_cols_original > 0) {
+        //     fprintf(outfile, "NNZ Removed Trivial: %d\n", result->presolve_stats.nnz_removed_trivial);
+        //     fprintf(outfile, "NNZ Removed Fast: %d\n", result->presolve_stats.nnz_removed_fast);
+        //     fprintf(outfile, "NNZ Removed Primal Propagation: %d\n", result->presolve_stats.nnz_removed_primal_propagation);
+        //     fprintf(outfile, "NNZ Removed Parallel Rows: %d\n", result->presolve_stats.nnz_removed_parallel_rows);
+        //     fprintf(outfile, "NNZ Removed Parallel Cols: %d\n", result->presolve_stats.nnz_removed_parallel_cols);
+
+        //     fprintf(outfile, "Presolve Time Init (sec): %e\n", result->presolve_stats.time_init);
+        //     fprintf(outfile, "Presolve Time Run (sec): %e\n", result->presolve_stats.time_presolve);
+        //     fprintf(outfile, "Presolve Time Fast (sec): %e\n", result->presolve_stats.time_fast_reductions);
+        //     fprintf(outfile, "Presolve Time Medium (sec): %e\n", result->presolve_stats.time_medium_reductions);
+        //     fprintf(outfile, "Presolve Time Primal Proppagation (sec): %e\n", result->presolve_stats.time_primal_propagation);
+        //     fprintf(outfile, "Presolve Time Parallel Rows (sec): %e\n", result->presolve_stats.time_parallel_rows);
+        //     fprintf(outfile, "Presolve Time Parallel Cols (sec): %e\n", result->presolve_stats.time_parallel_cols);
+        //     fprintf(outfile, "Postsolve Time (sec): %e\n", result->presolve_stats.time_postsolve);
+        // }
+    }
+    fprintf(outfile, "Precondition time (sec): %e\n", result->rescaling_time_sec);
+    fprintf(outfile, "Runtime (sec): %e\n", result->cumulative_time_sec);
+    fprintf(outfile, "Iterations Count: %d\n", result->total_count);
+    fprintf(outfile, "ASB Step Raise Count: %d\n", result->asb_raise_count);
+    fprintf(outfile, "ASB Revert Count: %d\n", result->asb_revert_count);
+    fprintf(outfile, "ASB Power Iterations: %d\n", result->asb_pi_iterations);
+    fprintf(outfile, "Primal Objective Value: %e\n", result->primal_objective_value);
+    fprintf(outfile, "Dual Objective Value: %e\n", result->dual_objective_value);
+    fprintf(outfile, "Relative Primal Residual: %e\n", result->relative_primal_residual);
+    fprintf(outfile, "Relative Dual Residual: %e\n", result->relative_dual_residual);
+    fprintf(outfile, "Absolute Objective Gap: %e\n", result->objective_gap);
+    fprintf(outfile, "Relative Objective Gap: %e\n", result->relative_objective_gap);
+    fprintf(outfile, "Rows: %d\n", result->num_constraints);
+    fprintf(outfile, "Columns: %d\n", result->num_variables);
+    fprintf(outfile, "Nonzeros: %d\n", result->num_nonzeros);
+    if (result->feasibility_polishing_time > 0.0)
+    {
+        fprintf(outfile, "Feasibility Polishing Time (sec): %e\n", result->feasibility_polishing_time);
+        fprintf(outfile, "Feasibility Polishing Iteration Count: %d\n", result->feasibility_iteration);
+    }
+    fclose(outfile);
+    free(file_path);
+}
+
+void print_usage(const char *prog_name)
+{
+    fprintf(stderr, "Usage: %s [OPTIONS] <mps_file> <output_dir>\n\n", prog_name);
+
+    fprintf(stderr, "Arguments:\n");
+    fprintf(stderr,
+            "  <mps_file>               Path to the input problem in MPS "
+            "format (.mps or .mps.gz).\n");
+    fprintf(stderr,
+            "  <output_dir>             Directory where output files "
+            "will be saved. It will contain:\n");
+    fprintf(stderr, "                             - <basename>_summary.txt\n");
+    fprintf(stderr, "                             - <basename>_primal_solution.txt\n");
+    fprintf(stderr, "                             - <basename>_dual_solution.txt\n\n");
+
+    fprintf(stderr, "Options:\n");
+    fprintf(stderr, "  -h, --help                          Display this help message.\n");
+    fprintf(stderr,
+            "  -v, --verbose                       "
+            "Enable verbose logging (enabled by default; kept for compatibility).\n");
+    fprintf(stderr,
+            "      --debug                         "
+            "Developer diagnostics (implies verbose).\n");
+    fprintf(stderr,
+            "  -q, --quiet                         "
+            "Disable verbose logging.\n");
+    fprintf(stderr,
+            "      --time_limit <seconds>          "
+            "Time limit in seconds (default: 3600.0).\n");
+    fprintf(stderr, "      --iter_limit <iterations>       Iteration limit (default: %d).\n", INT32_MAX);
+    fprintf(stderr,
+            "      --eps_opt <tolerance>           "
+            "Relative optimality tolerance (default: 1e-4).\n");
+    fprintf(stderr,
+            "      --eps_feas <tolerance>          "
+            "Relative feasibility tolerance (default: 1e-4).\n");
+    fprintf(stderr,
+            "      --geo_mean_iter <int>           "
+            "Iterations of geometric-mean scaling (default: 12).\n");
+    fprintf(stderr,
+            "      --l_inf_ruiz_iter <int>         "
+            "Iterations of L-inf Ruiz rescaling (default: 10).\n");
+    fprintf(stderr,
+            "      --no_pock_chambolle             "
+            "Disable Pock-Chambolle rescaling (default: enabled).\n");
+    fprintf(stderr,
+            "      --pock_chambolle_alpha <float>  "
+            "Value for Pock-Chambolle alpha (default: 1.0).\n");
+    fprintf(stderr,
+            "      --no_bound_obj_rescaling        "
+            "Disable bound objective rescaling (default: enabled).\n");
+    fprintf(stderr,
+            "      --snapshot_dir <directory>      "
+            "Write in-memory checkpoint callbacks at iterations 100, 1000, 10000 and 100000.\n");
+    fprintf(stderr,
+            "      --eval_freq <int>               "
+            "Termination evaluation frequency (default: 200).\n");
+    fprintf(stderr,
+            "      --sv_max_iter <int>             "
+            "Max iterations for singular value estimation (default: 5000).\n");
+    fprintf(stderr,
+            "      --sv_tol <float>                "
+            "Tolerance for singular value estimation (default: 1e-4).\n");
+    fprintf(stderr,
+            "  -f  --feasibility_polishing         "
+            "Enable feasibility use feasibility polishing (default: false).\n");
+    fprintf(stderr,
+            "      --eps_feas_polish <tolerance>   Relative feasibility "
+            "polish tolerance (default: 1e-6).\n");
+    fprintf(stderr,
+            "      --opt_norm <norm_type>          "
+            "Norm for optimality criteria: l2 or linf (default: l2).\n");
+    fprintf(stderr,
+            "      --no_presolve                   "
+            "Disable presolve (default: enabled).\n");
+    fprintf(stderr,
+            "      --matrix_zero_tol <tolerance>.  "
+            "Zero tolerance in constraint matrix.\n");
+    fprintf(stderr,
+            "      --infinite_bound <value>.       "
+            "Bounds at or beyond this are treated as infinite (default: 1e20).\n");
+    fprintf(stderr,
+            "      --no_active_set_boost           "
+            "Disable the active-set stepsize boost (default: enabled).\n");
+    fprintf(stderr,
+            "      --asb_activation_tol <tol>      "
+            "Residual threshold at which the boost activates (default: 1e-4).\n");
+    fprintf(stderr,
+            "      --asb_window_iter <iters>       "
+            "Number of recent iterations used to identify the active set (default: 10000).\n");
+    fprintf(stderr,
+            "      --asb_safety_factor <factor>    "
+            "Boosted step = factor / estimated singular value (default: 0.9).\n");
+    fprintf(stderr,
+            "      --asb_max_reverts <count>       "
+            "Divergences tolerated before the boost turns off; a diverged step is always reverted (default: 2).\n");
+    fprintf(stderr,
+            "      --asb_min_raise_ratio <ratio>   "
+            "Minimum ratio for a step increase (default: 1.1).\n");
+    fprintf(stderr,
+            "      --asb_reestimate_change_ratio <ratio> "
+            "Fraction of the active set that must change before re-estimating (default: 0.01).\n");
+    fprintf(stderr,
+            "      --asb_constraint_tol <tol>      "
+            "Tolerance for treating a constraint as binding (default: 1e-8).\n");
+    fprintf(stderr,
+            "      --asb_variable_tol <tol>        "
+            "Tolerance for treating a variable as at its bound (default: 1e-8).\n");
+    fprintf(stderr,
+            "      --asb_divergence_ceiling_ratio <ratio> "
+            "Step ceiling after a revert, relative to the diverged step (default: 0.7).\n");
+    fprintf(stderr,
+            "      --asb_divergence_margin <margin> "
+            "Allowed fixed-point error increase before a revert (default: 0.05).\n");
+}
+
+int main(int argc, char *argv[])
+{
+    pdhg_parameters_t params;
+    set_default_parameters(&params);
+    const char *snapshot_dir = NULL;
+
+    static struct option long_options[] = {{"help", no_argument, 0, 'h'},
+                                           {"verbose", no_argument, 0, 'v'},
+                                           {"quiet", no_argument, 0, 'q'},
+                                           {"time_limit", required_argument, 0, 1001},
+                                           {"iter_limit", required_argument, 0, 1002},
+                                           {"eps_opt", required_argument, 0, 1003},
+                                           {"eps_feas", required_argument, 0, 1004},
+                                           {"eps_feas_polish", required_argument, 0, 1006},
+                                           {"feasibility_polishing", no_argument, 0, 'f'},
+                                           {"geo_mean_iter", required_argument, 0, 1018},
+                                           {"l_inf_ruiz_iter", required_argument, 0, 1007},
+                                           {"pock_chambolle_alpha", required_argument, 0, 1008},
+                                           {"no_pock_chambolle", no_argument, 0, 1009},
+                                           {"no_bound_obj_rescaling", no_argument, 0, 1010},
+                                           {"sv_max_iter", required_argument, 0, 1011},
+                                           {"sv_tol", required_argument, 0, 1012},
+                                           {"eval_freq", required_argument, 0, 1013},
+                                           {"opt_norm", required_argument, 0, 1014},
+                                           {"no_presolve", no_argument, 0, 1015},
+                                           {"matrix_zero_tol", required_argument, 0, 1016},
+                                           {"infinite_bound", required_argument, 0, 1017},
+                                           {"no_active_set_boost", no_argument, 0, 1019},
+                                           {"asb_activation_tol", required_argument, 0, 1029},
+                                           {"debug", no_argument, 0, 1030},
+                                           {"asb_window_iter", required_argument, 0, 1020},
+                                           {"asb_safety_factor", required_argument, 0, 1021},
+                                           {"asb_max_reverts", required_argument, 0, 1022},
+                                           {"asb_min_raise_ratio", required_argument, 0, 1023},
+                                           {"asb_reestimate_change_ratio", required_argument, 0, 1024},
+                                           {"asb_constraint_tol", required_argument, 0, 1025},
+                                           {"asb_variable_tol", required_argument, 0, 1026},
+                                           {"asb_divergence_ceiling_ratio", required_argument, 0, 1027},
+                                            {"asb_divergence_margin", required_argument, 0, 1028},
+                                            {"snapshot_dir", required_argument, 0, 1031},
+                                            {0, 0, 0, 0}};
+
+    int opt;
+    while ((opt = getopt_long(argc, argv, "hvqfp", long_options, NULL)) != -1)
+    {
+        switch (opt)
+        {
+            case 'h':
+                print_usage(argv[0]);
+                return 0;
+            case 'v':
+                params.verbose = true;
+                break;
+            case 'q':
+                params.verbose = false;
+                break;
+            case 1001: // --time_limit
+                params.termination_criteria.time_sec_limit = atof(optarg);
+                break;
+            case 1002: // --iter_limit
+                params.termination_criteria.iteration_limit = atoi(optarg);
+                break;
+            case 1003: // --eps_optimal
+                params.termination_criteria.eps_optimal_relative = atof(optarg);
+                break;
+            case 1004: // --eps_feas
+                params.termination_criteria.eps_feasible_relative = atof(optarg);
+                break;
+            case 1006: // --eps_feas_polish_relative
+                params.termination_criteria.eps_feas_polish_relative = atof(optarg);
+                break;
+            case 'f': // --feasibility_polishing
+                params.feasibility_polishing = true;
+                break;
+            case 1018: // --geo_mean_iter
+                params.geometric_mean_iterations = atoi(optarg);
+                break;
+            case 1007: // --l_inf_ruiz_iter
+                params.l_inf_ruiz_iterations = atoi(optarg);
+                break;
+            case 1008: // --pock_chambolle_alpha
+                params.pock_chambolle_alpha = atof(optarg);
+                break;
+            case 1009: // --no_pock_chambolle
+                params.has_pock_chambolle_alpha = false;
+                break;
+            case 1010: // --no_bound_obj_rescaling
+                params.bound_objective_rescaling = false;
+                break;
+            case 1011: // --sv_max_iter
+                params.sv_max_iter = atoi(optarg);
+                break;
+            case 1012: // --sv_tol
+                params.sv_tol = atof(optarg);
+                break;
+            case 1013: // --eval_freq
+                params.termination_evaluation_frequency = atoi(optarg);
+                break;
+            case 1014: // --opt_norm
+            {
+                const char *norm_str = optarg;
+                if (strcmp(norm_str, "l2") == 0)
+                {
+                    params.optimality_norm = NORM_TYPE_L2;
+                }
+                else if (strcmp(norm_str, "linf") == 0)
+                {
+                    params.optimality_norm = NORM_TYPE_L_INF;
+                }
+                else
+                {
+                    fprintf(stderr, "Error: opt_norm must be 'l2' or 'linf'\n");
+                    return 1;
+                }
+            }
+            break;
+            case 1015: // --no_presolve
+                params.presolve = false;
+                break;
+            case 1016: // --matrix_zero_tol
+                params.matrix_zero_tol = atof(optarg);
+                break;
+            case 1017: // --infinite_bound
+                params.infinite_bound = atof(optarg);
+                break;
+            case 1019: // --no_active_set_boost
+                params.active_set_boost = false;
+                break;
+            case 1020: // --asb_window_iter
+                params.asb_window_iter = atoi(optarg);
+                break;
+            case 1021: // --asb_safety_factor
+                params.asb_safety_factor = atof(optarg);
+                break;
+            case 1022: // --asb_max_reverts
+                params.asb_max_reverts = atoi(optarg);
+                break;
+            case 1023: // --asb_min_raise_ratio
+                params.asb_min_raise_ratio = atof(optarg);
+                break;
+            case 1024: // --asb_reestimate_change_ratio
+                params.asb_reestimate_change_ratio = atof(optarg);
+                break;
+            case 1025: // --asb_constraint_tol
+                params.asb_constraint_tol = atof(optarg);
+                break;
+            case 1026: // --asb_variable_tol
+                params.asb_variable_tol = atof(optarg);
+                break;
+            case 1027: // --asb_divergence_ceiling_ratio
+                params.asb_divergence_ceiling_ratio = atof(optarg);
+                break;
+            case 1028: // --asb_divergence_margin
+                params.asb_divergence_margin = atof(optarg);
+                break;
+            case 1029: // --asb_activation_tol
+                params.asb_activation_tol = atof(optarg);
+                break;
+            case 1030: // --debug
+                params.debug = true;
+                break;
+            case 1031: // --snapshot_dir
+                snapshot_dir = optarg;
+                break;
+            case '?': // Unknown option
+                return 1;
+        }
+    }
+
+    if (argc - optind != 2)
+    {
+        fprintf(stderr, "Error: You must specify an input file and an output directory.\n\n");
+        print_usage(argv[0]);
+        return 1;
+    }
+
+    const char *filename = argv[optind];
+    const char *output_dir = argv[optind + 1];
+
+    char *instance_name = extract_instance_name(filename);
+    if (instance_name == NULL)
+    {
+        return 1;
+    }
+
+    lp_problem_t *problem = read_mps_file(filename);
+
+    if (problem == NULL)
+    {
+        fprintf(stderr, "Failed to read or parse the file.\n");
+        free(instance_name);
+        return 1;
+    }
+
+    snapshot_writer_context_t snapshot_context = {snapshot_dir};
+    if (snapshot_dir != NULL)
+    {
+        if (mkdir(snapshot_dir, 0775) != 0 && errno != EEXIST)
+        {
+            fprintf(stderr, "Failed to create snapshot directory %s: %s\n", snapshot_dir, strerror(errno));
+            lp_problem_free(problem);
+            free(instance_name);
+            return 1;
+        }
+        params.snapshot_callback = save_snapshot_files;
+        params.snapshot_user_data = &snapshot_context;
+    }
+
+    cupdlpx_result_t *result = solve_lp_problem(problem, &params);
+
+    if (result == NULL)
+    {
+        fprintf(stderr, "Solver failed.\n");
+    }
+    else
+    {
+        save_solver_summary(result, output_dir, instance_name);
+        save_solution(
+            result->primal_solution, problem->num_variables, output_dir, instance_name, "_primal_solution.txt");
+        save_solution(result->dual_solution, problem->num_constraints, output_dir, instance_name, "_dual_solution.txt");
+        cupdlpx_result_free(result);
+    }
+
+    lp_problem_free(problem);
+    free(instance_name);
+
+    return 0;
+}

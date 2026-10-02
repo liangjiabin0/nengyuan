@@ -1,0 +1,114 @@
+{
+  "verifiedAt": "2026-10-02T01:31:08.357Z",
+  "environment": "isolated local PostgreSQL 16; no production database or cloud model calls",
+  "checks": [
+    {
+      "url": "/api/health",
+      "status": 200
+    },
+    {
+      "url": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "url": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "url": "/api/chat/conversations",
+      "status": 200
+    },
+    {
+      "url": "/api/system/subagent-router",
+      "status": 200
+    },
+    {
+      "url": "/api/system/thinking-levels",
+      "status": 200
+    },
+    {
+      "url": "/api/health",
+      "status": 200
+    },
+    {
+      "url": "/api/health",
+      "status": 200
+    },
+    {
+      "productionComparison": "/api/health",
+      "result": "identical response data; detection timestamps validated separately"
+    },
+    {
+      "url": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "url": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "productionComparison": "/api/auth/me",
+      "result": "identical response data; detection timestamps validated separately"
+    },
+    {
+      "url": "/api/chat/conversations",
+      "status": 200
+    },
+    {
+      "url": "/api/chat/conversations",
+      "status": 200
+    },
+    {
+      "productionComparison": "/api/chat/conversations",
+      "result": "identical response data; detection timestamps validated separately"
+    },
+    {
+      "url": "/api/system/subagent-router",
+      "status": 200
+    },
+    {
+      "url": "/api/system/subagent-router",
+      "status": 200
+    },
+    {
+      "productionComparison": "/api/system/subagent-router",
+      "result": "identical response data; detection timestamps validated separately"
+    },
+    {
+      "url": "/api/system/thinking-levels",
+      "status": 200
+    },
+    {
+      "url": "/api/system/thinking-levels",
+      "status": 200
+    },
+    {
+      "productionComparison": "/api/system/thinking-levels",
+      "result": "identical response data; detection timestamps validated separately"
+    },
+    {
+      "worker": "heartbeat",
+      "status": "idle"
+    },
+    {
+      "url": "/healthz",
+      "status": 200
+    },
+    {
+      "url": "/login",
+      "status": 200
+    },
+    {
+      "url": "/chat",
+      "status": 200
+    },
+    {
+      "url": "/api/health",
+      "status": 200
+    },
+    {
+      "url": "/api/auth/me",
+      "status": 200
+    }
+  ]
+}

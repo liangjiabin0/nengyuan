@@ -1,0 +1,2061 @@
+{
+  "independentOriginalModules": 316,
+  "previouslyMissingModulesRecovered": [
+    "server/api/index.ts",
+    "server/api/routes.ts",
+    "server/worker/index.ts",
+    "src/app/api/chat/conversations/[id]/question/route.ts",
+    "src/app/api/system/subagent-router/route.ts",
+    "src/app/api/system/thinking-levels/route.ts",
+    "src/lib/opencode/chat-ask.ts",
+    "src/lib/opencode/session-routing.ts",
+    "src/lib/self-learning-search.ts",
+    "src/lib/subagent-router-store.ts",
+    "src/lib/subagent-router.ts",
+    "src/lib/thinking-levels-core.ts",
+    "src/lib/thinking-levels.ts"
+  ],
+  "modules": [
+    {
+      "originalModule": "server/api/index.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/server/api/index.js"
+      ]
+    },
+    {
+      "originalModule": "server/api/routes.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/server/api/routes.js"
+      ]
+    },
+    {
+      "originalModule": "server/worker/index.ts",
+      "reconstructedFiles": [
+        "server/recovered/worker/server/worker/index.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/admin/users/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/admin/users/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/admin/users/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/admin/users/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/auth/login/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/auth/login/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/auth/logout/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/auth/logout/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/auth/me/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/auth/me/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/auth/password/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/auth/password/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/bootstrap/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/bootstrap/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/attachments/[id]/preview/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/attachments/[id]/preview/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/attachments/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/attachments/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/conversations/[id]/messages/[messageId]/revert/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/conversations/[id]/messages/[messageId]/revert/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/conversations/[id]/messages/[messageId]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/conversations/[id]/messages/[messageId]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/conversations/[id]/question/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/conversations/[id]/question/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/conversations/[id]/repro-progress/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/conversations/[id]/repro-progress/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/conversations/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/conversations/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/conversations/[id]/stop/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/conversations/[id]/stop/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/conversations/[id]/title/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/conversations/[id]/title/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/conversations/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/conversations/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/live/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/live/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/queue/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/queue/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/queue/next/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/queue/next/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/queue/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/queue/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/chat/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/chat/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/corpus/comments/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/corpus/comments/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/corpus/comments/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/corpus/comments/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/corpus/content/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/corpus/content/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/corpus/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/corpus/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/data-import/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/data-import/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/files/preview/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/files/preview/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/graph/analytics/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/graph/analytics/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/graph/rebuild/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/graph/rebuild/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/graph/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/graph/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/grid-guides/[id]/chat/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/grid-guides/[id]/chat/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/grid-guides/[id]/download/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/grid-guides/[id]/download/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/grid-guides/[id]/files/content/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/grid-guides/[id]/files/content/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/grid-guides/[id]/files/preview/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/grid-guides/[id]/files/preview/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/grid-guides/[id]/files/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/grid-guides/[id]/files/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/grid-guides/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/grid-guides/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/grid-guides/attachments/[id]/preview/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/grid-guides/attachments/[id]/preview/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/grid-guides/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/grid-guides/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/images/edits/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/images/edits/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/images/generate/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/images/generate/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ingest/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ingest/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/opencode/health/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/opencode/health/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/papers/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/papers/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/patents/[id]/download/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/patents/[id]/download/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/patents/[id]/generate/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/patents/[id]/generate/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/patents/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/patents/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/patents/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/patents/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/ai/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/ai/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/build/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/build/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/chat/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/chat/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/check/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/check/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/download/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/download/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/export-video/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/export-video/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/preview/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/preview/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/render/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/render/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/[id]/slides/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/[id]/slides/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ppt-voice/settings/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ppt-voice/settings/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/ragpack/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/ragpack/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/records/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/records/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/reindex/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/reindex/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/research-review/artifacts/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/research-review/artifacts/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/research-review/attachments/[id]/preview/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/research-review/attachments/[id]/preview/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/research-review/attachments/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/research-review/attachments/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/research-review/conversations/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/research-review/conversations/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/research-review/conversations/[id]/title/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/research-review/conversations/[id]/title/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/research-review/conversations/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/research-review/conversations/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/research-review/export/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/research-review/export/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/research-review/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/research-review/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/schema/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/schema/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/artifact/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/artifact/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/brainstorm/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/brainstorm/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/events/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/events/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/export/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/export/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/mgplan/clone/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/mgplan/clone/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/mgplan/file/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/mgplan/file/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/mgplan/files/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/mgplan/files/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/mgplan/results/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/mgplan/results/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/mgplan/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/mgplan/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/mgplan/solve/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/mgplan/solve/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/research/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/research/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/attachments/[id]/preview/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/attachments/[id]/preview/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/attachments/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/attachments/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/scheme-solve/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/scheme-solve/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/search/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/search/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/self-learning/agent/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/self-learning/agent/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/self-learning/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/self-learning/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/settings/probe/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/settings/probe/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/settings/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/settings/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/settings/test/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/settings/test/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/skills/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/skills/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/skills/agent/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/skills/agent/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/skills/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/skills/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/stats/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/stats/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/system/context-usage/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/system/context-usage/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/system/model-context/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/system/model-context/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/system/runtime/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/system/runtime/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/system/subagent-router/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/system/subagent-router/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/system/thinking-levels/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/system/thinking-levels/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/virtual-sim/[id]/artifact/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/virtual-sim/[id]/artifact/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/virtual-sim/[id]/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/virtual-sim/[id]/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/virtual-sim/[id]/run/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/virtual-sim/[id]/run/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/virtual-sim/[id]/viz/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/virtual-sim/[id]/viz/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/app/api/virtual-sim/route.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/app/api/virtual-sim/route.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/attachments/document-reader.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/attachments/document-reader.js",
+        "server/recovered/worker/src/lib/attachments/document-reader.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/attachments/markitdown-cli.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/attachments/markitdown-cli.js",
+        "server/recovered/worker/src/lib/attachments/markitdown-cli.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/attachments/math-prog.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/attachments/math-prog.js",
+        "server/recovered/worker/src/lib/attachments/math-prog.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/attachments/policy.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/attachments/policy.js",
+        "server/recovered/worker/src/lib/attachments/policy.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/attachments/program-package.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/attachments/program-package.js",
+        "server/recovered/worker/src/lib/attachments/program-package.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/attachments/upload.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/attachments/upload.js",
+        "server/recovered/worker/src/lib/attachments/upload.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/attachments/workspace-cache.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/attachments/workspace-cache.js",
+        "server/recovered/worker/src/lib/attachments/workspace-cache.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/auth/password.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/auth/password.js",
+        "server/recovered/worker/src/lib/auth/password.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/auth/request.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/auth/request.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/auth/service-token.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/auth/service-token.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/auth/session.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/auth/session.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/auth/types.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/auth/types.js",
+        "server/recovered/worker/src/lib/auth/types.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/auth/users.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/auth/users.js",
+        "server/recovered/worker/src/lib/auth/users.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/bundle-store.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/bundle-store.js",
+        "server/recovered/worker/src/lib/bundle-store.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/bundled-skills.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/bundled-skills.js",
+        "server/recovered/worker/src/lib/bundled-skills.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-attachments.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-attachments.js",
+        "server/recovered/worker/src/lib/chat-attachments.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-conversation-list.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-conversation-list.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-deliverables.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-deliverables.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-generated-charts.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-generated-charts.js",
+        "server/recovered/worker/src/lib/chat-generated-charts.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-generation-stop.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-generation-stop.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-history.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-history.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-live-protocol.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-live-protocol.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-live-stream.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-live-stream.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-live.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-live.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-message-actions.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-message-actions.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-ndjson-stream.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-ndjson-stream.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-run-registry.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-run-registry.js",
+        "server/recovered/worker/src/lib/chat-run-registry.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-send-queue-store.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-send-queue-store.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-thinking-duration.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-thinking-duration.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-turn-persist.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-turn-persist.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/chat-workspace-retention.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/chat-workspace-retention.js",
+        "server/recovered/worker/src/lib/chat-workspace-retention.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/config.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/config.js",
+        "server/recovered/worker/src/lib/config.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/corpus/browse.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/corpus/browse.js",
+        "server/recovered/worker/src/lib/corpus/browse.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/corpus/comments.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/corpus/comments.js",
+        "server/recovered/worker/src/lib/corpus/comments.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/corpus/export.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/corpus/export.js",
+        "server/recovered/worker/src/lib/corpus/export.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/corpus/migrate-whitepaper-to-book.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/corpus/migrate-whitepaper-to-book.js",
+        "server/recovered/worker/src/lib/corpus/migrate-whitepaper-to-book.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/corpus/schema.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/corpus/schema.js",
+        "server/recovered/worker/src/lib/corpus/schema.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/data-dirs.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/data-dirs.js",
+        "server/recovered/worker/src/lib/data-dirs.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/data-import.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/data-import.js",
+        "server/recovered/worker/src/lib/data-import.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/db-summary.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/db-summary.js",
+        "server/recovered/worker/src/lib/db-summary.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/db.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/db.js",
+        "server/recovered/worker/src/lib/db.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/db/pg-database.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/db/pg-database.js",
+        "server/recovered/worker/src/lib/db/pg-database.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/db/pg-tools.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/db/pg-tools.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/db/schema.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/db/schema.js",
+        "server/recovered/worker/src/lib/db/schema.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/db/sql-translate.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/db/sql-translate.js",
+        "server/recovered/worker/src/lib/db/sql-translate.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/doc-index.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/doc-index.js",
+        "server/recovered/worker/src/lib/doc-index.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/endpoint-probe.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/endpoint-probe.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/excel-ingest.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/excel-ingest.js",
+        "server/recovered/worker/src/lib/excel-ingest.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/fast-import.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/fast-import.js",
+        "server/recovered/worker/src/lib/fast-import.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/fts-index.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/fts-index.js",
+        "server/recovered/worker/src/lib/fts-index.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/fund-markdown.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/fund-markdown.js",
+        "server/recovered/worker/src/lib/fund-markdown.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/graph-relations.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/graph-relations.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/attachments.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/attachments.js",
+        "server/recovered/worker/src/lib/grid-guide/attachments.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/constants.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/constants.js",
+        "server/recovered/worker/src/lib/grid-guide/constants.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/document-paths.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/document-paths.js",
+        "server/recovered/worker/src/lib/grid-guide/document-paths.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/export.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/export.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/files.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/files.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/generator.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/generator.js",
+        "server/recovered/worker/src/lib/grid-guide/generator.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/guide-json.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/guide-json.js",
+        "server/recovered/worker/src/lib/grid-guide/guide-json.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/literature-ingest.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/literature-ingest.js",
+        "server/recovered/worker/src/lib/grid-guide/literature-ingest.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/runner.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/runner.js",
+        "server/recovered/worker/src/lib/grid-guide/runner.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/sanitize.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/sanitize.js",
+        "server/recovered/worker/src/lib/grid-guide/sanitize.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/store.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/store.js",
+        "server/recovered/worker/src/lib/grid-guide/store.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/tech-landscape.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/tech-landscape.js",
+        "server/recovered/worker/src/lib/grid-guide/tech-landscape.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/v7-derived.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/v7-derived.js",
+        "server/recovered/worker/src/lib/grid-guide/v7-derived.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/v7-manifest.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/v7-manifest.js",
+        "server/recovered/worker/src/lib/grid-guide/v7-manifest.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/grid-guide/workspace.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/grid-guide/workspace.js",
+        "server/recovered/worker/src/lib/grid-guide/workspace.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/http-server-timeouts.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/http-server-timeouts.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/image-generation.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/image-generation.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/image-prompt-optimize.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/image-prompt-optimize.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/import-state.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/import-state.js",
+        "server/recovered/worker/src/lib/import-state.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/jobs/dispatch.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/jobs/dispatch.js",
+        "server/recovered/worker/src/lib/jobs/dispatch.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/jobs/handlers.ts",
+      "reconstructedFiles": [
+        "server/recovered/worker/src/lib/jobs/handlers.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/jobs/queue.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/jobs/queue.js",
+        "server/recovered/worker/src/lib/jobs/queue.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/jobs/types.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/jobs/types.js",
+        "server/recovered/worker/src/lib/jobs/types.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/kg/canonicalize.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/kg/canonicalize.js",
+        "server/recovered/worker/src/lib/kg/canonicalize.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/kg/cross-link.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/kg/cross-link.js",
+        "server/recovered/worker/src/lib/kg/cross-link.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/kg/entity-resolve.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/kg/entity-resolve.js",
+        "server/recovered/worker/src/lib/kg/entity-resolve.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/kg/graph-engine.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/kg/graph-engine.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/kg/merge.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/kg/merge.js",
+        "server/recovered/worker/src/lib/kg/merge.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/kg/rebuild-aliases.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/kg/rebuild-aliases.js",
+        "server/recovered/worker/src/lib/kg/rebuild-aliases.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/kg/term-quality.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/kg/term-quality.js",
+        "server/recovered/worker/src/lib/kg/term-quality.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/llm.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/llm.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/load-env.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/load-env.js",
+        "server/recovered/worker/src/lib/load-env.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/local-llm-extras.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/local-llm-extras.js",
+        "server/recovered/worker/src/lib/local-llm-extras.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/mentors.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/mentors.js",
+        "server/recovered/worker/src/lib/mentors.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/model-context.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/model-context.js",
+        "server/recovered/worker/src/lib/model-context.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/model-ids.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/model-ids.js",
+        "server/recovered/worker/src/lib/model-ids.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/nkrd-ingest.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/nkrd-ingest.js",
+        "server/recovered/worker/src/lib/nkrd-ingest.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/nkrd-markdown.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/nkrd-markdown.js",
+        "server/recovered/worker/src/lib/nkrd-markdown.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/normalize.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/normalize.js",
+        "server/recovered/worker/src/lib/normalize.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/office-docs-cli.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/office-docs-cli.js",
+        "server/recovered/worker/src/lib/office-docs-cli.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/openai-anthropic-compat.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/openai-anthropic-compat.js",
+        "server/recovered/worker/src/lib/openai-anthropic-compat.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/agent-step-order.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/agent-step-order.js",
+        "server/recovered/worker/src/lib/opencode/agent-step-order.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/attachments.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/attachments.js",
+        "server/recovered/worker/src/lib/opencode/attachments.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/chat-ask.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/chat-ask.js",
+        "server/recovered/worker/src/lib/opencode/chat-ask.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/chat-repro-progress.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/chat-repro-progress.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/chat-subagents.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/chat-subagents.js",
+        "server/recovered/worker/src/lib/opencode/chat-subagents.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/chat-tools.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/chat-tools.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/chat.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/chat.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/citation-format.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/citation-format.js",
+        "server/recovered/worker/src/lib/opencode/citation-format.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/citations.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/citations.js",
+        "server/recovered/worker/src/lib/opencode/citations.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/context-compact.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/context-compact.js",
+        "server/recovered/worker/src/lib/opencode/context-compact.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/context-usage.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/context-usage.js",
+        "server/recovered/worker/src/lib/opencode/context-usage.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/gateway-retry-trace.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/gateway-retry-trace.js",
+        "server/recovered/worker/src/lib/opencode/gateway-retry-trace.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/grid-guide.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/grid-guide.js",
+        "server/recovered/worker/src/lib/opencode/grid-guide.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/patent.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/patent.js",
+        "server/recovered/worker/src/lib/opencode/patent.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/persisted-agent-steps.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/persisted-agent-steps.js",
+        "server/recovered/worker/src/lib/opencode/persisted-agent-steps.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/research-review-workspace.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/research-review-workspace.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/research-review.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/research-review.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/run-guards.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/run-guards.js",
+        "server/recovered/worker/src/lib/opencode/run-guards.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/runtime.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/runtime.js",
+        "server/recovered/worker/src/lib/opencode/runtime.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/scheme-solve.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/scheme-solve.js",
+        "server/recovered/worker/src/lib/opencode/scheme-solve.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/session-routing.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/session-routing.js",
+        "server/recovered/worker/src/lib/opencode/session-routing.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/thinking-trace.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/thinking-trace.js",
+        "server/recovered/worker/src/lib/opencode/thinking-trace.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/opencode/tool-summary.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/opencode/tool-summary.js",
+        "server/recovered/worker/src/lib/opencode/tool-summary.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/paper-authors.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/paper-authors.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/paper-metadata.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/paper-metadata.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/paper-segment.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/paper-segment.js",
+        "server/recovered/worker/src/lib/paper-segment.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/papers.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/papers.js",
+        "server/recovered/worker/src/lib/papers.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/parent-chunk.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/parent-chunk.js",
+        "server/recovered/worker/src/lib/parent-chunk.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/diagram-renderer.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/diagram-renderer.js",
+        "server/recovered/worker/src/lib/patent-generation/diagram-renderer.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/docx-math.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/docx-math.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/export.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/export.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/figures.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/figures.js",
+        "server/recovered/worker/src/lib/patent-generation/figures.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/mtef.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/mtef.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/pipeline.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/pipeline.js",
+        "server/recovered/worker/src/lib/patent-generation/pipeline.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/prior-art.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/prior-art.js",
+        "server/recovered/worker/src/lib/patent-generation/prior-art.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/run-store.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/run-store.js",
+        "server/recovered/worker/src/lib/patent-generation/run-store.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/runner.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/runner.js",
+        "server/recovered/worker/src/lib/patent-generation/runner.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/schema-retry.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/schema-retry.js",
+        "server/recovered/worker/src/lib/patent-generation/schema-retry.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/source-parser.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/source-parser.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/store.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/store.js",
+        "server/recovered/worker/src/lib/patent-generation/store.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-generation/validators.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-generation/validators.js",
+        "server/recovered/worker/src/lib/patent-generation/validators.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patent-text.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patent-text.js",
+        "server/recovered/worker/src/lib/patent-text.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/patents.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/patents.js",
+        "server/recovered/worker/src/lib/patents.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/pdf2md.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/pdf2md.js",
+        "server/recovered/worker/src/lib/pdf2md.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ppt-voice/constants.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ppt-voice/constants.js",
+        "server/recovered/worker/src/lib/ppt-voice/constants.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ppt-voice/notes-ai.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ppt-voice/notes-ai.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ppt-voice/orchestrator.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ppt-voice/orchestrator.js",
+        "server/recovered/worker/src/lib/ppt-voice/orchestrator.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ppt-voice/settings.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ppt-voice/settings.js",
+        "server/recovered/worker/src/lib/ppt-voice/settings.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ppt-voice/sidecar.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ppt-voice/sidecar.js",
+        "server/recovered/worker/src/lib/ppt-voice/sidecar.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ppt-voice/store.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ppt-voice/store.js",
+        "server/recovered/worker/src/lib/ppt-voice/store.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ppt-voice/workspace.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ppt-voice/workspace.js",
+        "server/recovered/worker/src/lib/ppt-voice/workspace.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/query-cache.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/query-cache.js",
+        "server/recovered/worker/src/lib/query-cache.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ragpack/export.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ragpack/export.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ragpack/import.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ragpack/import.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ragpack/job-state.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ragpack/job-state.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ragpack/paths.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ragpack/paths.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/ragpack/types.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/ragpack/types.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/reasoning-tier.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/reasoning-tier.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/research-analytics.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/research-analytics.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/research-review/artifacts.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/research-review/artifacts.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/research-review/attachments.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/research-review/attachments.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/research-review/constants.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/research-review/constants.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/research-review/export.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/research-review/export.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/runtime-children.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/runtime-children.js",
+        "server/recovered/worker/src/lib/runtime-children.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/agent-trace.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/agent-trace.js",
+        "server/recovered/worker/src/lib/scheme-solve/agent-trace.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/attachments.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/attachments.js",
+        "server/recovered/worker/src/lib/scheme-solve/attachments.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/best-idea.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/best-idea.js",
+        "server/recovered/worker/src/lib/scheme-solve/best-idea.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/brainstorm.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/brainstorm.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/compute-sidecar.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/compute-sidecar.js",
+        "server/recovered/worker/src/lib/scheme-solve/compute-sidecar.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/constants.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/constants.js",
+        "server/recovered/worker/src/lib/scheme-solve/constants.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/dispatch-case.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/dispatch-case.js",
+        "server/recovered/worker/src/lib/scheme-solve/dispatch-case.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/dispatch-runner.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/dispatch-runner.js",
+        "server/recovered/worker/src/lib/scheme-solve/dispatch-runner.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/dispatch.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/dispatch.js",
+        "server/recovered/worker/src/lib/scheme-solve/dispatch.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/esopt-mps.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/esopt-mps.js",
+        "server/recovered/worker/src/lib/scheme-solve/esopt-mps.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/esopt.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/esopt.js",
+        "server/recovered/worker/src/lib/scheme-solve/esopt.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/export.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/export.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/forecast-runner.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/forecast-runner.js",
+        "server/recovered/worker/src/lib/scheme-solve/forecast-runner.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/forecast.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/forecast.js",
+        "server/recovered/worker/src/lib/scheme-solve/forecast.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/loss-outputs.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/loss-outputs.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/loss-runner.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/loss-runner.js",
+        "server/recovered/worker/src/lib/scheme-solve/loss-runner.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/loss.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/loss.js",
+        "server/recovered/worker/src/lib/scheme-solve/loss.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/mgplan-case.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/mgplan-case.js",
+        "server/recovered/worker/src/lib/scheme-solve/mgplan-case.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/mgplan-results.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/mgplan-results.js",
+        "server/recovered/worker/src/lib/scheme-solve/mgplan-results.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/mgplan-runner.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/mgplan-runner.js",
+        "server/recovered/worker/src/lib/scheme-solve/mgplan-runner.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/mgplan.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/mgplan.js",
+        "server/recovered/worker/src/lib/scheme-solve/mgplan.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/model-json.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/model-json.js",
+        "server/recovered/worker/src/lib/scheme-solve/model-json.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/modelica-runner.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/modelica-runner.js",
+        "server/recovered/worker/src/lib/scheme-solve/modelica-runner.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/modelica.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/modelica.js",
+        "server/recovered/worker/src/lib/scheme-solve/modelica.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/orchestrator.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/orchestrator.js",
+        "server/recovered/worker/src/lib/scheme-solve/orchestrator.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/parse-brainstorm.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/parse-brainstorm.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/store.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/store.js",
+        "server/recovered/worker/src/lib/scheme-solve/store.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/tdmg-case.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/tdmg-case.js",
+        "server/recovered/worker/src/lib/scheme-solve/tdmg-case.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/tdmg-results.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/tdmg-results.js",
+        "server/recovered/worker/src/lib/scheme-solve/tdmg-results.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/tdmg-runner.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/tdmg-runner.js",
+        "server/recovered/worker/src/lib/scheme-solve/tdmg-runner.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/tdmg.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/tdmg.js",
+        "server/recovered/worker/src/lib/scheme-solve/tdmg.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/types.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/types.js",
+        "server/recovered/worker/src/lib/scheme-solve/types.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/scheme-solve/workspace.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/scheme-solve/workspace.js",
+        "server/recovered/worker/src/lib/scheme-solve/workspace.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/search-index.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/search-index.js",
+        "server/recovered/worker/src/lib/search-index.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/self-learning-search.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/self-learning-search.js",
+        "server/recovered/worker/src/lib/self-learning-search.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/self-learning.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/self-learning.js",
+        "server/recovered/worker/src/lib/self-learning.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/shared-skills.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/shared-skills.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/skill-permissions.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/skill-permissions.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/skill-removed.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/skill-removed.js",
+        "server/recovered/worker/src/lib/skill-removed.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/skill-visibility.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/skill-visibility.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/subagent-router-store.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/subagent-router-store.js",
+        "server/recovered/worker/src/lib/subagent-router-store.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/subagent-router.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/subagent-router.js",
+        "server/recovered/worker/src/lib/subagent-router.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/system-runtime.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/system-runtime.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/text.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/text.js",
+        "server/recovered/worker/src/lib/text.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/thinking-levels-core.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/thinking-levels-core.js",
+        "server/recovered/worker/src/lib/thinking-levels-core.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/thinking-levels.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/thinking-levels.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/virtual-sim/pipeline.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/virtual-sim/pipeline.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/virtual-sim/tools.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/virtual-sim/tools.js"
+      ]
+    },
+    {
+      "originalModule": "src/lib/virtual-sim/visualize.ts",
+      "reconstructedFiles": [
+        "server/recovered/api/src/lib/virtual-sim/visualize.js"
+      ]
+    }
+  ]
+}

@@ -1,10 +1,12 @@
-﻿param(
-  [ValidateSet("install", "start", "stop", "status", "restart")]
+param(
+  [ValidateSet("install", "update", "start", "stop", "status", "restart")]
   [string]$Action = "status"
 )
 
 $ErrorActionPreference = "Stop"
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot 'project-env.ps1')
+Import-Ai4esProjectEnv $ProjectRoot
 $StorageRoot = Join-Path $ProjectRoot "storage"
 $ToolRoot = Join-Path $ProjectRoot "tools\opencode"
 $ExePath = Join-Path $ToolRoot "opencode.exe"
@@ -17,6 +19,11 @@ $GatewayScript = Join-Path $ProjectRoot "scripts\llm-gateway.mjs"
 $GatewayStdoutPath = Join-Path $StorageRoot "llm-gateway.out.log"
 $GatewayStderrPath = Join-Path $StorageRoot "llm-gateway.err.log"
 $CorpusManifest = Join-Path $StorageRoot "knowledge-corpus\MANIFEST.md"
+
+function ConvertTo-OpenCodeJsonPath([string]$Value) {
+  if (-not $Value) { return $Value }
+  return $Value.Replace('\', '/')
+}
 
 function Get-GatewayPort {
   if ($env:LLM_GATEWAY_PORT) { return [int]$env:LLM_GATEWAY_PORT }
@@ -117,6 +124,15 @@ function Read-SidecarState {
   }
 }
 
+function Protect-SidecarState {
+  if (-not (Test-Path $StatePath)) { return }
+  $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+  & icacls.exe $StatePath /inheritance:r /grant:r "${identity}:(F)" '*S-1-5-18:(F)' '*S-1-5-32-544:(F)' | Out-Null
+  if ($LASTEXITCODE -ne 0) {
+    throw "Failed to protect OpenCode sidecar state: $StatePath"
+  }
+}
+
 function Test-ProcessAlive([object]$State) {
   if ($null -eq $State -or -not $State.pid) { return $false }
   $process = Get-Process -Id ([int]$State.pid) -ErrorAction SilentlyContinue
@@ -139,7 +155,8 @@ function New-SidecarPassword {
 }
 
 function Install-OpenCode {
-  if (Test-Path $ExePath) {
+  param([switch]$Force)
+  if ((Test-Path $ExePath) -and -not $Force) {
     Write-Output "OpenCode already installed: $ExePath"
     return
   }
@@ -166,6 +183,15 @@ function Install-OpenCode {
   Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $extractPath
   $version = & $ExePath --version
   Write-Output "Installed OpenCode $version at $ExePath"
+}
+
+function Stop-SidecarProcessKeepState {
+  $state = Read-SidecarState
+  if (Test-ProcessAlive $state) {
+    Stop-Process -Id ([int]$state.pid) -Force
+    Write-Output "Stopped OpenCode sidecar process $($state.pid)"
+  }
+  Stop-Gateway $state
 }
 
 function Install-Ripgrep {
@@ -213,18 +239,23 @@ function Get-Health([object]$State) {
 
 function Start-Sidecar {
   if (-not (Test-Path $CorpusManifest)) {
+    & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'ensure-empty-corpus.ps1')
+  }
+  if (-not (Test-Path $CorpusManifest)) {
     throw "Markdown corpus is missing. Run the corpus export before starting OpenCode: $CorpusManifest"
   }
   if (-not (Test-Path $ExePath)) { Install-OpenCode }
   if (-not (Test-Path $RipgrepPath)) { Install-Ripgrep }
   New-Item -ItemType Directory -Force -Path $StorageRoot | Out-Null
   $existing = Read-SidecarState
+  Protect-SidecarState
   if (Test-ProcessAlive $existing) {
     $health = Get-Health $existing
     $gatewayUrl = if ($existing.gatewayUrl) { [string]$existing.gatewayUrl } else { Get-GatewayUrl }
     $gatewayOk = Test-GatewayHealth $gatewayUrl
     $usesGateway = $null -ne $existing.PSObject.Properties['gatewayUrl'] -and [string]$existing.gatewayUrl
-    if ($null -ne $health -and $health.healthy -and $gatewayOk -and $usesGateway) {
+    $usesAgentToken = $null -ne $existing.PSObject.Properties['agentApiToken'] -and [string]$existing.agentApiToken
+    if ($null -ne $health -and $health.healthy -and $gatewayOk -and $usesGateway -and $usesAgentToken) {
       Write-Output "OpenCode sidecar is already healthy at $($existing.baseUrl)"
       Write-Output "LLM gateway already healthy at $gatewayUrl"
       return
@@ -249,11 +280,19 @@ function Start-Sidecar {
   } else {
     $password = New-SidecarPassword
   }
+  if ($env:AI4ES_AGENT_API_TOKEN) {
+    $agentApiToken = [string]$env:AI4ES_AGENT_API_TOKEN
+  } elseif ($null -ne $existing -and $existing.PSObject.Properties['agentApiToken'] -and $existing.agentApiToken) {
+    $agentApiToken = [string]$existing.agentApiToken
+  } else {
+    $agentApiToken = New-SidecarPassword
+  }
   $env:OPENCODE_SERVER_USERNAME = $username
   $env:OPENCODE_SERVER_PASSWORD = $password
+  $env:AI4ES_AGENT_API_TOKEN = $agentApiToken
   $env:OPENCODE_CONFIG = Join-Path $ProjectRoot "opencode.json"
   $env:OPENCODE_CONFIG_DIR = Join-Path $ProjectRoot ".opencode"
-  $env:OPENCODE_SKILLS_DIR = (Join-Path $ProjectRoot ".opencode\skills").Replace("\", "/")
+  $env:OPENCODE_SKILLS_DIR = ConvertTo-OpenCodeJsonPath (Join-Path $ProjectRoot ".opencode\skills")
   $agentsLink = Join-Path $StorageRoot ".opencode\agents"
   $agentsTarget = Join-Path $ProjectRoot ".opencode\agents"
   if (-not (Test-Path $agentsLink)) {
@@ -270,6 +309,42 @@ function Start-Sidecar {
   # OpenCode always uses local gateway; upstream URL is read live from settings.json
   $gateway = Start-Gateway
   $env:KNOWLEDGE_QA_BASE_URL = [string]$gateway.url
+  $esoptRootRaw = if ($env:ESOPT_ROOT) { [string]$env:ESOPT_ROOT } else { "tools\esopt" }
+  $env:ESOPT_ROOT = if ([IO.Path]::IsPathRooted($esoptRootRaw)) {
+    [IO.Path]::GetFullPath($esoptRootRaw)
+  } else {
+    [IO.Path]::GetFullPath((Join-Path $ProjectRoot $esoptRootRaw))
+  }
+  $esoptBridgeRaw = if ($env:ESOPT_BRIDGE) { [string]$env:ESOPT_BRIDGE } else { "tools\esopt\esopt_bridge" }
+  $env:ESOPT_BRIDGE = if ([IO.Path]::IsPathRooted($esoptBridgeRaw)) {
+    [IO.Path]::GetFullPath($esoptBridgeRaw)
+  } else {
+    [IO.Path]::GetFullPath((Join-Path $ProjectRoot $esoptBridgeRaw))
+  }
+  $esoptNativeRaw = if ($env:ESOPT_NATIVE_ROOT) { [string]$env:ESOPT_NATIVE_ROOT } else { "tools\esopt" }
+  $env:ESOPT_NATIVE_ROOT = if ([IO.Path]::IsPathRooted($esoptNativeRaw)) {
+    [IO.Path]::GetFullPath($esoptNativeRaw)
+  } else {
+    [IO.Path]::GetFullPath((Join-Path $ProjectRoot $esoptNativeRaw))
+  }
+  if (-not $env:ESOPT_PYTHON) {
+    $pythonDefault = Join-Path $ProjectRoot "tools\esopt-venv\Scripts\python.exe"
+    $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+    $env:ESOPT_PYTHON = if (Test-Path $pythonDefault) {
+      $pythonDefault
+    } elseif ($pythonCommand) {
+      $pythonCommand.Source
+    } else {
+      "python"
+    }
+  } elseif (-not [IO.Path]::IsPathRooted([string]$env:ESOPT_PYTHON)) {
+    $env:ESOPT_PYTHON = [IO.Path]::GetFullPath((Join-Path $ProjectRoot ([string]$env:ESOPT_PYTHON)))
+  }
+  $env:ESOPT_ROOT = ConvertTo-OpenCodeJsonPath $env:ESOPT_ROOT
+  $env:ESOPT_BRIDGE = ConvertTo-OpenCodeJsonPath $env:ESOPT_BRIDGE
+  $env:ESOPT_NATIVE_ROOT = ConvertTo-OpenCodeJsonPath $env:ESOPT_NATIVE_ROOT
+  $env:ESOPT_PYTHON = ConvertTo-OpenCodeJsonPath $env:ESOPT_PYTHON
+  $env:ESOPT_MCP_LAUNCHER = ConvertTo-OpenCodeJsonPath (Join-Path $ProjectRoot "scripts\esopt-mcp.cmd")
 
   $process = Start-Process -FilePath $ExePath `
     -ArgumentList @("serve", "--hostname", "127.0.0.1", "--port", "$port") `
@@ -284,6 +359,7 @@ function Start-Sidecar {
     baseUrl = "http://127.0.0.1:$port"
     username = $username
     password = $password
+    agentApiToken = $agentApiToken
     executable = $ExePath
     workingDirectory = $StorageRoot
     startedAt = [DateTime]::UtcNow.ToString("o")
@@ -291,6 +367,7 @@ function Start-Sidecar {
     gatewayUrl = $gateway.url
   }
   $state | ConvertTo-Json | Set-Content -Encoding UTF8 $StatePath
+  Protect-SidecarState
 
   $healthy = $false
   for ($attempt = 0; $attempt -lt 40; $attempt += 1) {
@@ -349,6 +426,17 @@ switch ($Action) {
   "install" {
     Install-OpenCode
     Install-Ripgrep
+  }
+  "update" {
+    $existing = Read-SidecarState
+    $wasRunning = Test-ProcessAlive $existing
+    if ($wasRunning) {
+      Stop-SidecarProcessKeepState
+    }
+    Install-OpenCode -Force
+    if ($wasRunning) {
+      Start-Sidecar
+    }
   }
   "start" { Start-Sidecar }
   "stop" { Stop-Sidecar }

@@ -1,0 +1,1 @@
+"""OpenModelica gateway package."""

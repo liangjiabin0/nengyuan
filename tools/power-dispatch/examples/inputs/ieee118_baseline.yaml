@@ -1,0 +1,9 @@
+version: "1.0"
+task: {name: "IEEE118 大规模接口联调", mode: single_period_operation}
+case: {case_id: ieee118, source: pandapower_builtin}
+capabilities: {hierarchy: transmission, time_scales: [single_period], power_control: P, rolling_optimization: false}
+objective: {operating_cost: {enabled: true, weight: 1.0}}
+constraints: {line_loading_max_pct: 100}
+solver: {backend: reference_dry_run}
+outputs: [case_summary]
+metadata: {purpose: dry_run_example}

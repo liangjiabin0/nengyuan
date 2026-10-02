@@ -1,0 +1,23 @@
+{
+  "case": "sSEP",
+  "requiredInputs": [
+    "oT_Data_Option_{case}.csv",
+    "oT_Data_Parameter_{case}.csv",
+    "oT_Data_Demand_{case}.csv",
+    "oT_Data_ElectricityPrice_{case}.csv",
+    "oT_Data_Generation_{case}.csv",
+    "oT_Data_VariableMaxGeneration_{case}.csv",
+    "oT_Data_NodeLocation_{case}.csv",
+    "oT_Data_Network_{case}.csv",
+    "oT_Dict_LoadLevel_{case}.csv"
+  ],
+  "optionalInputs": [
+    "oT_Data_WeatherData_{case}.csv",
+    "oT_Data_EV_{case}.csv"
+  ],
+  "resultPatterns": [
+    "oT_Result_*_{case}.csv",
+    "oT_Plot_*_{case}.html",
+    "oT_Plot_*_{case}.png"
+  ]
+}
