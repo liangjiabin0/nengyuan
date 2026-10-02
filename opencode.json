@@ -1,0 +1,465 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "gateway/arc",
+  "small_model": "gateway/arc",
+  "default_agent": "knowledge-qa",
+  "agent": {
+    "plan": {
+      "disable": true
+    },
+    "general": {
+      "mode": "subagent",
+      "permission": {
+        "doom_loop": "deny"
+      }
+    },
+    "explore": {
+      "mode": "subagent",
+      "permission": {
+        "doom_loop": "deny"
+      }
+    },
+    "finalizer": {
+      "mode": "subagent",
+      "model": "gateway/arc",
+      "options": {
+        "think": false,
+        "reasoning_effort": "none"
+      }
+    },
+    "esopt-mcp": {
+      "mode": "subagent",
+      "model": "gateway/arc",
+      "description": "仅在父 Agent 已加载 esopt skill 后执行 ESOPT/DCOPF/LP/MIP 求解。",
+      "tools": {
+        "*": false,
+        "esopt_*": true
+      },
+      "options": {
+        "think": false,
+        "reasoning_effort": "none"
+      },
+      "permission": {
+        "doom_loop": "deny"
+      }
+    }
+  },
+  "share": "disabled",
+  "autoupdate": false,
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "tail_turns": 6,
+    "reserved": 32768
+  },
+  "skills": {
+    "paths": [
+      "{env:OPENCODE_SKILLS_DIR}"
+    ]
+  },
+  "provider": {
+    "gateway": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "AI4ES Gateway",
+      "options": {
+        "baseURL": "{env:KNOWLEDGE_QA_BASE_URL}"
+      },
+      "models": {
+        "arc": {
+          "name": "arc",
+          "attachment": true,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning"
+          },
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          },
+          "options": {
+            "temperature": 0.7,
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repetition_penalty": 1,
+            "chat_template_kwargs": {
+              "enable_thinking": false
+            }
+          },
+          "variants": {
+            "medium": {
+              "temperature": 0.8,
+              "top_p": 0.95,
+              "top_k": 20,
+              "min_p": 0,
+              "presence_penalty": 0.3,
+              "repetition_penalty": 1.1,
+              "reasoning_effort": "medium",
+              "include_reasoning": true,
+              "chat_template_kwargs": {
+                "enable_thinking": true,
+                "preserve_thinking": true
+              }
+            },
+            "xhigh": {
+              "temperature": 0.8,
+              "top_p": 0.95,
+              "top_k": 20,
+              "min_p": 0,
+              "presence_penalty": 0.3,
+              "repetition_penalty": 1.1,
+              "reasoning_effort": "xhigh",
+              "include_reasoning": true,
+              "chat_template_kwargs": {
+                "enable_thinking": true,
+                "preserve_thinking": true
+              }
+            }
+          }
+        },
+        "ai4es-small": {
+          "name": "arc",
+          "id": "arc",
+          "attachment": true,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning"
+          },
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          },
+          "options": {
+            "temperature": 0.7,
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repetition_penalty": 1,
+            "chat_template_kwargs": {
+              "enable_thinking": false
+            }
+          }
+        },
+        "ai4es-small-low": {
+          "name": "arc",
+          "id": "arc",
+          "attachment": true,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning"
+          },
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          },
+          "options": {
+            "temperature": 0.8,
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0.3,
+            "repetition_penalty": 1.1,
+            "reasoning_effort": "medium",
+            "include_reasoning": true,
+            "chat_template_kwargs": {
+              "enable_thinking": true,
+              "preserve_thinking": true
+            }
+          }
+        },
+        "ai4es-small-medium": {
+          "name": "arc",
+          "id": "arc",
+          "attachment": true,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning"
+          },
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          },
+          "options": {
+            "temperature": 0.8,
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0.3,
+            "repetition_penalty": 1.1,
+            "reasoning_effort": "medium",
+            "include_reasoning": true,
+            "chat_template_kwargs": {
+              "enable_thinking": true,
+              "preserve_thinking": true
+            }
+          }
+        },
+        "ai4es-small-xhigh": {
+          "name": "arc",
+          "id": "arc",
+          "attachment": true,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning"
+          },
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          },
+          "options": {
+            "temperature": 0.8,
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0.3,
+            "repetition_penalty": 1.1,
+            "reasoning_effort": "xhigh",
+            "include_reasoning": true,
+            "chat_template_kwargs": {
+              "enable_thinking": true,
+              "preserve_thinking": true
+            }
+          }
+        },
+        "thunder": {
+          "name": "thunder",
+          "attachment": true,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning_content"
+          },
+          "limit": {
+            "context": 919387,
+            "output": 32768
+          },
+          "options": {
+            "include_reasoning": false
+          },
+          "variants": {
+            "low": {
+              "reasoning_effort": "low",
+              "include_reasoning": true
+            },
+            "medium": {
+              "reasoning_effort": "medium",
+              "include_reasoning": true
+            },
+            "high": {
+              "reasoning_effort": "high",
+              "include_reasoning": true
+            },
+            "xhigh": {
+              "reasoning_effort": "xhigh",
+              "include_reasoning": true
+            }
+          }
+        },
+        "ai4es-large": {
+          "name": "thunder",
+          "attachment": true,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning_content"
+          },
+          "limit": {
+            "context": 919387,
+            "output": 32768
+          },
+          "options": {
+            "include_reasoning": false
+          },
+          "variants": {
+            "low": {
+              "reasoning_effort": "low",
+              "include_reasoning": true
+            },
+            "medium": {
+              "reasoning_effort": "medium",
+              "include_reasoning": true
+            },
+            "high": {
+              "reasoning_effort": "high",
+              "include_reasoning": true
+            },
+            "xhigh": {
+              "reasoning_effort": "xhigh",
+              "include_reasoning": true
+            }
+          },
+          "id": "thunder"
+        },
+        "storm": {
+          "name": "storm",
+          "attachment": true,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "reasoning": true,
+          "interleaved": {
+            "field": "reasoning_content"
+          },
+          "limit": {
+            "context": 272000,
+            "output": 32768
+          },
+          "options": {
+            "include_reasoning": false
+          },
+          "variants": {
+            "low": {
+              "reasoning_effort": "low",
+              "include_reasoning": true
+            },
+            "medium": {
+              "reasoning_effort": "medium",
+              "include_reasoning": true
+            },
+            "high": {
+              "reasoning_effort": "high",
+              "include_reasoning": true
+            },
+            "xhigh": {
+              "reasoning_effort": "xhigh",
+              "include_reasoning": true
+            }
+          }
+        },
+        "ai4es-image": {
+          "name": "AI4ES Image (Gateway)",
+          "reasoning": false,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "image"
+            ]
+          },
+          "options": {}
+        }
+      }
+    }
+  },
+  "tools": {
+    "esopt_*": false
+  },
+  "permission": {
+    "*": "deny",
+    "read": "allow",
+    "list": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "write": "allow",
+    "edit": "allow",
+    "bash": "allow",
+    "external_directory": "deny",
+    "task": "deny",
+    "todowrite": "deny",
+    "webfetch": "allow",
+    "websearch": "deny",
+    "web_search": "allow",
+    "shared_skills": "allow",
+    "save_learning_memory": "allow",
+    "search_learning_memory": "allow",
+    "skill": {
+      "*": "allow",
+      "chart-discovery": "deny"
+    },
+    "lsp": "deny",
+    "mcp": {
+      "*": "allow"
+    },
+    "doom_loop": "deny"
+  },
+  "mcp": {
+    "esopt": {
+      "type": "local",
+      "command": [
+        "cmd.exe",
+        "/d",
+        "/c",
+        "{env:ESOPT_MCP_LAUNCHER}"
+      ],
+      "enabled": true,
+      "timeout": 120000,
+      "environment": {
+        "ESOPT_ROOT": "{env:ESOPT_ROOT}",
+        "ESOPT_BRIDGE": "{env:ESOPT_BRIDGE}",
+        "ESOPT_NATIVE_ROOT": "{env:ESOPT_NATIVE_ROOT}",
+        "ESOPT_PYTHON": "{env:ESOPT_PYTHON}"
+      }
+    }
+  }
+}

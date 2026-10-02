@@ -1,0 +1,8 @@
+let config, selected = 0; const $ = id => document.getElementById(id);
+async function load(){config=await fetch('/api/formulas').then(r=>r.json());$('source').value=config.sourcePptx;$('output').value=config.outputPptx;drawList();select(0);status('已就绪')}
+function drawList(){$('list').replaceChildren(...config.formulas.map((f,i)=>{const b=document.createElement('button');b.className=i===selected?'active':'';b.innerHTML=`<b>${i+1}</b><span>${f.label||f.id}</span>`;b.onclick=()=>select(i);return b}))}
+function save(){if(config?.formulas?.[selected])config.formulas[selected].latex=$('latex').value}
+function select(i){save();selected=i;$('latex').value=config.formulas[i].latex;drawList();preview()}
+async function preview(){save();status('渲染中');const r=await fetch('/api/preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(config.formulas[selected])});const t=await r.text();if(!r.ok)throw Error(t);$('svg').innerHTML=t;status('预览已更新')}
+async function build(){save();config.sourcePptx=$('source').value.trim();config.outputPptx=$('output').value.trim();status('生成中');$('build').disabled=true;try{const r=await fetch('/api/build',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(config)});const x=await r.json();if(!r.ok||!x.ok)throw Error(x.error||'生成失败');$('log').textContent=`已生成：\n${x.outputPath}`;status('PPTX 已生成')}catch(e){$('log').textContent=e.stack||e.message;status('生成失败')}finally{$('build').disabled=false}}
+function status(t){$('status').textContent=t}$('preview').onclick=()=>preview().catch(e=>$('log').textContent=e.stack||e.message);$('build').onclick=build;load().catch(e=>$('log').textContent=e.stack||e.message);

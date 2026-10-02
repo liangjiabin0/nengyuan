@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-multiturn-50.schema.json",
+  "type": "object",
+  "required": ["version", "dataSnapshot", "scenarios"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "description": { "type": "string" },
+    "dataSnapshot": {
+      "type": "object",
+      "required": ["papers", "patents", "mentors", "projects"],
+      "properties": {
+        "papers": { "type": "integer", "minimum": 0 },
+        "patents": { "type": "integer", "minimum": 0 },
+        "mentors": { "type": "integer", "minimum": 0 },
+        "projects": { "type": "integer", "minimum": 0 },
+        "paperDocuments": { "type": "integer", "minimum": 0 },
+        "graphEntities": { "type": "integer", "minimum": 0 },
+        "graphEdges": { "type": "integer", "minimum": 0 },
+        "ragpackImportedAt": { "type": "string" },
+        "fingerprint": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 50,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": ["id", "category", "description", "turns"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Z][0-9]{2}$" },
+          "category": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "turns": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "required": ["question", "expectedIntent"],
+              "properties": {
+                "question": { "type": "string", "minLength": 1 },
+                "expectedIntent": { "type": "string", "minLength": 1 },
+                "requiredTools": { "type": "array", "items": { "type": "string" } },
+                "forbiddenTools": { "type": "array", "items": { "type": "string" } },
+                "requiredSourceTypes": { "type": "array", "items": { "type": "string" } },
+                "mustContain": { "type": "array", "items": { "type": "string" } },
+                "mustContainAny": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": { "type": "string" }
+                  }
+                },
+                "mustNotContain": { "type": "array", "items": { "type": "string" } },
+                "expectedRefusal": { "type": "boolean" },
+                "expectedClarification": { "type": "boolean" },
+                "expectedTopicShift": { "type": "boolean" },
+                "expectedResolvedPerson": { "type": "string" },
+                "expectedFocusPaperContains": { "type": "string" },
+                "expectedNoTools": { "type": "boolean" },
+                "minSources": { "type": "integer", "minimum": 0 },
+                "maxToolCalls": { "type": "integer", "minimum": 0 },
+                "notes": { "type": "string" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

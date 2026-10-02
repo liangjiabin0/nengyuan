@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "layout-map-schema.v1",
+  "title": "Measured editable slide layout map",
+  "type": "object",
+  "required": [
+    "slide_index", "title", "subtitle", "section", "canvas_width_px",
+    "canvas_height_px", "slide_width_in", "slide_height_in", "elements"
+  ],
+  "properties": {
+    "slide_index": {"type": "integer", "minimum": 1},
+    "title": {"type": "string"},
+    "subtitle": {"type": "string"},
+    "section": {"type": "string"},
+    "canvas_width_px": {"type": "number", "exclusiveMinimum": 0},
+    "canvas_height_px": {"type": "number", "exclusiveMinimum": 0},
+    "slide_width_in": {"type": "number", "exclusiveMinimum": 0},
+    "slide_height_in": {"type": "number", "exclusiveMinimum": 0},
+    "elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "type", "text", "x", "y", "w", "h", "font", "font_size",
+          "bold", "italic", "color", "fill", "line", "radius", "align",
+          "vertical_align", "z_order", "editable", "asset_source",
+          "reproduction_strategy"
+        ],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "type": {"type": "string", "minLength": 1},
+          "text": {"type": "string"},
+          "x": {"type": "number", "minimum": 0},
+          "y": {"type": "number", "minimum": 0},
+          "w": {"type": "number", "minimum": 0},
+          "h": {"type": "number", "minimum": 0},
+          "font": {"type": "string"},
+          "font_size": {"type": "number", "minimum": 0},
+          "bold": {"type": "boolean"},
+          "italic": {"type": "boolean"},
+          "color": {"type": ["string", "null"]},
+          "fill": {"type": ["string", "null"]},
+          "line": {"type": ["string", "null"]},
+          "radius": {"type": "number", "minimum": 0},
+          "align": {"type": "string"},
+          "vertical_align": {"type": "string"},
+          "z_order": {"type": "integer"},
+          "editable": {"type": "boolean"},
+          "asset_source": {"type": ["string", "null"]},
+          "reproduction_strategy": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

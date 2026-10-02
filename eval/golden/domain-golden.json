@@ -1,0 +1,187 @@
+{
+  "$schema": "./domain-golden.schema.json",
+  "version": 1,
+  "description": "本地 Agent 单轮黄金集；由 id 与 20 题 CSV 对齐。",
+  "cases": [
+    {
+      "id": 1,
+      "intent": "paper",
+      "mustContain": ["匹配控制", "论文", "专利"],
+      "expectedSourceTypes": ["paper", "patent"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": ["analytics.group_by"],
+      "expectedRefusal": false
+    },
+    {
+      "id": 2,
+      "intent": "paper",
+      "mustContain": ["科学问题", "关键变量", "实验", "创新"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 3,
+      "intent": "paper",
+      "mustContain": ["SiC", "MOSFET"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": ["analytics.group_by"],
+      "expectedRefusal": false
+    },
+    {
+      "id": 4,
+      "intent": "paper",
+      "mustContain": ["构网", "稳定", "控制"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 5,
+      "intent": "paper",
+      "mustContain": ["匹配控制", "CN-"],
+      "expectedSourceTypes": ["patent"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 6,
+      "intent": "paper",
+      "mustContain": ["匹配控制", "论文", "专利"],
+      "expectedSourceTypes": ["paper", "patent"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 7,
+      "intent": "mentor",
+      "mustContain": ["导师", "学校", "方向"],
+      "expectedSourceTypes": ["mentor"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": ["analytics.group_by"],
+      "expectedRefusal": false
+    },
+    {
+      "id": 8,
+      "intent": "mentor",
+      "mustContain": ["上海交通大学", "导师"],
+      "expectedSourceTypes": ["mentor"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": ["analytics.group_by"],
+      "expectedRefusal": false
+    },
+    {
+      "id": 9,
+      "intent": "aggregate",
+      "mustContain": ["论文", "导师"],
+      "expectedSourceTypes": [],
+      "mustTools": ["sql"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 10,
+      "intent": "paper",
+      "mustContain": ["6.5 kV", "SiC", "MOSFET"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["read"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 11,
+      "intent": "paper",
+      "mustContain": ["次同步振荡", "LCC-HVDC", "匹配控制"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["read"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 12,
+      "intent": "paper",
+      "mustContain": ["跟网", "构网", "稳定"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 13,
+      "intent": "paper",
+      "mustContain": ["VSG", "惯量"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 14,
+      "intent": "paper",
+      "mustContain": ["MMC", "柔性直流"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 15,
+      "intent": "paper",
+      "mustContain": ["虚拟电厂"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 16,
+      "intent": "paper",
+      "mustContain": ["高频", "DAB"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 17,
+      "intent": "person",
+      "mustContain": ["作者", "高本锋"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["domain.persons.resolve"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 18,
+      "intent": "citation",
+      "mustContain": ["引用"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["graph.citation_chain"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 19,
+      "intent": "paper",
+      "mustContain": ["SiC", "缺口", "建议"],
+      "expectedSourceTypes": ["paper"],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": false
+    },
+    {
+      "id": 20,
+      "intent": "mentor",
+      "mustContain": ["无可靠命中"],
+      "expectedSourceTypes": [],
+      "mustTools": ["search.horizontal"],
+      "forbiddenTools": [],
+      "expectedRefusal": true
+    }
+  ]
+}

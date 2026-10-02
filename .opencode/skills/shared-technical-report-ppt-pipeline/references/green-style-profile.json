@@ -1,0 +1,59 @@
+{
+  "profileId": "green-technical-report-38",
+  "sourceType": "user-supplied visual reference PDF",
+  "sourceSha256": "9F1F9D3D12F2F55E95963C88FE72D473389B10147B31D45342ABB598757F41BD",
+  "sourcePagesInspected": 9,
+  "canvas": {
+    "ratio": "16:9",
+    "widthPt": 960,
+    "heightPt": 540
+  },
+  "measuredTypography": {
+    "chineseFamilies": ["Microsoft YaHei", "Microsoft YaHei Bold"],
+    "contentTitlePt": 28,
+    "narrativePt": 24,
+    "figureCaptionPt": 14.1,
+    "pageNumberPt": 16,
+    "coverTitlePt": 44.1,
+    "closingTitlePt": 54
+  },
+  "measuredSourcePalette": {
+    "body": "#333333",
+    "secondary": "#555555",
+    "darkTeal": "#113B3F",
+    "titleTeal": "#21717A",
+    "cyanLine": "#62C9D4",
+    "paleCyan": "#EAF8F9",
+    "emphasisRed": "#C00000"
+  },
+  "defaultGreenAdaptation": {
+    "primary": "#177565",
+    "dark": "#0E4B43",
+    "line": "#5FC4B2",
+    "paleBackground": "#EAF7F2",
+    "body": "#333333",
+    "secondary": "#555555",
+    "exceptionRed": "#C00000"
+  },
+  "normalizedContentFrame": {
+    "pageMarginX": [0.03, 0.05],
+    "sectionTitle": {"x": 0.048, "y": 0.04, "h": 0.065},
+    "headerSeparatorY": 0.13,
+    "narrative": {"x": 0.032, "y": 0.16, "w": 0.936, "h": 0.28},
+    "lowerEvidence": {"x": 0.045, "y": 0.47, "w": 0.91, "h": 0.46},
+    "captionBand": {"y": 0.94, "h": 0.045},
+    "pageNumberBaselineY": 0.965
+  },
+  "formulaFirstFrame": {
+    "summary": {"x": 0.05, "y": 0.16, "w": 0.9, "h": 0.13},
+    "equation": {"x": 0.08, "y": 0.31, "w": 0.84, "h": 0.31},
+    "definitions": {"x": 0.08, "y": 0.65, "w": 0.84, "h": 0.23},
+    "conclusion": {"x": 0.05, "y": 0.9, "w": 0.9, "h": 0.05}
+  },
+  "colorBudget": {
+    "maximumChromaticColorsPerPage": 3,
+    "ordinaryPages": "one green family plus neutrals",
+    "exceptionRedMaximumApproximateAreaRatio": 0.03,
+    "sourceFiguresKeepOriginalColors": true
+  }
+}

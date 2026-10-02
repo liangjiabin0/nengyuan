@@ -1,0 +1,18 @@
+# Additive overlay onto /data/ai4es from the Windows working copy.
+# Keep Linux-native runtime and the server's own secrets/process files.
+# Do not skip whole chat-workspaces: local-only sessions should upload.
+# Per-workspace knowledge-corpus trees are duplicates/junctions of the shared corpus.
+/node_modules/**
+/.next/**
+/.env.local
+/.cursor/**
+/tools/**-venv/**
+/tools/opencode/**
+/tools/ripgrep/**
+/storage/intranet.pids.json
+/storage/opencode-sidecar.json
+/storage/openmodelica-gateway.pid
+/storage/chat-workspaces/**/knowledge-corpus/**
+/storage/chat-workspaces/**/knowledge-corpus/
+/**/__pycache__/**
+/**/*.pyc

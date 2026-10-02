@@ -1,0 +1,19 @@
+[Unit]
+Description=AI4ES intranet stack
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/data/ai4es
+Environment=AI4ES_MODE=prod
+Environment=AI4ES_SPLIT=1
+Environment=AI4ES_API_URL=http://127.0.0.1:4000
+Environment=PORT=3000
+Environment=API_PORT=4000
+LimitNOFILE=65535
+ExecStart=/bin/bash /data/ai4es/scripts/linux/intranet-start.sh prod
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

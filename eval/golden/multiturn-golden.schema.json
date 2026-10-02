@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "multiturn-golden.schema.json",
+  "type": "object",
+  "required": ["version", "scenarios"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "description": { "type": "string" },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "history", "question", "expectedIntent", "topicShift"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^G[0-9]{2}$" },
+          "history": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "prefixItems": [
+                { "enum": ["user", "assistant"] },
+                { "type": "string" }
+              ],
+              "items": false
+            }
+          },
+          "question": { "type": "string", "minLength": 1 },
+          "expectedIntent": { "type": "string", "minLength": 1 },
+          "resolvedPerson": { "type": "string" },
+          "focusPaper": { "type": "string" },
+          "topicShift": { "type": "boolean" },
+          "currentFocus": { "type": "string" },
+          "needsClarification": { "type": "boolean" },
+          "retrievalContextMustNotContain": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

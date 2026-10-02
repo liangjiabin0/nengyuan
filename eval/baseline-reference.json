@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-07-14T09:19:58.323Z",
+  "description": "改造前同一模型、数据库和机器上的 20 题基线。",
+  "domain": {
+    "cases": 20,
+    "averageLatencyMs": 83672,
+    "p95LatencyMs": 144159,
+    "maxLatencyMs": 170463,
+    "toolCalls": 96
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "$schema": "./multiturn-golden.schema.json",
+  "version": 1,
+  "description": "多轮会话状态黄金集，主要验证指代解析、话题切换和记忆污染。",
+  "scenarios": [
+    {
+      "id": "G01",
+      "history": [
+        ["user", "牛泽原是谁？"],
+        ["assistant", "牛泽原是相关论文作者。"]
+      ],
+      "question": "他还发表过哪些论文？",
+      "expectedIntent": "person",
+      "resolvedPerson": "牛泽原",
+      "topicShift": false
+    },
+    {
+      "id": "G02",
+      "history": [
+        ["user", "介绍《匹配控制构网型直驱风电场经 LCC-HVDC 送出系统的次同步振荡特性及机理分析》"],
+        ["assistant", "这篇论文研究次同步振荡。"]
+      ],
+      "question": "这篇论文的第一作者是谁？",
+      "expectedIntent": "person",
+      "focusPaper": "匹配控制构网型直驱风电场经 LCC-HVDC 送出系统的次同步振荡特性及机理分析",
+      "topicShift": false
+    },
+    {
+      "id": "G03",
+      "history": [
+        ["user", "清华有哪些老师？"],
+        ["assistant", "列出了清华大学相关导师。"]
+      ],
+      "question": "换个话题，找几篇虚拟电厂论文",
+      "expectedIntent": "paper",
+      "topicShift": true,
+      "currentFocus": "paper",
+      "retrievalContextMustNotContain": ["延续人物"]
+    },
+    {
+      "id": "G04",
+      "history": [
+        ["user", "有哪些研究电力系统的导师？"],
+        ["assistant", "张三老师、李四老师。"]
+      ],
+      "question": "那硕士研究生呢？",
+      "expectedIntent": "student",
+      "topicShift": true,
+      "currentFocus": "student"
+    },
+    {
+      "id": "G05",
+      "history": [
+        ["user", "介绍张伯明教授"],
+        ["assistant", "张伯明教授从事电力系统研究。"],
+        ["user", "再介绍牛泽原作者"],
+        ["assistant", "牛泽原是论文作者。"]
+      ],
+      "question": "他有哪些论文？",
+      "expectedIntent": "person",
+      "resolvedPerson": "牛泽原",
+      "topicShift": false
+    },
+    {
+      "id": "G06",
+      "history": [
+        ["user", "有哪些构网型论文？"],
+        ["assistant", "《论文甲》《论文乙》《论文丙》"]
+      ],
+      "question": "第一篇的作者是谁？",
+      "expectedIntent": "person",
+      "focusPaper": "论文甲",
+      "topicShift": false
+    },
+    {
+      "id": "G07",
+      "history": [
+        ["user", "库里有多少导师？"],
+        ["assistant", "库内导师数量已统计。"]
+      ],
+      "question": "其中有没有研究储能的老师？",
+      "expectedIntent": "mentor",
+      "topicShift": false
+    },
+    {
+      "id": "G08",
+      "history": [
+        ["user", "找上海交通大学的导师"],
+        ["assistant", "列出了上海交通大学导师。"]
+      ],
+      "question": "另外，查询华北电力大学的虚拟电厂论文",
+      "expectedIntent": "paper",
+      "topicShift": true,
+      "currentFocus": "paper"
+    },
+    {
+      "id": "G09",
+      "history": [
+        ["user", "介绍《论文甲》"],
+        ["assistant", "《论文甲》讨论构网控制。"]
+      ],
+      "question": "继续总结它的方法和结论",
+      "expectedIntent": "paper",
+      "focusPaper": "论文甲",
+      "topicShift": false
+    },
+    {
+      "id": "G10",
+      "history": [
+        ["user", "清华大学有哪些老师？"],
+        ["assistant", "老师甲、老师乙。"]
+      ],
+      "question": "不说这个了，统计库里论文总数",
+      "expectedIntent": "aggregate",
+      "topicShift": true
+    },
+    {
+      "id": "G11",
+      "history": [
+        ["user", "张三和李四分别是谁？"],
+        ["assistant", "张三和李四均为相关作者。"]
+      ],
+      "question": "他们分别有哪些论文？",
+      "expectedIntent": "person",
+      "needsClarification": true,
+      "topicShift": false
+    },
+    {
+      "id": "G12",
+      "history": [
+        ["user", "介绍《论文甲》和《论文乙》"],
+        ["assistant", "两篇论文均与构网控制有关。"]
+      ],
+      "question": "这篇论文的作者是谁？",
+      "expectedIntent": "person",
+      "needsClarification": true,
+      "topicShift": false
+    },
+    {
+      "id": "G13",
+      "history": [
+        ["user", "有没有量子纠缠相关导师？"],
+        ["assistant", "未找到可靠记录。"]
+      ],
+      "question": "那虚拟电厂论文呢？",
+      "expectedIntent": "paper",
+      "topicShift": true,
+      "currentFocus": "paper"
+    },
+    {
+      "id": "G14",
+      "history": [
+        ["user", "张三老师的邮箱是什么？"],
+        ["assistant", "邮箱为 example@example.com。"]
+      ],
+      "question": "总结一下刚才的信息",
+      "expectedIntent": "general",
+      "resolvedPerson": "张三",
+      "topicShift": false
+    },
+    {
+      "id": "G15",
+      "history": [
+        ["user", "有哪些 VSG 论文？"],
+        ["assistant", "《VSG 论文甲》《VSG 论文乙》"]
+      ],
+      "question": "重新开始，查询 MMC 柔性直流相关论文",
+      "expectedIntent": "paper",
+      "topicShift": true,
+      "currentFocus": "paper"
+    }
+  ]
+}

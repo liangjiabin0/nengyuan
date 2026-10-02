@@ -1,0 +1,14 @@
+interface:
+  display_name: 技术报告转科研PPT全流程
+  short_description: 从技术报告提炼内容、生成预览并复刻为可编辑科研PPT
+  default_prompt: Use $technical-report-ppt-pipeline to turn my technical report into
+    template-faithful slide prompts, preview images, and an editable PowerPoint deck.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

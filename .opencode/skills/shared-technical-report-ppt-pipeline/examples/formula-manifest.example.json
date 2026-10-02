@@ -1,0 +1,23 @@
+{
+  "equations": [
+    {
+      "id": "eq-4-14",
+      "slide": 6,
+      "source": "section 4.2.2, equation (4-14)",
+      "display": "E_{PV,t} = η_{PV} G_t A",
+      "canonical": "E_{PV,t}=η_{PV}G_tA",
+      "equationNumber": "（4-14）",
+      "mathFont": "Cambria Math",
+      "requiredTokens": ["E", "PV", "t", "=", "η", "G", "A"],
+      "requiredStructures": ["subscript"],
+      "variables": [
+        {"symbol": "E", "role": "scalar", "style": "italic"},
+        {"symbol": "PV", "role": "descriptive-subscript", "style": "upright"},
+        {"symbol": "t", "role": "index", "style": "italic"},
+        {"symbol": "η", "role": "scalar", "style": "italic"}
+      ],
+      "referenceCrop": {"x": 0.08, "y": 0.31, "w": 0.84, "h": 0.31},
+      "candidateCrop": {"x": 0.08, "y": 0.31, "w": 0.84, "h": 0.31}
+    }
+  ]
+}

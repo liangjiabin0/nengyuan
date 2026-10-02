@@ -1,0 +1,4 @@
+interface:
+  display_name: "国网总部科技指南编制"
+  short_description: "分类提取论文专利标准并核验版本，按固定总部版式编制国网指南"
+  default_prompt: "使用 $sgcc-tech-guide 分类读取本地资料，升级低质量PDF提取，联网核验标准新版本和证据缺口，并按固定总部指南建议稿版式生成指南及全套中间成果。"

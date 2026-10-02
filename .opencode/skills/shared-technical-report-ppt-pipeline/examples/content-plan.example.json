@@ -1,0 +1,78 @@
+{
+  "deck": {
+    "title": "零碳园区优化调度",
+    "audience": "电力系统科研项目评审专家",
+    "purpose": "解释优化调度模型并展示算例证据",
+    "communicationJob": "评审专家应理解模型如何把多能流约束转化为可执行、经济和低碳的调度方案。",
+    "template": "assets/zero-carbon-park-template.pptx",
+    "aspectRatio": "16:9",
+    "globalConstraints": [
+      "不编造数值",
+      "公式使用原生Office数学对象",
+      "固定页眉页脚不得漂移"
+    ]
+  },
+  "slides": [
+    {
+      "page": 1,
+      "title": "优化调度",
+      "subtitle": "调度模型中的设备建模和约束",
+      "takeaway": "设备效率、状态与多能耦合共同确定调度可行域。",
+      "layout": "formula-heavy",
+      "sourceSlide": 2,
+      "sourceRefs": ["技术报告4.2.2，公式（4-14）—（4-16）"],
+      "content": [
+        "冷、热、电转换设备通过效率与状态约束相互耦合。",
+        "每组设备机理与对应公式水平对齐。"
+      ],
+      "visuals": [
+        {
+          "type": "native-diagram",
+          "source": "技术报告4.2.2流程描述",
+          "purpose": "解释冷—热—电转换关系",
+          "placement": "正文左侧46%"
+        },
+        {
+          "type": "formula",
+          "source": "eq-4-14, eq-4-15, eq-4-16",
+          "purpose": "展示效率、状态与耦合约束",
+          "placement": "正文右侧50%"
+        }
+      ],
+      "formulaIds": ["eq-4-14", "eq-4-15", "eq-4-16"],
+      "negativeConstraints": ["不得把公式显示为LaTeX源码", "不得保留大面积空白"],
+      "speakerNotesSources": ["技术报告4.2.2"]
+    },
+    {
+      "page": 2,
+      "title": "优化调度",
+      "subtitle": "日前—日内—实时算例分析",
+      "takeaway": "预测逐级更新使调度计划逐步贴近实际运行。",
+      "layout": "case-analysis",
+      "sourceSlide": 3,
+      "sourceRefs": ["技术报告4.4.1，图4.4-1—图4.4-3"],
+      "content": [
+        "日前形成基准计划。",
+        "日内根据更新预测滚动修正。",
+        "实时利用快速资源平抑偏差。"
+      ],
+      "visuals": [
+        {
+          "type": "report-figure",
+          "source": "图4.4-1",
+          "purpose": "展示基准调度方案",
+          "placement": "左侧规划方案区"
+        },
+        {
+          "type": "report-figure",
+          "source": "图4.4-2、图4.4-3",
+          "purpose": "展示滚动修正和运行效果",
+          "placement": "右侧规划效果区"
+        }
+      ],
+      "formulaIds": [],
+      "negativeConstraints": ["不得重绘虚构曲线", "不得更改固定母版"],
+      "speakerNotesSources": ["技术报告4.4.1"]
+    }
+  ]
+}

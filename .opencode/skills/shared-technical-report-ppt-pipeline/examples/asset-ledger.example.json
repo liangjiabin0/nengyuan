@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "id": "icon-solar-1",
+      "kind": "icon",
+      "sourceType": "allowlist",
+      "iconName": "solar-panel"
+    },
+    {
+      "id": "source-logo-1",
+      "kind": "icon",
+      "sourceType": "template",
+      "sourceLocation": "template.pptx slide 1 shape 4"
+    }
+  ]
+}

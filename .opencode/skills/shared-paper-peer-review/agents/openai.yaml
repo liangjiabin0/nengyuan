@@ -1,0 +1,8 @@
+interface:
+  display_name: "Four-Dimension Paper Review"
+  short_description: "Review experiments, reproducibility, latest comparators, and theoretical support"
+  brand_color: "#315F72"
+  default_prompt: "Use $paper-peer-review to review my manuscript or manuscript ZIP. Prioritize four dimensions: whether experiments support the central conclusions, whether the results are reproducible, whether the paper compares against the latest relevant strong work, and whether theoretical derivations support claimed guarantees. For batch review, generate template-styled Word comments and package only 原文/ and 审稿意见/."
+
+policy:
+  allow_implicit_invocation: true

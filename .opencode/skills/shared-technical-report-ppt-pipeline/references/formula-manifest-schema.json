@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "formula-manifest.schema.json",
+  "type": "object",
+  "required": ["equations"],
+  "properties": {
+    "equations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "slide",
+          "source",
+          "display",
+          "canonical",
+          "requiredTokens",
+          "requiredStructures",
+          "variables"
+        ],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "slide": {"type": "integer", "minimum": 1},
+          "source": {"type": "string", "minLength": 1},
+          "display": {"type": "string", "minLength": 1},
+          "canonical": {"type": "string", "minLength": 1},
+          "equationNumber": {"type": "string"},
+          "mathFont": {"type": "string", "default": "Cambria Math"},
+          "requiredTokens": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1}
+          },
+          "requiredStructures": {
+            "type": "array",
+            "items": {
+              "enum": ["fraction", "radical", "subscript", "superscript", "subsup", "nary", "matrix", "delimiter", "equation-array"]
+            }
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["symbol", "role", "style"],
+              "properties": {
+                "symbol": {"type": "string", "minLength": 1},
+                "role": {"type": "string", "minLength": 1},
+                "style": {"enum": ["italic", "bold-italic", "upright"]}
+              }
+            }
+          },
+          "referenceCrop": {
+            "type": "object",
+            "required": ["x", "y", "w", "h"],
+            "properties": {
+              "x": {"type": "number", "minimum": 0, "maximum": 1},
+              "y": {"type": "number", "minimum": 0, "maximum": 1},
+              "w": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+              "h": {"type": "number", "exclusiveMinimum": 0, "maximum": 1}
+            }
+          },
+          "candidateCrop": {"$ref": "#/$defs/crop"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "crop": {
+      "type": "object",
+      "required": ["x", "y", "w", "h"],
+      "properties": {
+        "x": {"type": "number", "minimum": 0, "maximum": 1},
+        "y": {"type": "number", "minimum": 0, "maximum": 1},
+        "w": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "h": {"type": "number", "exclusiveMinimum": 0, "maximum": 1}
+      }
+    }
+  }
+}
+

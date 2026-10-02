@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-15T03:51:46.620Z",
+  "mode": "gate",
+  "status": "fail",
+  "reports": [
+    {
+      "name": "domain",
+      "path": "outputs\\eval-domain-20\\report.json",
+      "status": "available"
+    },
+    {
+      "name": "agent50",
+      "path": "outputs\\eval-agent-multiturn-50\\final.json",
+      "status": "available"
+    },
+    {
+      "name": "agentMultiturn",
+      "path": "storage\\eval-agent-multiturn-report.json",
+      "status": "available"
+    },
+    {
+      "name": "multiturn",
+      "path": "storage\\eval-multiturn-report.json",
+      "status": "available"
+    }
+  ],
+  "metrics": {
+    "domain": {
+      "cases": 20,
+      "citations": 236,
+      "resolvableCitations": 236,
+      "citationResolvability": 1,
+      "citationSupportRate": 0.9872881355932204,
+      "invalidCitations": 0,
+      "unsupportedCitations": 0,
+      "rejectedCitations": 3,
+      "evidenceFailures": 2,
+      "successfulCases": 20,
+      "successRate": 1,
+      "toolCalls": 33,
+      "duplicateCalls": 0,
+      "duplicateRate": 0,
+      "toolBudget": 4,
+      "budgetViolations": 0,
+      "latencyMs": {
+        "average": 52043,
+        "p95": 96969,
+        "max": 132955
+      }
+    },
+    "agent50": {
+      "status": "available",
+      "totalScenarios": 50,
+      "passedScenarios": 35,
+      "scenarioPassRate": 0.7,
+      "totalTurns": 102,
+      "passedTurns": 86,
+      "turnPassRate": 0.8431372549019608,
+      "macroScore": 90.97,
+      "hardFailures": 15,
+      "evidenceCheckFailures": 20,
+      "rejectedCitations": 75
+    },
+    "multiturn": {
+      "agent": {
+        "status": "available",
+        "total": 12,
+        "passed": 12,
+        "failed": 0,
+        "passRate": 1
+      },
+      "context": {
+        "status": "available",
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "passRate": 1
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "domain 报告存在",
+      "pass": true
+    },
+    {
+      "name": "至少一份多轮报告存在",
+      "pass": true
+    },
+    {
+      "name": "Agent 50 真实多轮 final 报告存在",
+      "pass": true
+    },
+    {
+      "name": "引用可解析率 100%",
+      "pass": true,
+      "detail": "236/236"
+    },
+    {
+      "name": "引用支持率不低于 95%",
+      "pass": true,
+      "detail": "98.7%"
+    },
+    {
+      "name": "无被拒引用",
+      "pass": false,
+      "detail": "3 条"
+    },
+    {
+      "name": "20 题无错误或弱回答",
+      "pass": true,
+      "detail": "20/20"
+    },
+    {
+      "name": "无完全重复工具调用",
+      "pass": true,
+      "detail": "0 次"
+    },
+    {
+      "name": "工具调用不超预算 4",
+      "pass": true,
+      "detail": "0 题超限"
+    },
+    {
+      "name": "P95 延迟不超过 180000ms",
+      "pass": true,
+      "detail": "96969ms"
+    },
+    {
+      "name": "平均延迟较改造前降低至少 30%",
+      "pass": true,
+      "detail": "83672ms → 52043ms（目标 ≤ 58570ms）"
+    },
+    {
+      "name": "agent 多轮全通过",
+      "pass": true,
+      "detail": "12/12"
+    },
+    {
+      "name": "context 多轮全通过",
+      "pass": true,
+      "detail": "5/5"
+    },
+    {
+      "name": "Agent 50 场景完整",
+      "pass": true,
+      "detail": "50/50"
+    },
+    {
+      "name": "Agent 50 类别宏平均不低于 80",
+      "pass": true,
+      "detail": "90.97/100"
+    },
+    {
+      "name": "Agent 50 逐轮通过率不低于 80%",
+      "pass": true,
+      "detail": "84.3%"
+    },
+    {
+      "name": "Agent 50 无硬失败（含错误指代/越界）",
+      "pass": false,
+      "detail": "15 次"
+    },
+    {
+      "name": "Agent 50 无证据评分失败",
+      "pass": false,
+      "detail": "20 项"
+    },
+    {
+      "name": "Agent 50 无被拒引用",
+      "pass": false,
+      "detail": "75 条"
+    }
+  ],
+  "missing": []
+}

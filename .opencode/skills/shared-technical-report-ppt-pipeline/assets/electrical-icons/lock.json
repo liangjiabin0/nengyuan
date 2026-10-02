@@ -1,0 +1,657 @@
+{
+  "schemaVersion": "electrical-icon-lock.v1",
+  "library": "Tabler Icons",
+  "version": "3.46.0",
+  "sourceCommitPolicy": "tag v3.46.0",
+  "icons": {
+    "activity": {
+      "file": "svg/activity.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/activity.svg",
+      "sha256": "9c0e12107fec6a53556f0c3293013f1b7a8509fb35000e42ea856a0667e61309",
+      "bytes": 379
+    },
+    "alert-triangle": {
+      "file": "svg/alert-triangle.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/alert-triangle.svg",
+      "sha256": "fc82f02dc9702293cb8609a8aed3242c0fe5f5b3337d79d341aa9343b4526ad4",
+      "bytes": 563
+    },
+    "arrows-shuffle": {
+      "file": "svg/arrows-shuffle.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/arrows-shuffle.svg",
+      "sha256": "f64030928ae76b14b0fd92b8ab60a72c7b460153671a08fc8026fbe1cbe7c7ce",
+      "bytes": 549
+    },
+    "atom": {
+      "file": "svg/atom.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/atom.svg",
+      "sha256": "e6182978d059e393c0d5c10accf1ea68cb8b4d42876d40b9ef7421cf7b9ceb6c",
+      "bytes": 709
+    },
+    "battery": {
+      "file": "svg/battery.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery.svg",
+      "sha256": "ef5d2087f655c3a4c8919680cd8d52d8c471c74beb5c2c8122bf8f5672a01ec9",
+      "bytes": 542
+    },
+    "battery-1": {
+      "file": "svg/battery-1.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-1.svg",
+      "sha256": "c820c150d6590d6f2f6c357ac4b9963b34f7d7136ff0354a652908ec388966bc",
+      "bytes": 567
+    },
+    "battery-2": {
+      "file": "svg/battery-2.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-2.svg",
+      "sha256": "66d61388357ff230aee1a4153c9ec86b6ad751a7cb5f9331ca07610a170747c0",
+      "bytes": 593
+    },
+    "battery-3": {
+      "file": "svg/battery-3.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-3.svg",
+      "sha256": "818876e39b2cdcbdc7087af0051d882ca371e2d6a0831306898d3a949b91a7e3",
+      "bytes": 619
+    },
+    "battery-4": {
+      "file": "svg/battery-4.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-4.svg",
+      "sha256": "460cc136c849831368b24c88cf9e6f523829ff015ecfbfcc0b6700e1ab5e0a57",
+      "bytes": 645
+    },
+    "battery-automotive": {
+      "file": "svg/battery-automotive.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-automotive.svg",
+      "sha256": "df5f12556e1f6063c70d168a9c35f4febd464cb7570b278cefccd8520215b3a9",
+      "bytes": 583
+    },
+    "battery-charging": {
+      "file": "svg/battery-charging.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-charging.svg",
+      "sha256": "63182f2cc94e64b60a320cdd9e03675b4b116c0d38d20c486bbd0d944802b1ec",
+      "bytes": 598
+    },
+    "battery-charging-2": {
+      "file": "svg/battery-charging-2.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-charging-2.svg",
+      "sha256": "9251907f28747e045d29e1a4e685fb74c548a3f0d913fe3342133498e5f242aa",
+      "bytes": 665
+    },
+    "battery-eco": {
+      "file": "svg/battery-eco.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-eco.svg",
+      "sha256": "bf0f137fa9ec6c995ddf13cb0864e7835df80b9f877dd12a17b3a2c375715422",
+      "bytes": 657
+    },
+    "battery-off": {
+      "file": "svg/battery-off.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-off.svg",
+      "sha256": "4da95bfe7944e82cd79a7ca80c85184c19161cbafa4fc656f7d604e8703d47ef",
+      "bytes": 556
+    },
+    "battery-spark": {
+      "file": "svg/battery-spark.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/battery-spark.svg",
+      "sha256": "23a05fb8de68f98110a2f2b2e54ef0c84ac716bbaf7523e395dd44bfa975ecb6",
+      "bytes": 608
+    },
+    "bike": {
+      "file": "svg/bike.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/bike.svg",
+      "sha256": "dcfc30feb6fd377d489cdd3c2c50f5fbb55ac4e36b36c49463314299504c74a5",
+      "bytes": 559
+    },
+    "binary-tree": {
+      "file": "svg/binary-tree.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/binary-tree.svg",
+      "sha256": "05a7a8bdd6b339fe5abcacabd445796df943e90a325dd6b30307ed29283f570d",
+      "bytes": 771
+    },
+    "bolt": {
+      "file": "svg/bolt.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/bolt.svg",
+      "sha256": "f18f1b4476d1f1ba018219131fee671f2a7ac286c9eb3aa83ea72274e17f34e5",
+      "bytes": 402
+    },
+    "brain": {
+      "file": "svg/brain.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/brain.svg",
+      "sha256": "0517f8f1cd2b0780bc4101252db226f529d86115a598ec79babb3bdf596d3ecd",
+      "bytes": 690
+    },
+    "building-broadcast-tower": {
+      "file": "svg/building-broadcast-tower.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/building-broadcast-tower.svg",
+      "sha256": "a8c190eb812b83ffb70e2dd26abd26e83243ff92bbfdc98bff92730561fef6a0",
+      "bytes": 589
+    },
+    "building-community": {
+      "file": "svg/building-community.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/building-community.svg",
+      "sha256": "bc0b74ab0d5f6ab82ffbbab5e1f751d23105606fd5bcac81ccf868130cc68c5f",
+      "bytes": 595
+    },
+    "building-factory": {
+      "file": "svg/building-factory.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/building-factory.svg",
+      "sha256": "a82a3077992e190508671908f941342742c8c8eb41d7d50f84e8068ef8df39d2",
+      "bytes": 656
+    },
+    "building-warehouse": {
+      "file": "svg/building-warehouse.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/building-warehouse.svg",
+      "sha256": "c43b5147c9f999306b0c1078dcf04b8ad1c9c2dabebf65e8ad62d57c0d6979ce",
+      "bytes": 512
+    },
+    "building-wind-turbine": {
+      "file": "svg/building-wind-turbine.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/building-wind-turbine.svg",
+      "sha256": "8b8449ee3b55d1e22a8457540f0a6d1422b05a5c4c1871f76363e3aa776e352e",
+      "bytes": 1071
+    },
+    "bus": {
+      "file": "svg/bus.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/bus.svg",
+      "sha256": "74c239694000ff4f5a8213eb9ac9bc358b346a71f2eb2c69ef995847d4d37143",
+      "bytes": 634
+    },
+    "calculator": {
+      "file": "svg/calculator.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/calculator.svg",
+      "sha256": "8579ecd4981afe130e70240b3776534f1b76faefa3cf09d116409078d87115dc",
+      "bytes": 715
+    },
+    "calendar-time": {
+      "file": "svg/calendar-time.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/calendar-time.svg",
+      "sha256": "47cf4363956948fe26e98f70b1a38990a1f816150233fe52da4e58cbec5b8bc1",
+      "bytes": 597
+    },
+    "car": {
+      "file": "svg/car.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/car.svg",
+      "sha256": "c95af3091f703f3badf544aa54def72eb60238780932451669fa91d566beb186",
+      "bytes": 537
+    },
+    "car-4wd": {
+      "file": "svg/car-4wd.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/car-4wd.svg",
+      "sha256": "2fa9da20187382fe0ddb2fe81427a94a6ad9ad804a63aea0a1831f57a3b3b3d6",
+      "bytes": 799
+    },
+    "car-crash": {
+      "file": "svg/car-crash.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/car-crash.svg",
+      "sha256": "c9b019f3614612e51dd5c5230ec458add3c3e04140a1fbf461c2fadf35f781c4",
+      "bytes": 608
+    },
+    "car-garage": {
+      "file": "svg/car-garage.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/car-garage.svg",
+      "sha256": "2daf18164df93b29ba86449eca8fd4f70b1f37827dee887733de2953482ce13e",
+      "bytes": 641
+    },
+    "car-suv": {
+      "file": "svg/car-suv.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/car-suv.svg",
+      "sha256": "01f431e384baf4a5d04bb69458917758538965f37cc4d3164c75d36084fb8fef",
+      "bytes": 757
+    },
+    "certificate": {
+      "file": "svg/certificate.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/certificate.svg",
+      "sha256": "5f8549faccce69afc41e1bcb7dcfcfc675221b8f098efc2de319491905d1a134",
+      "bytes": 660
+    },
+    "charging-pile": {
+      "file": "svg/charging-pile.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/charging-pile.svg",
+      "sha256": "b431e66bc227371fd1066e0c467b8d4456fa4d093dcd0e4a056903b870a942ae",
+      "bytes": 614
+    },
+    "chart-area-line": {
+      "file": "svg/chart-area-line.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/chart-area-line.svg",
+      "sha256": "24b56c2a2539681c8ee4375b8420c372c8ec79bbd8f0dbaf965d73c5bbf1ac12",
+      "bytes": 446
+    },
+    "chart-bar": {
+      "file": "svg/chart-bar.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/chart-bar.svg",
+      "sha256": "5fbe60a66fbebaf0a06d4b5bede3af05301d9f580c4f8f7bd65a39077389e4ae",
+      "bytes": 668
+    },
+    "chart-dots": {
+      "file": "svg/chart-dots.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/chart-dots.svg",
+      "sha256": "7927f23a6218e25fa4075be7e3133f0f803a0328a20eb058b7fba04f0cb6573b",
+      "bytes": 624
+    },
+    "chart-histogram": {
+      "file": "svg/chart-histogram.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/chart-histogram.svg",
+      "sha256": "90a714077763dd2599c6d6264a4883621504499e51186b14779968c39da858ce",
+      "bytes": 535
+    },
+    "chart-line": {
+      "file": "svg/chart-line.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/chart-line.svg",
+      "sha256": "0a2ec43a92e585dfc29e515cedaf1fc656c466bab5a6b9e0aa0a56f0c384f88a",
+      "bytes": 428
+    },
+    "chart-pie": {
+      "file": "svg/chart-pie.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/chart-pie.svg",
+      "sha256": "d92006fee8c7b33a807afba8825d4645efefd17a3b8604494c0a7642a7379e33",
+      "bytes": 531
+    },
+    "chart-sankey": {
+      "file": "svg/chart-sankey.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/chart-sankey.svg",
+      "sha256": "3e78fb6cb83e2404382067da804841150d8af50bb8051aaea25b7095c236cbff",
+      "bytes": 496
+    },
+    "circuit-ammeter": {
+      "file": "svg/circuit-ammeter.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/circuit-ammeter.svg",
+      "sha256": "bd84b0399f69391c2a7c3cd76f878037e9ba6f450dee6f218c54452c66c82fb7",
+      "bytes": 556
+    },
+    "circuit-battery": {
+      "file": "svg/circuit-battery.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/circuit-battery.svg",
+      "sha256": "4aedcbc339b3576c402596a5e77f8c91cea695f870f70c6b094b2e7073ff31ad",
+      "bytes": 508
+    },
+    "circuit-voltmeter": {
+      "file": "svg/circuit-voltmeter.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/circuit-voltmeter.svg",
+      "sha256": "cecfdf0b51c933c001e372e149e4a0d31fa35902a105fbd94a90f227e9b2890f",
+      "bytes": 504
+    },
+    "clock": {
+      "file": "svg/clock.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/clock.svg",
+      "sha256": "bb582eb2c9d6709d285623bea586e1f532872a9db3d2391308360636e93d199d",
+      "bytes": 431
+    },
+    "cloud": {
+      "file": "svg/cloud.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/cloud.svg",
+      "sha256": "9b0f459e678245c64a1fb312f9f59109fb00f6dda15a36ea39a25a0bfa1d4f8b",
+      "bytes": 640
+    },
+    "cloud-computing": {
+      "file": "svg/cloud-computing.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/cloud-computing.svg",
+      "sha256": "16049ae9521e76bb11755ba332c1fc63849fe4e0ff630a53bdd3e04ab705350f",
+      "bytes": 737
+    },
+    "cloud-rain": {
+      "file": "svg/cloud-rain.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/cloud-rain.svg",
+      "sha256": "feebc86f5770036f017170a3bf108b8df20ad23376c5bd670c5070c088345427",
+      "bytes": 470
+    },
+    "cloud-storm": {
+      "file": "svg/cloud-storm.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/cloud-storm.svg",
+      "sha256": "6b807d92825de5e418498e869f2ded554b149bd770aff39339e75625a2fb3c60",
+      "bytes": 473
+    },
+    "code": {
+      "file": "svg/code.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/code.svg",
+      "sha256": "dcebc6b4a9ff0a4367624487b17bea6ac08468ae0a1b7eaf300243e780b5d119",
+      "bytes": 453
+    },
+    "coin-yuan": {
+      "file": "svg/coin-yuan.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/coin-yuan.svg",
+      "sha256": "db0861b42da55d53f19efbc494a0178fba95a48750ba16ae06c5110399de03f3",
+      "bytes": 486
+    },
+    "coins": {
+      "file": "svg/coins.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/coins.svg",
+      "sha256": "e95bc6abd9d8db7f4132ca936bcc2aae9e33454842d197dfb6f2d9de1354e86f",
+      "bytes": 765
+    },
+    "cpu": {
+      "file": "svg/cpu.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/cpu.svg",
+      "sha256": "c170af1d4cf01cd89ba05d88ba0cf236d217bb8a54d749fb7931b914700b197c",
+      "bytes": 679
+    },
+    "currency-yuan": {
+      "file": "svg/currency-yuan.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/currency-yuan.svg",
+      "sha256": "117c10834790b0fb6d87b8ceb848900b1aa8bc77dc12f2f74e3fc67b71a23f00",
+      "bytes": 440
+    },
+    "database": {
+      "file": "svg/database.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/database.svg",
+      "sha256": "cf6f390ac33cfa83f054547137ce20e1702f9cc69af10db314ee1dc879f86df7",
+      "bytes": 497
+    },
+    "database-cog": {
+      "file": "svg/database-cog.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/database-cog.svg",
+      "sha256": "dc865398dece20422a1a4238d7ed1e1fb33fcd938ae803af6ade9405b5b4eaae",
+      "bytes": 849
+    },
+    "database-export": {
+      "file": "svg/database-export.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/database-export.svg",
+      "sha256": "0fa9651c78bf6da2691ddb6da376ae4c54da95729a7b68821b960c933564a69e",
+      "bytes": 673
+    },
+    "database-import": {
+      "file": "svg/database-import.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/database-import.svg",
+      "sha256": "033fa2778b45acb55e9df3f90055a3de4cfe4a2d47319fc8028cedde1feebcb4",
+      "bytes": 664
+    },
+    "database-search": {
+      "file": "svg/database-search.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/database-search.svg",
+      "sha256": "143f23cedafe4966bebf9c1cf997ca05f411ded8489a562554f3b2908069aba0",
+      "bytes": 618
+    },
+    "device-desktop-analytics": {
+      "file": "svg/device-desktop-analytics.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/device-desktop-analytics.svg",
+      "sha256": "058d59fb1ba3a3e5cf922379f8cdc2c065f0b1a51e74235e4796207d0961b4d0",
+      "bytes": 630
+    },
+    "droplet": {
+      "file": "svg/droplet.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/droplet.svg",
+      "sha256": "c5c43685cd44d30442361c2050777c6796f40bf25c7997d2573d05d6810cb2a9",
+      "bytes": 575
+    },
+    "file-spreadsheet": {
+      "file": "svg/file-spreadsheet.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/file-spreadsheet.svg",
+      "sha256": "dd48d792e0533ddf6fed09d14275e311e6c100483cd72dde32f60149b11aa140",
+      "bytes": 564
+    },
+    "flame": {
+      "file": "svg/flame.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/flame.svg",
+      "sha256": "c538208d9e75d5e75bbaa9e83f2c95274aa444fafe4c7e4d7fb6dbd008a1d68f",
+      "bytes": 599
+    },
+    "function": {
+      "file": "svg/function.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/function.svg",
+      "sha256": "fc8b35f0e3999caa0f97c2a3147f5781d3b1d81c6268a35cf2567b660aaad30d",
+      "bytes": 726
+    },
+    "gas-station": {
+      "file": "svg/gas-station.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/gas-station.svg",
+      "sha256": "d1f74f0296961d5e07ab39d4a9076b9c5d77201be0ec8138a8a3a3fdb067d31d",
+      "bytes": 571
+    },
+    "home": {
+      "file": "svg/home.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/home.svg",
+      "sha256": "6edebd7f9ac62a73e882f1bad7a4816fd4799e29bab2b27cf626b0f1708a9a20",
+      "bytes": 524
+    },
+    "home-eco": {
+      "file": "svg/home-eco.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/home-eco.svg",
+      "sha256": "827164a537b34ffbb051a485a75576676d3bcf9754049abbc5ad8bcbdf19ffdd",
+      "bytes": 565
+    },
+    "leaf": {
+      "file": "svg/leaf.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/leaf.svg",
+      "sha256": "b661e18f1dc686659f811ea050b13aade9cd7a31962fd5b3ebb89e6222bab61a",
+      "bytes": 490
+    },
+    "map-pin": {
+      "file": "svg/map-pin.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/map-pin.svg",
+      "sha256": "980c1cccd35d4244cf1625306e900d9b54f512e1ba253c61ffb2b1374746f04d",
+      "bytes": 491
+    },
+    "network": {
+      "file": "svg/network.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/network.svg",
+      "sha256": "bc5ca95d7c1fdfb98dfb0cc91c87f3e2faccd9e8263c6d28f19120cd0fde8b3d",
+      "bytes": 694
+    },
+    "plug": {
+      "file": "svg/plug.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/plug.svg",
+      "sha256": "73603bbe07c146c952a94788cf455f40dd8cbfccd3e9d59eae41413e3f7a9898",
+      "bytes": 556
+    },
+    "plug-connected": {
+      "file": "svg/plug-connected.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/plug-connected.svg",
+      "sha256": "a264381bea6bc8bd583401520cf41212bbca0782ad76fd2a2f9d84107258a17a",
+      "bytes": 621
+    },
+    "power": {
+      "file": "svg/power.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/power.svg",
+      "sha256": "2219766eddc754bcf2a21ff4f9170323a01db70d65e9af69851390d9d3db4fff",
+      "bytes": 433
+    },
+    "recharging": {
+      "file": "svg/recharging.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/recharging.svg",
+      "sha256": "9dfa6041e13775f65b1b4abbf2a1b81473f0bbbc0312b665260b65e5647a2012",
+      "bytes": 818
+    },
+    "recycle": {
+      "file": "svg/recycle.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/recycle.svg",
+      "sha256": "0f4a8638dcae5d0998929acce8a1ed111e315fcbcfc556db81108d36b51bb6fb",
+      "bytes": 689
+    },
+    "refresh": {
+      "file": "svg/refresh.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/refresh.svg",
+      "sha256": "12927e445fd886d0e0fd538ba60fbea56ff8a456204481e233f77ad322e65062",
+      "bytes": 475
+    },
+    "report-analytics": {
+      "file": "svg/report-analytics.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/report-analytics.svg",
+      "sha256": "d58847492f890b8beedc7eff543860219e0f382e46d2c2695107d64ae434b9ba",
+      "bytes": 618
+    },
+    "robot": {
+      "file": "svg/robot.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/robot.svg",
+      "sha256": "d1dbd329f869a168699a632f5469a42d4d1dca5b972e2c1fbf9572faefb9a991",
+      "bytes": 646
+    },
+    "route": {
+      "file": "svg/route.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/route.svg",
+      "sha256": "3f6c02674686366d6c6a4753f4428062da544a046edef644d29061f218201cb4",
+      "bytes": 527
+    },
+    "scale": {
+      "file": "svg/scale.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/scale.svg",
+      "sha256": "fa9014a74954947839e8087974a8d35dd12c76fa67a1bfe344f79cf6f2d8e0a6",
+      "bytes": 498
+    },
+    "scooter-electric": {
+      "file": "svg/scooter-electric.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/scooter-electric.svg",
+      "sha256": "fa4046ece65f933eb5c426cb4e17b0e222a3770dda801c3ec3150420f42f451c",
+      "bytes": 553
+    },
+    "server": {
+      "file": "svg/server.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/server.svg",
+      "sha256": "7b3a39f0b4fb748d543c185f810a8a184a85fb094f4afa0b213c74f8b930bed0",
+      "bytes": 597
+    },
+    "settings-automation": {
+      "file": "svg/settings-automation.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/settings-automation.svg",
+      "sha256": "3fffa5b4c387474db68bcdc9a88369e6002fe8db3443321d1f0a8fa961fc352d",
+      "bytes": 946
+    },
+    "shield-check": {
+      "file": "svg/shield-check.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/shield-check.svg",
+      "sha256": "9c3d5fac4793c7df5b3f2418037f16cd2bb7ba217ca5ee619e17b715b2720364",
+      "bytes": 502
+    },
+    "sitemap": {
+      "file": "svg/sitemap.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/sitemap.svg",
+      "sha256": "afeb36b8b42a5a6c3229b2038d12b14e0df856cb9b4f45d206f7e1ec9d1c1d31",
+      "bytes": 744
+    },
+    "smart-home": {
+      "file": "svg/smart-home.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/smart-home.svg",
+      "sha256": "56da0a63ef15523da468d2afe8ada82a86bf38259a375e828518f23e4ae507c8",
+      "bytes": 586
+    },
+    "snowflake": {
+      "file": "svg/snowflake.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/snowflake.svg",
+      "sha256": "8b5ab3443869e0799665d2b4106fc7da6f8c1905d0aeeea01879401ddce7f4ed",
+      "bytes": 908
+    },
+    "solar-electricity": {
+      "file": "svg/solar-electricity.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/solar-electricity.svg",
+      "sha256": "965b90d90e6e1ca791ccba7a7fb8d52c35714ca4e32f0e2ede6ba3991630b3d6",
+      "bytes": 585
+    },
+    "solar-panel": {
+      "file": "svg/solar-panel.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/solar-panel.svg",
+      "sha256": "865b2cf58d827462d07d2154a9a12a342fcb5ca1eefe82311651305c2ac2b0f0",
+      "bytes": 608
+    },
+    "solar-panel-2": {
+      "file": "svg/solar-panel-2.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/solar-panel-2.svg",
+      "sha256": "9e483c4a5493a1f17f3ae194be91bc75c50928030e4083b6ff5d6cc202ce8920",
+      "bytes": 730
+    },
+    "sun": {
+      "file": "svg/sun.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/sun.svg",
+      "sha256": "6d4dc625a54dea6c696e8320c35fcf7e235dc039f512ef2c30af9b0663a7ab3f",
+      "bytes": 525
+    },
+    "sun-electricity": {
+      "file": "svg/sun-electricity.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/sun-electricity.svg",
+      "sha256": "5983c94c0d684a87a131966d6588ffe7bab5c41937a76936f6cd19a278e69b13",
+      "bytes": 589
+    },
+    "sun-wind": {
+      "file": "svg/sun-wind.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/sun-wind.svg",
+      "sha256": "9b31ac1b890d8edf995638b6cd6902217eb72bee1b43bb5add7b8f31781c9b34",
+      "bytes": 697
+    },
+    "table": {
+      "file": "svg/table.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/table.svg",
+      "sha256": "e60f7b59ea11f99bc5f2a14be14eed7b54dc64b75ce3ad19012c9218d5241442",
+      "bytes": 502
+    },
+    "target-arrow": {
+      "file": "svg/target-arrow.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/target-arrow.svg",
+      "sha256": "a4849dde7384523b8f68f26ed69d38b49d9af51be3ccb0f833ceb7591ad5e689",
+      "bytes": 555
+    },
+    "temperature": {
+      "file": "svg/temperature.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/temperature.svg",
+      "sha256": "ae3305261c491567f207ca670cf99e8691ce8efdcb025f1ff93eb3aceb53f9e7",
+      "bytes": 459
+    },
+    "thermometer": {
+      "file": "svg/thermometer.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/thermometer.svg",
+      "sha256": "42edf82fc8d0bf5f9c08410f7178eb9c720702e22f09c7efc3afee4a8da16b06",
+      "bytes": 568
+    },
+    "timeline-event": {
+      "file": "svg/timeline-event.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/timeline-event.svg",
+      "sha256": "db3a5fce095c711b9522b02da3d4083166c37cf18d92df3e2717facbf7ab622a",
+      "bytes": 576
+    },
+    "tree": {
+      "file": "svg/tree.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/tree.svg",
+      "sha256": "1ebddabee729822b183d4ce803ec7510e714bb81c148d2befcbf85bec0da26d7",
+      "bytes": 596
+    },
+    "trees": {
+      "file": "svg/trees.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/trees.svg",
+      "sha256": "9ffc31bb059b649d3995bd396f3d0f3ec59e531ffa559072a2ee6d12f5446ba0",
+      "bytes": 667
+    },
+    "truck": {
+      "file": "svg/truck.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/truck.svg",
+      "sha256": "de73dc61281287ced8cd4417809167bb73d02fb6e821975456a7c48c44d66d60",
+      "bytes": 538
+    },
+    "user": {
+      "file": "svg/user.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/user.svg",
+      "sha256": "4aeefe49af9decdd7b348ada73d9ef410b39f3599a2f2d38abb9e9eb3967e272",
+      "bytes": 471
+    },
+    "users-group": {
+      "file": "svg/users-group.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/users-group.svg",
+      "sha256": "2d196e620662a694bf579893db6a4d3b42557a2a6484174fe46029f2bcbae731",
+      "bytes": 657
+    },
+    "wave-sine": {
+      "file": "svg/wave-sine.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/wave-sine.svg",
+      "sha256": "645bf8e3ed9b6491c667eaa44daee2098ab7718933dd47e7f5cec19cd51a979e",
+      "bytes": 496
+    },
+    "waves-electricity": {
+      "file": "svg/waves-electricity.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/waves-electricity.svg",
+      "sha256": "b8636e81d3f31180a138b6006c81046ab158901bfa0bced70fb3cea598150f36",
+      "bytes": 806
+    },
+    "wind": {
+      "file": "svg/wind.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/wind.svg",
+      "sha256": "7e9df842870b130fc745b71ec30a41360ab4cdfcb996c72474c654fbf5e7dd8e",
+      "bytes": 518
+    },
+    "wind-electricity": {
+      "file": "svg/wind-electricity.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/wind-electricity.svg",
+      "sha256": "314fd4ec1f0cf0feaf00e78c69feb62948046e335c4eda263dbbfecab86de2ab",
+      "bytes": 506
+    },
+    "windmill": {
+      "file": "svg/windmill.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/v3.46.0/icons/outline/windmill.svg",
+      "sha256": "c3c6e653d3c8533893407a4286ee985a3b772113599fd17a20fa52477e3bb5f9",
+      "bytes": 621
+    }
+  },
+  "licenseSha256": "b740a1d46122672da62833e97f7e7c8a13fa85cbc7445b584b297cc00dde93db"
+}

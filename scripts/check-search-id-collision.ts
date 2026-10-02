@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import Database from 'better-sqlite3';
+import { hashText } from '../src/lib/normalize';
+import { resolveSearchRecordId } from '../src/lib/search-record-id';
+
+const db = new Database(':memory:');
+db.exec('CREATE TABLE search_records(record_id TEXT PRIMARY KEY,source_type TEXT,source_key TEXT)');
+const first = 'patent:d448a2ab561d0ce8983af75b';
+const second = 'patent:2f0aef43cba81004496a4ce1';
+const legacy = `patent:${hashText(`${first}|`)}`;
+assert.equal(hashText(`${first}|`), hashText(`${second}|`));
+db.prepare('INSERT INTO search_records VALUES(?,?,?)').run(legacy, 'patent', first);
+assert.equal(resolveSearchRecordId(db, 'patent', first), legacy);
+const secondId = resolveSearchRecordId(db, 'patent', second);
+assert.notEqual(secondId, legacy);
+db.prepare('INSERT INTO search_records VALUES(?,?,?)').run(secondId, 'patent', second);
+assert.equal(resolveSearchRecordId(db, 'patent', second), secondId);
+assert.notEqual(resolveSearchRecordId(db, 'patent', 'new'), resolveSearchRecordId(db, 'patent', 'new', 'other'));
+assert.equal(db.prepare('SELECT COUNT(*) FROM search_records').pluck().get(), 2);
+db.close();
+console.log('PASS: colliding source keys retain separate, stable search IDs');
