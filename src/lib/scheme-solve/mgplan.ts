@@ -43,7 +43,7 @@ export function resolveMgplanRoot() {
 }
 
 export function resolveMgplanPython() {
-  const workspaceVenv = path.join(process.cwd(), 'tools', 'mgplan-venv', 'Scripts', 'python.exe');
+  const workspaceVenv = path.join(process.cwd(), 'tools', 'mgplan-venv', ...(process.platform === 'win32' ? ['Scripts', 'python.exe'] : ['bin', 'python']));
   const localPython = process.env.LOCALAPPDATA
     ? path.join(process.env.LOCALAPPDATA, 'Programs', 'Python', 'Python312', 'python.exe')
     : undefined;
@@ -51,9 +51,9 @@ export function resolveMgplanPython() {
     process.env.MGPLAN_PYTHON?.trim(),
     workspaceVenv,
     localPython,
-    'python'
+    process.platform === 'win32' ? 'python' : 'python3'
   ].filter((value): value is string => Boolean(value));
-  return candidates.find((candidate) => candidate === 'python' || fs.existsSync(candidate)) || 'python';
+  return candidates.find((candidate) => candidate === 'python' || candidate === 'python3' || fs.existsSync(candidate)) || (process.platform === 'win32' ? 'python' : 'python3');
 }
 
 function agentEnv(extra?: Record<string, string | undefined>) {

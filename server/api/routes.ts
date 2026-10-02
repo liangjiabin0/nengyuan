@@ -1,4 +1,5 @@
 import type { Hono } from 'hono';
+import { requireAdmin } from '@/lib/auth/request';
 import { getJob, listJobs } from '@/lib/jobs/queue';
 import type { JobStatus, JobType } from '@/lib/jobs/types';
 
@@ -45,17 +46,21 @@ function registerModule(app: Hono, path: string, mod: RouteModule) {
 export async function registerApiRoutes(app: Hono) {
   app.get('/api/health', (c) => c.json({ ok: true, role: 'api' }));
 
-  app.get('/api/jobs/:id', (c) => {
-    const job = getJob(c.req.param('id'));
+  app.get('/api/jobs/:id', async (c) => {
+    const auth = await requireAdmin(c.req.raw);
+    if (auth.error) return auth.error;
+    const job = await getJob(c.req.param('id'));
     if (!job) return c.json({ error: 'job not found' }, 404);
     return c.json({ job });
   });
 
-  app.get('/api/jobs', (c) => {
+  app.get('/api/jobs', async (c) => {
+    const auth = await requireAdmin(c.req.raw);
+    if (auth.error) return auth.error;
     const type = c.req.query('type') as JobType | undefined;
     const status = c.req.query('status') as JobStatus | undefined;
     const limit = Number(c.req.query('limit') || 50);
-    const jobs = listJobs({
+    const jobs = await listJobs({
       type: type || undefined,
       status: status || undefined,
       limit: Number.isFinite(limit) ? limit : 50

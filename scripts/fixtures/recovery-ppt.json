@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "paperTitle": "部署自检：合成数据，不代表科研结果",
+    "paperType": "planning",
+    "doi": "不适用",
+    "sourcePath": "scripts/fixtures/recovery-ppt.json"
+  },
+  "slide1": {
+    "title": "1. 可编辑对象与公式自检",
+    "summaryRuns": [
+      {
+        "text": "部署测试：",
+        "emphasis": "red"
+      },
+      {
+        "text": "以下流程与数值仅用于检查PPT构建器。"
+      }
+    ],
+    "panels": [
+      {
+        "title": "测试流程",
+        "steps": [
+          "读取配置",
+          "构建原生对象",
+          "渲染核验"
+        ],
+        "details": [
+          "所有文本和图形可以编辑"
+        ],
+        "formulaIds": [],
+        "conclusion": "检查对象结构和中文显示",
+        "evidenceRef": "本测试文件"
+      },
+      {
+        "title": "测试公式",
+        "steps": [
+          "读取LaTeX",
+          "生成SVG"
+        ],
+        "details": [
+          "保留LaTeX以便修订"
+        ],
+        "formulaIds": [
+          "eq-test"
+        ],
+        "conclusion": "公式仅为渲染测试",
+        "evidenceRef": "本测试文件"
+      }
+    ],
+    "formulas": [
+      {
+        "id": "eq-test",
+        "latex": "\\min\\sum_{t=1}^{T} c_t P_t",
+        "evidenceRef": "本测试文件"
+      }
+    ],
+    "methodModelPath": "scripts/fixtures/recovery-planning-model.md"
+  },
+  "slide2": {
+    "title": "2. 图表、表格与指标自检",
+    "summaryRuns": [
+      {
+        "text": "合成数据：",
+        "emphasis": "red"
+      },
+      {
+        "text": "用于验证可编辑图表与表格导出，不作为算法性能结论。"
+      }
+    ],
+    "resultModules": [
+      {
+        "title": "原生图表",
+        "conclusion": "三组数据点可编辑",
+        "evidenceRef": "合成测试数据",
+        "visuals": [
+          {
+            "type": "chart",
+            "categories": [
+              "1",
+              "2",
+              "3"
+            ],
+            "xTitle": "测试序号",
+            "yTitle": "合成值",
+            "series": [
+              {
+                "name": "测试A",
+                "values": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              {
+                "name": "测试B",
+                "values": [
+                  2,
+                  1,
+                  2
+                ]
+              }
+            ],
+            "evidenceRef": "合成测试数据",
+            "yMin": 0,
+            "yMax": 4,
+            "yMajorUnit": 1
+          }
+        ]
+      },
+      {
+        "title": "原生表格",
+        "conclusion": "表格单元格可编辑",
+        "evidenceRef": "合成测试数据",
+        "visuals": [
+          {
+            "type": "table",
+            "headers": [
+              "对象",
+              "测试值"
+            ],
+            "rows": [
+              [
+                "A",
+                1
+              ],
+              [
+                "B",
+                2
+              ]
+            ],
+            "evidenceRef": "合成测试数据"
+          }
+        ]
+      },
+      {
+        "title": "指标卡片",
+        "conclusion": "文本保留原生对象",
+        "evidenceRef": "合成测试数据",
+        "visuals": [
+          {
+            "type": "metrics",
+            "values": [
+              {
+                "label": "页面数",
+                "value": 2
+              },
+              {
+                "label": "测试状态",
+                "value": "待渲染核验"
+              }
+            ],
+            "evidenceRef": "合成测试数据"
+          }
+        ]
+      }
+    ]
+  }
+}

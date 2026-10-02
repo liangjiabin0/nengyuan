@@ -54,8 +54,17 @@ export function getAllowedAssetRoots(dataRootDir: string) {
 }
 
 export function isPathUnderAllowedRoots(filePath: string, dataRootDir: string) {
-  const resolved = path.resolve(filePath);
+  // A release may share storage/data through symlinks. Compare physical paths
+  // so old stored paths work while links escaping an allowed root stay denied.
+  const physical = (value: string) => {
+    const resolved = path.resolve(value);
+    try { return fs.realpathSync(resolved); } catch { return resolved; }
+  };
+  const resolved = physical(filePath);
   return getAllowedAssetRoots(dataRootDir).some(
-    (root) => resolved === root || resolved.startsWith(`${root}${path.sep}`)
+    (value) => {
+      const root = physical(value);
+      return resolved === root || resolved.startsWith(`${root}${path.sep}`);
+    }
   );
 }

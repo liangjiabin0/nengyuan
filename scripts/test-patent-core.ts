@@ -76,23 +76,23 @@ async function main() {
     const first = await createPatentRun(project!.id);
     const duplicate = await createPatentRun(project!.id);
     assert.equal(duplicate.id, first.id, '重复启动必须返回同一活动任务');
-    assert.equal(claimPatentRun(first.id), true);
-    assert.equal(claimPatentRun(first.id), false, '任务只能被一个执行器原子抢占');
-    appendPatentRunEvent(first.id, {
+    assert.equal(await claimPatentRun(first.id), true);
+    assert.equal(await claimPatentRun(first.id), false, '任务只能被一个执行器原子抢占');
+    await appendPatentRunEvent(first.id, {
       type: 'status',
       stage: 'disclosure',
       progress: 20,
       detail: '正在分析'
     });
-    assert.equal(getPatentRun(first.id)?.progress, 20);
-    requestPatentRunCancel(project!.id);
-    assert.equal(getPatentRun(first.id)?.cancelRequested, true);
-    finishPatentRun(first.id, 'cancelled', { detail: '测试取消' });
+    assert.equal((await getPatentRun(first.id))?.progress, 20);
+    await requestPatentRunCancel(project!.id);
+    assert.equal((await getPatentRun(first.id))?.cancelRequested, true);
+    await finishPatentRun(first.id, 'cancelled', { detail: '测试取消' });
 
     const workspace = path.join(getPatentProjectDirectory(project!.id), 'opencode');
     fs.mkdirSync(workspace, { recursive: true });
     fs.writeFileSync(path.join(workspace, 'STATUS.json'), '{"status":"ready"}');
-    updatePatentProject(project!.id, { answers: { 'technical-boundary': '仅采用源文档明确方案' } });
+    await updatePatentProject(project!.id, { answers: { 'technical-boundary': '仅采用源文档明确方案' } });
     assert.equal(fs.existsSync(workspace), false, '技术答复变化必须清理旧 OpenCode 工作区');
   } finally {
     await deletePatentProject(project!.id);

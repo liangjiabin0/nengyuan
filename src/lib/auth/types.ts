@@ -23,4 +23,4 @@ export const SESSION_COOKIE = 'dy_session';
 export const SESSION_HEADER = 'x-ai4es-session';
 export const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 14; // 14 days
 export const DEFAULT_ADMIN_USERNAME = 'admin';
-export const DEFAULT_ADMIN_PASSWORD = process.env.DEFAULT_ADMIN_PASSWORD || '123456';
+export const DEFAULT_ADMIN_PASSWORD = process.env.DEFAULT_ADMIN_PASSWORD || '';

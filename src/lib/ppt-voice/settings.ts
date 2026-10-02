@@ -7,10 +7,10 @@ const settingsPath = path.join(process.cwd(), 'storage', 'ppt-voice-settings.jso
 
 const DEFAULT_TTS: PptVoiceTtsSettings = {
   dashscopeApiKey: process.env.DASHSCOPE_API_KEY || '',
-  workspaceId: process.env.BAILIAN_WORKSPACE_ID || 'ws-emec9enjn73ykbe4',
+  workspaceId: process.env.BAILIAN_WORKSPACE_ID || '',
   baseUrl:
     process.env.BAILIAN_BASE_URL
-    || 'https://ws-emec9enjn73ykbe4.cn-beijing.maas.aliyuncs.com/compatible-mode/v1',
+    || '',
   model: DEFAULT_PPT_VOICE.model,
   voiceId: DEFAULT_PPT_VOICE.voiceId,
   profileName: DEFAULT_PPT_VOICE.profileName,
@@ -33,9 +33,9 @@ function readStored(): Partial<PptVoiceTtsSettings> {
 export function getPptVoiceTtsSettings(): PptVoiceTtsSettings {
   const stored = readStored();
   return {
-    dashscopeApiKey: stored.dashscopeApiKey || process.env.DASHSCOPE_API_KEY || DEFAULT_TTS.dashscopeApiKey,
-    workspaceId: stored.workspaceId || process.env.BAILIAN_WORKSPACE_ID || DEFAULT_TTS.workspaceId,
-    baseUrl: stored.baseUrl || process.env.BAILIAN_BASE_URL || DEFAULT_TTS.baseUrl,
+    dashscopeApiKey: stored.dashscopeApiKey ?? process.env.DASHSCOPE_API_KEY ?? DEFAULT_TTS.dashscopeApiKey,
+    workspaceId: stored.workspaceId ?? process.env.BAILIAN_WORKSPACE_ID ?? DEFAULT_TTS.workspaceId,
+    baseUrl: stored.baseUrl ?? process.env.BAILIAN_BASE_URL ?? DEFAULT_TTS.baseUrl,
     model: stored.model || DEFAULT_TTS.model,
     voiceId: stored.voiceId || DEFAULT_TTS.voiceId,
     profileName: stored.profileName || DEFAULT_TTS.profileName,

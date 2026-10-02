@@ -148,7 +148,7 @@ export async function createPatentRun(projectId: string) {
 export async function claimPatentRun(runId: string) {
   const result = await getDb().prepare(
     `UPDATE patent_generation_runs
-     SET status = 'running', started_at = COALESCE(started_at, CURRENT_TIMESTAMP),
+     SET status = 'running', started_at = COALESCE(started_at, CURRENT_TIMESTAMP::text),
          heartbeat_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP
      WHERE id = ? AND status IN ('queued', 'interrupted') AND cancel_requested = 0`
   ).run(runId);
@@ -180,7 +180,7 @@ export async function appendPatentRunEvent(runId: string, event: PatentProgressE
   await run(
     `UPDATE patent_generation_runs
      SET stage = ?, progress = ?, detail = CASE WHEN ? <> '' THEN ? ELSE detail END,
-         error = CASE WHEN ? IS NOT NULL THEN ? ELSE error END,
+         error = CASE WHEN ?::text IS NOT NULL THEN ?::text ELSE error END,
          heartbeat_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP
      WHERE id = ?`,
     [stage, progress, detail, detail, error, error, runId]

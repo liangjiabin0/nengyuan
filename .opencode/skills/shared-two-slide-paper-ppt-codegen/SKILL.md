@@ -1,8 +1,13 @@
 ---
 name: shared-two-slide-paper-ppt-codegen
 title: "PPT（学术论文版）"
-description: "Read a power-system planning or forecasting paper, extract its method and results, and directly build a two-slide editable academic PPT. Use for a planning model/solver plus economic and computational results, or a forecasting computation flow plus accuracy, ablation, and robustness results."
+description: Read a power-system planning or forecasting paper, extract its method and results, and directly build a two-slide editable academic PPT. Use for a planning model/solver plus economic and computational results, or a forecasting computation flow plus accuracy, ablation, and robustness results.
 ---
+
+## 能元服务器运行环境
+
+此技能已接入能元 OpenCode。文件目录以本 SKILL.md 所在目录为准，不使用开发者电脑的绝对路径。用系统 office-docs/pdf 工具读取源资料，用仓库 Node 与 pptxgenjs 构建，用 LibreOffice 渲染并检查每页。私有 Python 默认 tools/office-docs-venv/bin/python（Windows 对应 Scripts/python.exe），可用 OFFICE_DOCS_PYTHON 覆盖。参考样例在 assets/reference-pptx，原提示词和证据规则仍适用。没有配置外部 Codex runtime 时，不执行 artifact-tool 专用脚本。
+
 
 # Two-slide paper PPT codegen
 
@@ -13,11 +18,11 @@ The production path is document → evidence and method logic → slide design �
 ## Workflow
 
 1. Read the complete source document with the appropriate PDF or Documents skill. Inspect method sections, diagrams, equations, result tables, captions, and limitations together. Extract only the source figures needed as evidence.
-2. Inspect a supplied editable template or sample PPTX. Reuse its slide ratio, background, title system, margins, summary box, colors, and recurring elements. Otherwise use a 16:9 blue/teal academic theme.
+2. Inspect a supplied editable template or sample PPTX. When using this skill's bundled examples, planning papers should reference the PPTX files in [assets/reference-pptx/规划类](assets/reference-pptx/规划类), and forecasting papers should reference those in [assets/reference-pptx/预测类](assets/reference-pptx/预测类). In the selected deck, slide 1 guides the paper's principle/method slide; slide 2 guides the case-study/experimental-results slide. Reuse the relevant slide ratio, background, title system, margins, summary box, colors, and visual hierarchy. If neither supplied nor bundled references fit the paper, use a 16:9 blue/teal academic theme.
 3. Classify the paper by its main research question, not by a word in its title. For prediction, read [references/forecasting-paper.md](references/forecasting-paper.md), reconstruct `method-graph.json` following [references/method-graph-workflow.md](references/method-graph-workflow.md), and run `scripts/validate_method_graph.py`. For planning, read [references/planning-paper.md](references/planning-paper.md) and record the model, decision hierarchy, coupling, and solver loop in `planning-model.md`. A planning solver is not a prediction training graph. For mixed papers, use the branch that reflects the main contribution and retain the other as supporting evidence.
 4. Design the two slides directly from the documented method and evidence. Record the layout, hierarchy, object positions, connector paths, and formula placement in `visual-design-spec.md`. Choose a layout that explains the method; do not copy source-image pixel geometry.
 5. Build a content spec following [references/two-slide-spec.md](references/two-slide-spec.md), plus `source-index.json` and `evidence-ledger.json`. Record source locations for all claims, formulas, relationships, and numerical data. Validate the content spec with `scripts/validate_two_slide_spec.py`.
-6. Use the Presentations skill and its supported runtime for the main build. Reuse helpers from `scripts/build_two_slide_deck.mjs` where appropriate, or create a task-specific builder. The starter has fixed 1280×720 geometry, three method panels, and two charts plus a table; it does not automatically import a template or draw the method graph. Adapt the builder to the paper type, template, and content rather than forcing its starter layout.
+6. Use the server-supported native PPTX builder (PptxGenJS) for the main build; the external Codex Presentations runtime is optional. Reuse helpers from `scripts/build_two_slide_deck.mjs` where appropriate, or create a task-specific builder. The starter has fixed 1280×720 geometry, three method panels, and two charts plus a table; it does not automatically import a template or draw the method graph. Adapt the builder to the paper type, template, and content rather than forcing its starter layout.
 7. Draw text, module boxes, connectors, tables, and data-backed charts as native PowerPoint objects. Place formulas beside their operations. When formulas are present, follow [references/formula-svg-workflow.md](references/formula-svg-workflow.md) and retain canonical LaTeX plus `formula-manifest.json` for revision.
 8. Export the PPTX, run `scripts/audit_visible_pptx.py` and the Presentations package/layout checks, then inspect a rendering of every final slide. Fix clipping, overlaps, unreadable labels, misplaced arrows, missing equations, and chart errors. Confirm text, shapes, tables, and charts remain editable. Verify SVG equations with PowerPoint rendering because some secondary renderers omit them.
 
@@ -57,7 +62,7 @@ When slide 2 contains comparison curves, read [references/result-chart-style.md]
 ## Evidence boundaries
 
 - Every visible number, formula, relationship, and claim must resolve to a document page, section, equation, table, figure, or supplement.
-- Treat supplied editable example decks as evidence of layout and visual hierarchy, not as the numerical authority. Recheck their costs, percentages, topology labels, case definitions, and algorithm timings against the corresponding paper before reusing them. If paper and deck disagree, use the paper and record the discrepancy.
+- Treat supplied and bundled editable example decks as evidence of layout and visual hierarchy, not as the numerical authority. Recheck their costs, percentages, topology labels, case definitions, and algorithm timings against the corresponding paper before reusing them. If paper and deck disagree, use the paper and record the discrepancy.
 - Replot only exact available values. When curve data are unavailable, use a source crop or a supported table; do not invent sampled points.
 - Record source inconsistencies and missing evidence in the ledger. Do not silently select a more favorable value.
 - Preserve scientific meaning while redesigning the layout: edge direction, essential branches, variables, and operations are evidence.
@@ -66,3 +71,13 @@ When slide 2 contains comparison curves, read [references/result-chart-style.md]
 ## Deliverables
 
 Deliver the final editable PPTX. Retain the task-specific builder, content spec, forecasting method graph or planning model record, visual design spec, evidence files, required source crops, formula source/assets when used, and validation receipts in the task build directory. Final-slide renderings are internal QA artifacts; they are not a prerequisite design deliverable. Do not create a prompt package, preview-image package, or image-reconstruction package.
+
+## 服务器构建入口
+
+先按 references/two-slide-spec.md 提取真实论文内容，运行 scripts/validate_two_slide_spec.py。随后：
+
+```bash
+SPEC_PATH=/absolute/spec.json FINAL_PPTX=/absolute/output.pptx node scripts/build_two_slide_deck.mjs
+```
+
+该入口用原生可编辑文本、图形、连接线、图表和表格，离线 MathJax SVG 公式保留 LaTeX 与公式清单。支持 resultModules 和旧版 charts/thirdModule；复杂方法图可传 methodGraphPath，按真实节点与有向边绘制。模板样例是版式参照，不代表自动导入母版；需要严格母版继承时使用系统 PPTX 工具并显式验收。原外部运行时版本保留为 build_two_slide_deck_artifact.mjs。PowerPoint COM 修复脚本仅限 Windows，Linux 使用构建器样式与 LibreOffice 验收。

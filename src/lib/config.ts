@@ -244,7 +244,15 @@ export function getModelSettings(): ModelSettings {
 
 export function getDataRootDir() {
   const stored = readStoredSettings();
-  const raw = stored.dataRootDir || process.env.DATA_ROOT_DIR || path.join(process.cwd(), '数据');
+  let raw = stored.dataRootDir || process.env.DATA_ROOT_DIR || path.join(process.cwd(), '数据');
+  if (process.platform !== 'win32' && /^[a-z]:[\\/]/i.test(raw)) {
+    // A copied Windows settings file must not become a literal directory name on Linux.
+    const fallback = process.env.DATA_ROOT_DIR || path.join(process.cwd(), '数据');
+    if (/^[a-z]:[\\/]/i.test(fallback) || !fs.existsSync(fallback)) {
+      throw new Error('数据目录仍为Windows路径，请配置当前服务器的 DATA_ROOT_DIR 或 dataRootDir。');
+    }
+    raw = fallback;
+  }
   return path.isAbsolute(raw) ? raw : path.resolve(process.cwd(), raw);
 }
 

@@ -72,12 +72,8 @@ export function resolveTdmgVendorDir() {
 }
 
 export function resolveTdmgPython() {
-  if (process.env.TDMG_PYTHON?.trim()) {
-    return resolvePython('TDMG_PYTHON', path.join(process.cwd(), 'tools', 'tdmg-venv'));
-  }
-  if (process.env.MGPLAN_PYTHON?.trim()) {
-    return resolvePython('MGPLAN_PYTHON', path.join(process.cwd(), 'tools', 'tdmg-venv'));
-  }
+  // The GPU MGPlan environment has different Python/dependencies. TDMG must
+  // use its own environment instead of inheriting MGPLAN_PYTHON.
   return resolvePython('TDMG_PYTHON', path.join(process.cwd(), 'tools', 'tdmg-venv'));
 }
 
@@ -85,8 +81,17 @@ export function resolveTdmgPypowerDir() {
   const vendored = path.join(resolveTdmgVendorDir(), 'pypower');
   if (fs.existsSync(vendored)) return vendored;
   const python = resolveTdmgPython();
-  const venvSitePackages = path.join(path.dirname(path.dirname(python)), 'Lib', 'site-packages', 'pypower');
-  return fs.existsSync(venvSitePackages) ? venvSitePackages : vendored;
+  const venvRoot = path.dirname(path.dirname(python));
+  const windowsPackage = path.join(venvRoot, 'Lib', 'site-packages', 'pypower');
+  if (fs.existsSync(windowsPackage)) return windowsPackage;
+  const lib = path.join(venvRoot, 'lib');
+  if (fs.existsSync(lib)) {
+    for (const version of fs.readdirSync(lib).filter(name => /^python\d+\.\d+$/.test(name))) {
+      const candidate = path.join(lib, version, 'site-packages', 'pypower');
+      if (fs.existsSync(candidate)) return candidate;
+    }
+  }
+  return vendored;
 }
 
 export function resolveBuiltinCaseFile(caseName: string) {

@@ -2,4 +2,4 @@ interface:
   display_name: "Two-slide Academic Paper PPT"
   short_description: "读取规划或预测论文，直接制作两页可编辑学术PPT，分析方法、实验与算力"
   brand_color: "#0B438C"
-  default_prompt: "Use $two-slide-paper-ppt-codegen to read this planning or forecasting paper and directly build two editable academic slides with a source-backed method and three evidence themes for its results."
+  default_prompt: "使用 $two-slide-paper-ppt-codegen 阅读这篇论文并直接制作两页可编辑PPT：规划类论文参考 assets/reference-pptx/规划类 中的PPT，预测类论文参考 assets/reference-pptx/预测类 中的PPT；实验原理/方法参考所选PPT第一页，算例分析/实验结果参考第二页，所有数值以当前论文为准。"

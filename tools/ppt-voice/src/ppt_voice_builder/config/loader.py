@@ -15,6 +15,7 @@ class _EnvironmentSettings(BaseSettings):
 
     api_key: SecretStr | None = Field(default=None, validation_alias="DASHSCOPE_API_KEY")
     workspace_id: SecretStr | None = Field(default=None, validation_alias="BAILIAN_WORKSPACE_ID")
+    base_url: str | None = Field(default=None, validation_alias="BAILIAN_BASE_URL")
 
 
 def _resolve_project_paths(raw: dict[str, Any], root: Path) -> None:
@@ -70,6 +71,7 @@ def load_settings(
             if environment.api_key is not None and environment.api_key.get_secret_value()
             else None
         )
+        raw["base_url"] = environment.base_url or None
         raw["workspace_id"] = (
             environment.workspace_id
             if environment.workspace_id is not None and environment.workspace_id.get_secret_value()
@@ -78,4 +80,5 @@ def load_settings(
     else:
         raw["api_key"] = env.get("DASHSCOPE_API_KEY") or None
         raw["workspace_id"] = env.get("BAILIAN_WORKSPACE_ID") or None
+        raw["base_url"] = env.get("BAILIAN_BASE_URL") or None
     return Settings.model_validate(raw)

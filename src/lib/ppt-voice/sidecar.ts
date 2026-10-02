@@ -37,9 +37,9 @@ function agentEnv(extra?: Record<string, string | undefined>) {
     ...process.env,
     PYTHONPATH: `${path.join(TOOL_ROOT, 'src')}${path.delimiter}${TOOL_ROOT}`,
     PYTHONIOENCODING: 'utf-8',
-    DASHSCOPE_API_KEY: extra?.DASHSCOPE_API_KEY || tts.dashscopeApiKey || process.env.DASHSCOPE_API_KEY || '',
-    BAILIAN_WORKSPACE_ID: extra?.BAILIAN_WORKSPACE_ID || tts.workspaceId || process.env.BAILIAN_WORKSPACE_ID || '',
-    BAILIAN_BASE_URL: extra?.BAILIAN_BASE_URL || tts.baseUrl || process.env.BAILIAN_BASE_URL || '',
+    DASHSCOPE_API_KEY: extra?.DASHSCOPE_API_KEY ?? tts.dashscopeApiKey,
+    BAILIAN_WORKSPACE_ID: extra?.BAILIAN_WORKSPACE_ID ?? tts.workspaceId,
+    BAILIAN_BASE_URL: extra?.BAILIAN_BASE_URL ?? tts.baseUrl,
     ...extra
   };
 }

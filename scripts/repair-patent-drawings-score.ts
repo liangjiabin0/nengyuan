@@ -67,7 +67,7 @@ async function main() {
     || project.draft?.claims
     || ''
   );
-  let draft = {
+  const draft = {
     ...(project.draft || {
       title: project.disclosure.proposedTitle || project.title,
       abstract: '',

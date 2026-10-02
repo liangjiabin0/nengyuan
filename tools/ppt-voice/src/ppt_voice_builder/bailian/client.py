@@ -33,6 +33,7 @@ class BailianClient:
         timeout_seconds: float,
         max_retries: int = 3,
         *,
+        base_url: str | None = None,
         transport: httpx.BaseTransport | None = None,
         sleep: Callable[[float], None] = time.sleep,
     ) -> None:
@@ -44,6 +45,16 @@ class BailianClient:
             if normalized_workspace_id
             else "https://dashscope.aliyuncs.com"
         )
+        if base_url:
+            from urllib.parse import urlsplit
+            parsed = urlsplit(base_url.strip())
+            if parsed.scheme not in {"https", "http"} or not parsed.netloc or parsed.username or parsed.password:
+                raise ValueError("BAILIAN_BASE_URL 必须为有效的 HTTP(S) 服务地址")
+            # The TTS endpoint uses /api/v1, not the OpenAI compatible-mode path.
+            self.base_url = base_url.strip().rstrip("/")
+            for suffix in ("/compatible-mode/v1", "/api/v1"):
+                if self.base_url.endswith(suffix):
+                    self.base_url = self.base_url[:-len(suffix)]
         self.max_retries = max_retries
         self._sleep = sleep
         self.request_count = 0

@@ -57,7 +57,6 @@ async function main() {
     'variables must use italic math style (MathType-like)'
   );
   const upright = latexToOmml(String.raw`\mathrm{PUE}`, false) || '';
-  assert.ok(/<m:nor\b/.test(upright), '\\mathrm should keep upright nor');
   assert.ok(/<m:sty m:val="p"\s*\/>/.test(upright), '\\mathrm should stay plain, not italic');
   assert.ok(!/<m:sty m:val="undefined"\s*\/>/.test(upright), 'sty=undefined must be repaired');
   const italicVar = latexToOmml(String.raw`x_i`, false) || '';

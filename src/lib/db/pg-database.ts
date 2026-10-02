@@ -309,6 +309,9 @@ async function seedDefaultAdminAndOwnership(db: PgDatabase) {
   );
   let adminId = existing?.id;
   if (!adminId) {
+    if (DEFAULT_ADMIN_PASSWORD.length < 12) {
+      throw new Error('首次初始化必须设置至少12位的 DEFAULT_ADMIN_PASSWORD。');
+    }
     adminId = randomUUID();
     await db.prepare(
       `INSERT INTO users (id, username, password_hash, role, created_at, updated_at)

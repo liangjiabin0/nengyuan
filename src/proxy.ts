@@ -12,39 +12,10 @@ const PUBLIC_PATHS = new Set([
 function isPublicPath(pathname: string) {
   if (PUBLIC_PATHS.has(pathname)) return true;
   if (pathname.startsWith('/_next/')) return true;
-  if (pathname.startsWith('/datav/') || pathname.startsWith('/datav-runtime/') || pathname.startsWith('/datav-dc/')) return true;
+  if (pathname.startsWith('/datav/')) return true;
   if (pathname === '/favicon.ico') return true;
   if (/\.(?:png|jpg|jpeg|gif|svg|ico|webp|css|js|map|txt|woff2?)$/i.test(pathname)) return true;
   return false;
-}
-
-function hostnameFromHostHeader(value: string | null | undefined) {
-  const first = String(value || '').split(',')[0].trim().toLowerCase();
-  if (!first) return '';
-  if (first.startsWith('[')) {
-    const end = first.indexOf(']');
-    if (end > 1) return first.slice(1, end);
-  }
-  return first.split(':')[0];
-}
-
-function isLoopbackHostname(hostname: string) {
-  const host = hostname.replace(/^\[|\]$/g, '').toLowerCase();
-  return host === '127.0.0.1' || host === 'localhost' || host === '::1';
-}
-
-function isLoopbackRequest(request: NextRequest) {
-  const host = hostnameFromHostHeader(request.headers.get('host'));
-  const nextHost = hostnameFromHostHeader(request.nextUrl.hostname);
-  return isLoopbackHostname(host) || isLoopbackHostname(nextHost);
-}
-
-function safeNextPath(raw: string | null) {
-  const value = String(raw || '/').trim() || '/';
-  if (!value.startsWith('/') || value.startsWith('//') || value === '/login' || value.startsWith('/login?')) {
-    return '/';
-  }
-  return value;
 }
 
 function withForwardedAuth(request: NextRequest) {
@@ -72,14 +43,6 @@ function withForwardedAuth(request: NextRequest) {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-
-  if (isLoopbackRequest(request)) {
-    if (pathname === '/login') {
-      const next = safeNextPath(request.nextUrl.searchParams.get('next'));
-      return NextResponse.redirect(new URL(next, request.url));
-    }
-    return withForwardedAuth(request);
-  }
 
   if (isPublicPath(pathname)) {
     return withForwardedAuth(request);

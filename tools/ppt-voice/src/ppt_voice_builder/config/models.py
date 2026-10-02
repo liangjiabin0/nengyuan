@@ -61,6 +61,7 @@ class Settings(BaseModel):
     project: ProjectConfig = Field(default_factory=ProjectConfig)
     api_key: SecretStr | None = Field(default=None, exclude=True)
     workspace_id: SecretStr | None = Field(default=None, exclude=True)
+    base_url: str | None = None
 
     @field_validator("workspace_id")
     @classmethod

@@ -15,7 +15,7 @@ if (!buildAllRoutes) {
   // Production always runs the Hono API as a separate process. Do not bundle
   // the duplicate 98 App Router API adapters into the Web process; the
   // beforeFiles rewrite below forwards every /api request to Hono.
-  args.push('--debug-build-paths=src/app/**/page.tsx,src/app/healthz/route.ts');
+  args.push('--debug-build-paths=src/app/**/page.tsx,src/app/healthz/route.ts,src/app/datav-runtime/**/route.ts,src/app/datav-dc/**/route.ts');
 }
 
 console.log(`[build] Next.js Webpack heap limit: ${memoryMb} MB (override with AI4ES_BUILD_MEMORY_MB)`);

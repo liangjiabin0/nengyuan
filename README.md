@@ -50,7 +50,7 @@ AI4ES_ROLE=worker AI4ES_USE_JOB_QUEUE=0 node dist/runtime/worker.mjs
 AI4ES_SPLIT=1 AI4ES_API_URL=http://127.0.0.1:4000 npx next start -p 3000
 ```
 
-线上用 pm2 管理，见 `ecosystem.config.cjs`；部署细节见 `DEPLOY.md`，系统依赖见 `SYSTEM_DEPENDENCIES.md`。注意：前端构建时会把 `AI4ES_API_URL` 写进路由转发，改 API 端口后要重新 `npm run build`。
+当前 Linux 服务器以 systemd 启动 `scripts/linux/intranet-start.sh prod`；修复后的约定见 `docs/recovery-deployment.md`。PM2 为可选策略，不是必装依赖。注意：前端构建时会把 `AI4ES_API_URL` 写进路由转发，改 API 端口后要重新 `npm run build`。
 
 各计算工具的 Python 环境需要单独安装，见各 `tools/*/SKILL.md`。`tools/tdmg-acopf-dispatch/scripts/_vendor/` 不入库，运行该目录下的 `bootstrap.py` 会自动装好。
 

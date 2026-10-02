@@ -51,7 +51,9 @@ export function getRequestHostname(request: Request) {
  * 不单独信任 X-Forwarded-Host，避免局域网请求伪造 localhost。
  */
 export function isLocalAdminHost(request: Request) {
-  return isLoopbackHostname(getRequestHostname(request));
+  // Host and forwarding headers are client-controlled; require a real session everywhere.
+  void request;
+  return false;
 }
 
 export function readSessionTokenFromCookieHeader(cookieHeader: string | null) {

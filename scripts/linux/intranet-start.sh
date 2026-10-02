@@ -81,7 +81,7 @@ start_api() {
   export AI4ES_ROLE=api
   export AI4ES_USE_JOB_QUEUE=1
   export API_PORT
-  export API_HOST=0.0.0.0
+  export API_HOST=127.0.0.1
   if [[ "${AI4ES_FORCE_TSX:-0}" != 1 && -f "$PROJECT_ROOT/dist/runtime/api.mjs" ]]; then
     nohup node "$PROJECT_ROOT/dist/runtime/api.mjs" \
       >"$PROJECT_ROOT/storage/api-server.out.log" \

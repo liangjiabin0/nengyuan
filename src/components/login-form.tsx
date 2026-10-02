@@ -8,11 +8,6 @@ import { loginAction } from '@/app/login/actions';
 import { notify } from '@/lib/notify';
 import { cn } from '@/lib/utils';
 
-function isLoopbackHost() {
-  if (typeof window === 'undefined') return false;
-  return /^(127\.0\.0\.1|localhost|\[::1\]|::1)$/i.test(window.location.hostname);
-}
-
 export function LoginForm() {
   const searchParams = useSearchParams();
   const nextPath = useMemo(() => {
@@ -22,44 +17,19 @@ export function LoginForm() {
   const error = searchParams.get('error') || '';
   const [demoAlive, setDemoAlive] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
-  const [localAutoLogin, setLocalAutoLogin] = useState(false);
 
   useEffect(() => {
     if (error) notify.error(error);
   }, [error]);
 
   useEffect(() => {
-    if (!isLoopbackHost()) return;
-    setLocalAutoLogin(true);
-    let cancelled = false;
-    void (async () => {
-      try {
-        await fetch('/api/auth/login', {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ next: nextPath })
-        });
-      } catch {
-        // 接口未就绪时仍进入首页，由本机旁路接管
-      }
-      if (!cancelled) window.location.replace(nextPath);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [nextPath]);
-
-  // 本机会立刻自动登录跳走，只有停在登录页时才值得为演示模式预热播放器。
-  useEffect(() => {
-    if (localAutoLogin) return;
     const host = window as Window & {
       requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
     };
     const warm = () => setDemoAlive(true);
     if (host.requestIdleCallback) host.requestIdleCallback(warm, { timeout: 4000 });
     else window.setTimeout(warm, 1500);
-  }, [localAutoLogin]);
+  }, []);
 
   function openDemo() {
     setDemoAlive(true);
@@ -96,13 +66,10 @@ export function LoginForm() {
           <div>
             <div className="text-base font-semibold tracking-tight text-foreground">能元</div>
             <p className="text-sm text-muted-foreground">
-              {localAutoLogin ? '本机访问，正在以管理员身份进入…' : 'AI4ES · 请使用管理员分配的账号登录'}
+              AI4ES · 请使用管理员分配的账号登录
             </p>
           </div>
         </div>
-        {localAutoLogin ? (
-          <div className="text-sm text-muted-foreground">无需输入账号密码，即将进入系统。</div>
-        ) : (
           <form className="space-y-4" action={loginAction}>
             <input type="hidden" name="next" value={nextPath} />
             <label className="block space-y-1.5">
@@ -134,7 +101,6 @@ export function LoginForm() {
               登录
             </button>
           </form>
-        )}
       </div>
       {demoAlive && typeof document !== 'undefined'
         ? createPortal(

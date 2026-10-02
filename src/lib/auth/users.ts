@@ -55,6 +55,9 @@ export async function ensureDefaultAdmin() {
     defaultAdminCache = existing;
     return existing;
   }
+  if (DEFAULT_ADMIN_PASSWORD.length < 12) {
+    throw new Error('首次创建管理员必须设置至少12位的 DEFAULT_ADMIN_PASSWORD。');
+  }
   const id = randomUUID();
   await run(
     `INSERT INTO users (id, username, password_hash, role, created_at, updated_at)

@@ -44,22 +44,25 @@ fi
 
 sudo_cmd systemctl enable --now postgresql || sudo_cmd service postgresql start || true
 
-echo "[bootstrap] creating role/database ai4es"
-sudo_cmd -u postgres psql -v ON_ERROR_STOP=0 <<'SQL' || true
-DO $$
-BEGIN
-  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'ai4es') THEN
-    CREATE ROLE ai4es LOGIN PASSWORD 'ai4es_local';
-  END IF;
-END$$;
-SQL
-sudo_cmd -u postgres psql -c "SELECT 1 FROM pg_database WHERE datname='ai4es'" | grep -q 1 \
-  || sudo_cmd -u postgres psql -c "CREATE DATABASE ai4es OWNER ai4es;"
-sudo_cmd -u postgres psql -c "ALTER ROLE ai4es WITH PASSWORD 'ai4es_local';" || true
+# Existing credentials must never be changed by an installation script.
+if ! sudo_cmd -u postgres psql -Atc "SELECT 1 FROM pg_roles WHERE rolname='ai4es'" | grep -qx 1; then
+  AI4ES_DB_PASSWORD="${AI4ES_DB_PASSWORD:-}"
+  export AI4ES_DB_PASSWORD
+  if [[ ${#AI4ES_DB_PASSWORD} -lt 12 ]]; then
+    echo "Set AI4ES_DB_PASSWORD (at least 12 characters) for first-time database creation." >&2
+    exit 1
+  fi
+  python3 - <<'PY' | sudo_cmd -u postgres psql -v ON_ERROR_STOP=1
+import os
+password = os.environ['AI4ES_DB_PASSWORD'].replace("'", "''")
+print("CREATE ROLE ai4es LOGIN PASSWORD '" + password + "';")
+PY
+fi
+sudo_cmd -u postgres psql -Atc "SELECT 1 FROM pg_database WHERE datname='ai4es'" | grep -qx 1 \
+  || sudo_cmd -u postgres psql -v ON_ERROR_STOP=1 -c "CREATE DATABASE ai4es OWNER ai4es;"
 
 if command -v ufw >/dev/null 2>&1; then
   sudo_cmd ufw allow 3000/tcp || true
-  sudo_cmd ufw allow 4000/tcp || true
 fi
 
 sudo_cmd loginctl enable-linger "$(id -un)" || true

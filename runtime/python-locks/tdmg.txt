@@ -1,0 +1,4 @@
+numpy==1.26.4
+PYPOWER==5.1.19
+PyYAML==6.0.2
+scipy==1.14.1

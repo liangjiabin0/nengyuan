@@ -39,6 +39,7 @@ class VoiceDesigner:
             workspace_id,
             self.settings.bailian.request_timeout_seconds,
             self.settings.bailian.max_retries,
+            base_url=self.settings.base_url,
         )
 
     def create(self, prefix: str = "pptvoice") -> VoiceDesignResult:

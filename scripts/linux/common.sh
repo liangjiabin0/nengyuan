@@ -9,8 +9,8 @@ ai4es_project_root() {
 
 ai4es_load_env() {
   local project_root="$1"
-  local file line key value
   export AI4ES_PROJECT_ROOT="$project_root"
+  local file line key value
   # Match the Windows bootstrap: child processes always emit UTF-8, whatever the
   # container locale is, so tool output stays readable on both platforms.
   export PYTHONUTF8="${PYTHONUTF8:-1}"

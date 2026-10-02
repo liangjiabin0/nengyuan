@@ -183,8 +183,14 @@ start_sidecar() {
   fi
 
   mkdir -p "$STORAGE/.opencode"
-  ln -sfn "$PROJECT_ROOT/.opencode/agents" "$STORAGE/.opencode/agents"
-  ln -sfn "$PROJECT_ROOT/.opencode/skills" "$STORAGE/.opencode/skills"
+  for kind in agents skills; do
+    if [[ -d "$STORAGE/.opencode/$kind" && ! -L "$STORAGE/.opencode/$kind" ]]; then
+      # Preserve user-customized runtime files; install newly bundled resources.
+      rsync -a --ignore-existing "$PROJECT_ROOT/.opencode/$kind/" "$STORAGE/.opencode/$kind/"
+    else
+      ln -sfn "$PROJECT_ROOT/.opencode/$kind" "$STORAGE/.opencode/$kind"
+    fi
+  done
   write_runtime_config
 
   local existing_pid

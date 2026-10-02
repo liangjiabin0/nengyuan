@@ -174,6 +174,7 @@ class WorkflowOrchestrator:
             workspace_id,
             self.settings.bailian.request_timeout_seconds,
             self.settings.bailian.max_retries,
+            base_url=self.settings.base_url,
         ) as client:
             total = len(prepared_notes)
             for note, task in zip(prepared_notes, manifest.tasks, strict=True):

@@ -1,8 +1,8 @@
 # 能元（AI4ES）迁移部署
 
-本文是新机器上的唯一操作顺序。人工或 Agent 按章节从上到下执行，一步失败就停在该步，修好再继续。不要跳过验收。数据、密钥和商业许可证不在 Git 里，缺了它们时对应功能会失败，其余服务仍应能启动。
+现有服务器的恢复操作优先遵循 `docs/recovery-deployment.md`；本文保留新机器的部署参考。人工或 Agent 按章节从上到下执行，一步失败就停在该步，修好再继续。不要跳过验收。数据、密钥和商业许可证不在 Git 里，缺了它们时对应功能会失败，其余服务仍应能启动。
 
-仓库：`https://github.com/TJ111m/ai4es.git`。克隆后的目录就是项目根。下面的命令都在项目根执行。
+仓库：`https://github.com/liangjiabin0/nengyuan-recovery-merged.git`。克隆后的目录就是项目根。下面的命令都在项目根执行。
 
 ## 0. 不要提交、不要覆盖
 
@@ -17,7 +17,7 @@
 | `storage/`、`数据/`、`dist/`、`output/`、`deliverables/` | 运行数据、语料、便携包、临时产物 |
 | `.env.local`、`storage/settings.json`、`tools/mgplan/scripts/openTEPES.mapbox_token`、`gurobi.lic` | 密钥和许可证 |
 
-公网下不到、但运行需要、已经在 Git 里的内容：`tools/esopt/work/DCOPF/build/` 下的 `esoptc.exe`、`dc_opf.exe`、HiGHS 与 MinGW DLL；`tools/ses-iesp-esopt/build/openTEPES_esopt.exe` 及同目录 DLL；风电预测权重 `tools/pv-wind-load-forecast/wind/wind-power-forcast-kaggle/weights/*.hdf5`。光伏 / 负荷 / 电量的 `weights/**/*.keras` 不入库，预测时若没有匹配权重会现场训练。
+以下非 Git 资源需从可信旧部署恢复（可使用 `scripts/restore-runtime-assets.py`）：`tools/esopt/work/DCOPF/build/` 下的 `esoptc.exe`、`dc_opf.exe`、HiGHS 与 MinGW DLL；`tools/ses-iesp-esopt/build/openTEPES_esopt.exe` 及同目录 DLL；风电预测权重 `tools/pv-wind-load-forecast/wind/wind-power-forcast-kaggle/weights/*.hdf5`。光伏 / 负荷 / 电量的 `weights/**/*.keras` 不入库，预测时若没有匹配权重会现场训练。
 
 ## 1. 基础软件
 
@@ -43,12 +43,12 @@ omc --version
 
 `better-sqlite3` 若没有预编译包，再装 Visual Studio 2022 Build Tools 的“使用 C++ 的桌面开发”。PPT 语音的 COM 自动化需要本机已安装的 Microsoft PowerPoint。
 
-Ubuntu 用 `scripts/linux/bootstrap.sh`（需要 sudo）。它安装编译工具、Python venv、ripgrep、poppler、mupdf-tools、LibreOffice、中文字体、ffmpeg、tmux，并创建 PostgreSQL 角色 `ai4es` / 库 `ai4es`。脚本里的默认口令只适合空机器，生产环境立刻改掉，并写进 `.env.local`。OpenModelica 另执行 `scripts/linux/install-openmodelica.sh`。
+Ubuntu 用 `scripts/linux/bootstrap.sh`（需要 sudo）。它安装编译工具、Python venv、ripgrep、poppler、mupdf-tools、LibreOffice、中文字体、ffmpeg、tmux，并创建 PostgreSQL 角色 `ai4es` / 库 `ai4es`。角色已存在时不重置密码；新角色必须显式提供至少12位 `AI4ES_DB_PASSWORD`，并写入 `.env.local`。OpenModelica 另执行 `scripts/linux/install-openmodelica.sh`。
 
 ## 2. 克隆与环境文件
 
 ```powershell
-git clone https://github.com/TJ111m/ai4es.git ai4es
+git clone https://github.com/liangjiabin0/nengyuan-recovery-merged.git ai4es
 Set-Location .\ai4es
 Copy-Item .env.example .env.local
 ```

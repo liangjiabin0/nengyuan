@@ -8,9 +8,9 @@ import { formatNumber } from '@/lib/utils';
 export const DATAV_SHARE_ID = 'f876cc78fb12e315dc169f13f51ed275';
 
 const GEO_API = {
-  topojson: 'https://geo.datav.aliyun.com/areas_v3/china_all_datav_drill.json',
-  worldBorder: 'https://geo.datav.aliyun.com/areas_v3/world_land_boundary.json',
-  chinaBorder: 'https://geo.datav.aliyun.com/areas_v2/bound/100000_boundary.json'
+  topojson: '/datav/geo/china_all_datav_drill.json',
+  worldBorder: '/datav/geo/world_land_boundary.json',
+  chinaBorder: '/datav/geo/100000_boundary.json'
 } as const;
 
 type Layer = {
@@ -228,11 +228,12 @@ function title(value: string) {
   return [{ value }];
 }
 
-function geoRedirect(url: string) {
-  return { type: 'api', method: 'GET', redirect: url };
+function geoRedirect(url: string, origin: string) {
+  // DataV's redirect handler expects an absolute URL, even for local assets.
+  return { type: 'api', method: 'GET', redirect: new URL(url, origin).href };
 }
 
-export async function buildDatavDcPayload(summary: DbSummaryPayload | null): Promise<Record<string, unknown>> {
+export async function buildDatavDcPayload(summary: DbSummaryPayload | null, origin: string): Promise<Record<string, unknown>> {
   const metrics = screenMetrics(summary);
   const flying = await getMentorFlyingNetwork();
   return {
@@ -252,9 +253,9 @@ export async function buildDatavDcPayload(summary: DbSummaryPayload | null): Pro
     '通用标题_PEZWu.source': title('资源与检索详情'),
     'main-title_rodUw.source': title('OCT'),
     'main-title_xh60C.source': title('南海诸岛'),
-    '@datav-3d-v3_datav-3dplane_2a7GL.topojson': geoRedirect(GEO_API.topojson),
-    '@datav-3d-v3_datav-3dplane_2a7GL.worldBorder': geoRedirect(GEO_API.worldBorder),
-    '@datav-3d-v3_datav-3dplane_2a7GL.chinaBorder': geoRedirect(GEO_API.chinaBorder),
+    '@datav-3d-v3_datav-3dplane_2a7GL.topojson': geoRedirect(GEO_API.topojson, origin),
+    '@datav-3d-v3_datav-3dplane_2a7GL.worldBorder': geoRedirect(GEO_API.worldBorder, origin),
+    '@datav-3d-v3_datav-3dplane_2a7GL.chinaBorder': geoRedirect(GEO_API.chinaBorder, origin),
     [`${FLYING_LINE_LAYERS.fast.id}.dataSource`]: flying.buckets.fast,
     [`${FLYING_LINE_LAYERS.mid.id}.dataSource`]: flying.buckets.mid,
     [`${FLYING_LINE_LAYERS.slow.id}.dataSource`]: flying.buckets.slow,
@@ -262,8 +263,8 @@ export async function buildDatavDcPayload(summary: DbSummaryPayload | null): Pro
   };
 }
 
-export async function answerDatavDcQuery(query: string, summary: DbSummaryPayload | null) {
-  const payload = await buildDatavDcPayload(summary);
+export async function answerDatavDcQuery(query: string, summary: DbSummaryPayload | null, origin: string) {
+  const payload = await buildDatavDcPayload(summary, origin);
   const result: Record<string, unknown> = {};
   for (const item of query.split('~|#').filter(Boolean)) {
     const apiName = decodeURIComponent(item.split('?')[0] || '');

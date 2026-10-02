@@ -1,8 +1,13 @@
 ---
 name: shared-technical-report-ppt-pipeline
-title: "ppt（自由版）"
-description: "Convert Chinese technical reports, research reports, project documents, papers, DOCX/PDF sources, and a supplied or bundled PowerPoint template into source-grounded slide outlines, a global image-generation prompt, per-slide prompts, GPT image preview drafts, and a template-faithful editable PPTX. Use for end-to-end technical-report-to-PPT work, especially power systems, zero-carbon parks, integrated energy systems, optimization scheduling, formula-heavy research presentations, preview-first workflows, and requests requiring strict master inheritance, editable charts/diagrams, exact equations, or visual QA."
+title: "PPT（技术报告自由版）"
+description: Convert Chinese technical reports, research reports, project documents, papers, DOCX/PDF sources, and a supplied or bundled PowerPoint template into source-grounded slide outlines, a global image-generation prompt, per-slide prompts, GPT image preview drafts, and a template-faithful editable PPTX. Use for end-to-end technical-report-to-PPT work, especially power systems, zero-carbon parks, integrated energy systems, optimization scheduling, formula-heavy research presentations, preview-first workflows, and requests requiring strict master inheritance, editable charts/diagrams, exact equations, or visual QA.
 ---
+
+## 能元服务器运行环境
+
+此技能已接入能元 OpenCode。文件目录以本 SKILL.md 所在目录为准，不使用开发者电脑的绝对路径。用系统 office-docs/pdf 工具读取源资料，用仓库 Node 与 pptxgenjs 构建，用 LibreOffice 渲染并检查每页。私有 Python 默认 tools/office-docs-venv/bin/python（Windows 对应 Scripts/python.exe），可用 OFFICE_DOCS_PYTHON 覆盖。参考样例在 assets/reference-pptx，原提示词和证据规则仍适用。没有配置外部 Codex runtime 时，不执行 artifact-tool 专用脚本。
+
 
 # Technical Report to PPT Pipeline
 
@@ -13,10 +18,10 @@ objects rather than ordinary text.
 ## Required companion skills
 
 - Use the Documents skill to read DOCX sources and the PDF skill to read PDF sources.
-- Use the Presentations skill for all PPTX inspection, authoring, rendering, and QA.
+- Use the installed pptx/office-docs tools for PPTX inspection and LibreOffice rendering; author native editable objects with PptxGenJS.
 - Use the imagegen skill only after the user approves the prompt pack.
 - Follow the Presentations skill's template-following workflow and use
-  `@oai/artifact-tool`; never use `python-pptx` or mutate PPTX XML directly.
+  the installed `pptxgenjs` server runtime. Keep text, shapes, charts and tables editable; retain canonical LaTeX for formula revision.
 
 ## Set up the workspace
 
@@ -252,3 +257,7 @@ At the prompt stage, deliver the global prompt and ordered per-slide prompts. At
 the preview stage, deliver the ordered slide previews. At the build stage, deliver
 only the final PPTX and a concise note on sources, font substitutions, and any
 explicitly unresolved fidelity limitation.
+
+## 服务器独立可编辑构建
+
+可用 scripts/build_editable_deck.mjs，不要求 @oai/artifact-tool。输入 JSON 的 meta.paperTitle 和 slides 数组；每页提供 title、summaryRuns、panels（title/steps/details/conclusion）、formulas（id/latex）、resultModules（title/conclusion/visuals）。先用现有内容与公式检查器核对真实来源，再通过 SPEC_PATH 和 FINAL_PPTX 环境变量运行。此入口提供通用原生对象构建，严格模板还原仍须按测量结果调整，不能把通用布局声称为自动母版继承。

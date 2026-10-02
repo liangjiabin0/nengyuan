@@ -1,0 +1,145 @@
+{
+  "reason": "Removed stale npm entries pointing to files absent from the merged recovery source; no passing tests are fabricated.",
+  "commands": [
+    {
+      "name": "test:chat-workspace-guard",
+      "file": "scripts/test-chat-workspace-guard.ts"
+    },
+    {
+      "name": "test:chat-workspace-retention",
+      "file": "scripts/test-chat-workspace-retention.ts"
+    },
+    {
+      "name": "test:chat-title",
+      "file": "scripts/test-chat-title.ts"
+    },
+    {
+      "name": "test:chat-title-ownership",
+      "file": "scripts/test-chat-title-ownership.ts"
+    },
+    {
+      "name": "test:chat-history-sanitization",
+      "file": "scripts/test-chat-history-sanitization.ts"
+    },
+    {
+      "name": "test:chat-ask",
+      "file": "scripts/test-chat-ask.ts"
+    },
+    {
+      "name": "test:chat-message-integrity",
+      "file": "scripts/test-chat-message-integrity.ts"
+    },
+    {
+      "name": "test:chat-attachment-isolation",
+      "file": "scripts/test-chat-attachment-isolation.ts"
+    },
+    {
+      "name": "test:chat-conversation-list",
+      "file": "scripts/test-chat-conversation-list.ts"
+    },
+    {
+      "name": "test:chat-conversation-load",
+      "file": "scripts/test-chat-conversation-load.ts"
+    },
+    {
+      "name": "test:chat-composer-draft",
+      "file": "scripts/test-chat-composer-draft.ts"
+    },
+    {
+      "name": "test:chat-send-queue",
+      "file": "scripts/test-chat-send-queue-concurrency.ts"
+    },
+    {
+      "name": "test:chat-multi-instance",
+      "file": "scripts/test-chat-multi-instance.ts"
+    },
+    {
+      "name": "test:chat-stream",
+      "file": "scripts/test-chat-stream-client.ts"
+    },
+    {
+      "name": "test:llm-gateway-retry",
+      "file": "scripts/test-llm-gateway-retry.ts"
+    },
+    {
+      "name": "test:llm-gateway-thought",
+      "file": "scripts/test-llm-gateway-thought.ts"
+    },
+    {
+      "name": "test:llm-gateway-sessions",
+      "file": "scripts/test-llm-gateway-sessions.ts"
+    },
+    {
+      "name": "test:opencode-runtime-events",
+      "file": "scripts/test-opencode-runtime-events.ts"
+    },
+    {
+      "name": "test:opencode-session-map",
+      "file": "scripts/test-opencode-session-map-concurrency.ts"
+    },
+    {
+      "name": "test:chat-subagents",
+      "file": "scripts/test-chat-subagents.ts"
+    },
+    {
+      "name": "test:subagent-router",
+      "file": "scripts/test-subagent-router.ts"
+    },
+    {
+      "name": "test:task-model",
+      "file": "scripts/test-task-model.ts"
+    },
+    {
+      "name": "test:chat-live",
+      "file": "scripts/test-chat-live-e2e.ts"
+    },
+    {
+      "name": "test:chat-live-sync",
+      "file": "scripts/test-chat-live-sync.ts"
+    },
+    {
+      "name": "test:self-learning",
+      "file": "scripts/test-self-learning.ts"
+    },
+    {
+      "name": "test:self-learning:db",
+      "file": "scripts/test-self-learning-db.ts"
+    },
+    {
+      "name": "test:openalex",
+      "file": "scripts/test-openalex.ts"
+    },
+    {
+      "name": "test:office-docs",
+      "file": "scripts/test-office-docs.ts"
+    },
+    {
+      "name": "test:build-docx",
+      "file": "scripts/test-build-docx.ts"
+    },
+    {
+      "name": "test:office-preflight",
+      "file": "scripts/test-office-preflight.ts"
+    },
+    {
+      "name": "test:powershell-utf8",
+      "file": "scripts/test-powershell-utf8.ts"
+    },
+    {
+      "name": "test:power-compute",
+      "file": "scripts/test-power-compute-e2e.ts"
+    },
+    {
+      "name": "test:scheme-solvers",
+      "file": "scripts/audit-scheme-solvers.ts"
+    },
+    {
+      "name": "test:capability-gaps",
+      "file": "scripts/test-capability-gaps.ts"
+    },
+    {
+      "name": "audit:recent",
+      "file": "scripts/audit-recent-system.ts"
+    }
+  ]
+}
