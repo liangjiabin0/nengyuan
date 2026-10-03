@@ -83,8 +83,6 @@ def _write_lp(
     for index, row in enumerate(rows):
         name = _safe_name(str(row.get("name") or f"c{index + 1}"))
         terms = [f"{float(coef):.12g} {var}" for var, coef in row["terms"] if abs(float(coef)) > 1e-15]
-        if not terms:
-            continue
         sense_sym = str(row.get("sense") or "=")
         rhs = float(row.get("rhs") or 0)
         if sense_sym in {"<=", "=<", "le"}:
@@ -93,7 +91,7 @@ def _write_lp(
             op = ">="
         else:
             op = "="
-        lines.append(f" {name}: {' '.join(terms)} {op} {rhs:.12g}")
+        lines.append(f" {name}: {' '.join(terms) or '0'} {op} {rhs:.12g}")
     lines.append("Bounds")
     binaries: list[str] = []
     generals: list[str] = []
@@ -104,6 +102,9 @@ def _write_lp(
         ub = _bound(col.get("ub"), 1e30)
         if domain in {"binary", "bin", "bool"}:
             binaries.append(name)
+            binary_lb = max(0.0, _bound(col.get("lb"), 0.0))
+            binary_ub = min(1.0, _bound(col.get("ub"), 1.0))
+            lines.append(f" {binary_lb:.12g} <= {name} <= {binary_ub:.12g}")
             continue
         if domain in {"integer", "int", "integ"}:
             generals.append(name)
@@ -138,8 +139,8 @@ def _pack_highs_result(
     payload = {
         "ok": status == 7,
         "success": status == 7,
-        "engine": "esopt",
-        "solver": "ESOPT / HiGHS",
+        "engine": "highs",
+        "solver": "HiGHS",
         "backend": backend,
         "termination_status": status,
         "status": _HIGHS_STATUS.get(status, f"status_{status}"),
@@ -222,6 +223,13 @@ def solve_linear_spec(spec: dict[str, Any], timeout: int = 120) -> dict[str, Any
                 raise RuntimeError(f"constraint uses unknown variable {raw}")
             terms.append((name_map[raw], float(term.get("coef") or term.get("coefficient") or 0)))
         rhs = float(con.get("rhs") or 0) - float(con.get("constant") or 0)
+        if "lb" in con or "ub" in con:
+            offset = float(con.get("constant") or 0)
+            for key, sense in (("lb", ">="), ("ub", "<=")):
+                if con.get(key) is not None:
+                    rows.append({"name": str(con.get("name") or f"c{index + 1}") + "_" + key,
+                                 "terms": terms, "sense": sense, "rhs": float(con[key]) - offset})
+            continue
         rows.append(
             {
                 "name": con.get("name") or f"c{index + 1}",
@@ -258,9 +266,9 @@ def solve_linear_spec(spec: dict[str, Any], timeout: int = 120) -> dict[str, Any
     return result
 
 
-def solve_dcopf_case(case_path: Path, timeout: int = 600) -> dict[str, Any]:
+def solve_dcopf_case(case_path: Path, timeout: int = 600, solve_spec=None) -> dict[str, Any]:
     """Build the same DCOPF as native esoptc.cpp (arc flows, -b, linear cost2+cost3)."""
-    if not highspy_available():
+    if solve_spec is None and not highspy_available():
         raise RuntimeError("highspy 不可用，且本机没有 esoptc。")
     data = json.loads(Path(case_path).read_text(encoding="utf-8"))
     buses = list(data.get("bus") or [])
@@ -375,18 +383,19 @@ def solve_dcopf_case(case_path: Path, timeout: int = 600) -> dict[str, Any]:
             terms.append((p_names[ai], -1.0))
         rows.append({"name": f"pb_{bus_id}", "terms": terms, "sense": "=", "rhs": pd[bi]})
 
-    with tempfile.TemporaryDirectory(prefix="esopt-dcopf-") as tmp:
-        lp_path = Path(tmp) / "dcopf.lp"
-        _write_lp(
-            lp_path,
-            sense="minimize",
-            objective=objective,
-            quadratic=[],
-            offset=cost3_offset,
-            columns=columns,
-            rows=rows,
-        )
-        result = solve_lp_file(lp_path, timeout=timeout)
+    if solve_spec is not None:
+        def terms(items):
+            return [{"var": name, "coef": coef} for name, coef in items]
+        spec = {"variables": columns,
+                "constraints": [{**row, "terms": terms(row["terms"])} for row in rows],
+                "objective": {"sense": "minimize", "terms": terms(objective), "constant": cost3_offset}}
+        result = solve_spec(spec, timeout=timeout)
+    else:
+        with tempfile.TemporaryDirectory(prefix="esopt-dcopf-") as tmp:
+            lp_path = Path(tmp) / "dcopf.lp"
+            _write_lp(lp_path, sense="minimize", objective=objective, quadratic=[],
+                      offset=cost3_offset, columns=columns, rows=rows)
+            result = solve_lp_file(lp_path, timeout=timeout)
 
     values = dict(result.get("values") or {})
     pg_values = {name: float(values.get(name, 0.0)) for name in pg_names}
@@ -407,7 +416,7 @@ def solve_dcopf_case(case_path: Path, timeout: int = 600) -> dict[str, Any]:
         )
     result["command"] = "dcopf"
     result["case_name"] = Path(case_path).stem
-    result["backend"] = "highspy"
+    result.setdefault("backend", "highspy")
     result["mode"] = "dcopf"
     result["pg"] = pg_values
     result["generator_outputs"] = generator_outputs
@@ -419,5 +428,5 @@ def solve_dcopf_case(case_path: Path, timeout: int = 600) -> dict[str, Any]:
     result["total_load"] = total_load
     result["power_balance_error"] = total_generation - total_load
     result["optimal"] = bool(result.get("ok"))
-    result["note"] = "Linux highspy DC OPF，公式对齐原生 esoptc（无 esoptc 可执行文件）"
+    result["note"] = "DCOPF pg/va/arc-flow formulation; backend=" + str(result["backend"])
     return result

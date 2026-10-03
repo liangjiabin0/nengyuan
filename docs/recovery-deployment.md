@@ -16,7 +16,7 @@ DataV地图资源通过public/datav/geo缓存，使用当前访问源的绝对UR
 
 dataRootDir由storage/settings.json优先决定，DATA_ROOT_DIR仅作未设置时的后备。Linux不能沿用Windows磁盘路径。现有服务器实际数据在/data/ai4es/数据；迁移时还需检查数据库内的文件路径映射。
 
-Git未包含商业求解器二进制、许可证、Mapbox token、预测权重和部分案例。可以从可信旧部署执行scripts/restore-runtime-assets.py恢复模型/案例/二进制并生成SHA256清单；该脚本不复制密钥、环境或数据库。Windows exe/dll不能直接视为Linux原生求解能力。Linux ESOPT的highspy线性/DCOPF/MIP路径可独立使用，高级原生能力需要供应商提供的Linux SDK。
+Git未包含商业求解器二进制、许可证、Mapbox token、预测权重和部分案例。可以从可信旧部署执行scripts/restore-runtime-assets.py恢复模型/案例/二进制并生成SHA256清单；该脚本不复制密钥、环境或数据库。Windows exe/dll不能直接视为Linux原生求解能力。Linux ESOPT原生SDK可通过 tools/esopt/native/install-linux.sh 安装，已在Ubuntu22.04验证LP/MIP/DCOPF及PSLP；未授权限300变量/约束，大模型可使用highspy。详见 tools/esopt/README.md，完整ESOPT许可证与Gurobi许可证分别申请。
 
 SQLite迁移入口已补回：默认只检查来源表和目标兼容性，--apply仅允许目标为空且列均匹配。未知旧版结构须先做显式映射，不能静默丢弃列或覆盖生产库。当前服务器已使用PostgreSQL，无需重新做SQLite迁移。
 

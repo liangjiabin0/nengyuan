@@ -24,6 +24,7 @@ export type EsoptInstallation = {
   solverReady: boolean;
   highsReady: boolean;
   highspyReady: boolean;
+  nativeEsoptInstalled: boolean;
   caseCount: number;
   ready: boolean;
   detail: string;
@@ -62,8 +63,12 @@ export function inspectEsoptInstallation(): EsoptInstallation {
     || fs.existsSync(path.join(buildRoot, 'libhighs.so'))
     || fs.existsSync(path.join(buildRoot, 'libhighs.dylib'));
   const highspyReady = probeHighspy(python);
-  const solverReady = nativeSolver || highspyReady;
-  const highsReady = nativeHighs || highspyReady;
+  const nativeHome = projectPath(process.env.ESOPT_NATIVE_HOME?.trim() || path.join(root, 'upstream-linux'));
+  const nativeEsoptInstalled = process.platform === 'linux'
+    && fs.existsSync(path.join(nativeHome, 'bin', 'esopt-native'))
+    && fs.existsSync(path.join(nativeHome, 'deps', 'highs', 'lib', 'libhighs.so'));
+  const solverReady = nativeEsoptInstalled || nativeSolver || highspyReady;
+  const highsReady = nativeEsoptInstalled || nativeHighs || highspyReady;
   const casesRoot = path.join(dcopfRoot, 'cases');
   let caseCount = 0;
   try {
@@ -73,7 +78,8 @@ export function inspectEsoptInstallation(): EsoptInstallation {
   }
   const bridgeReady = fs.existsSync(path.join(bridge, 'esopt_agent'));
   const ready = bridgeReady && solverReady && highsReady && caseCount > 0;
-  const engine = nativeSolver && nativeHighs ? 'HiGHS / esoptc' : highspyReady ? 'highspy' : 'unavailable';
+  const engine = nativeEsoptInstalled ? '原生 ESOPT / HiGHS（未授权限 300 变量/约束；大模型自动用 HiGHS）'
+    : nativeSolver && nativeHighs ? 'HiGHS / esoptc' : highspyReady ? 'highspy' : 'unavailable';
   const detail = ready
     ? `ESOPT MCP ready · ${engine} · ${caseCount} DCOPF cases`
     : !bridgeReady
@@ -83,7 +89,7 @@ export function inspectEsoptInstallation(): EsoptInstallation {
         : !highsReady
           ? `HiGHS runtime unavailable · ${buildRoot}`
           : `No DCOPF cases found · ${casesRoot}`;
-  return { root, bridge, python, bridgeReady, solverReady, highsReady, highspyReady, caseCount, ready, detail };
+  return { root, bridge, python, bridgeReady, solverReady, highsReady, highspyReady, nativeEsoptInstalled, caseCount, ready, detail };
 }
 
 function translateEsoptError(message: string) {

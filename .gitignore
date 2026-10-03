@@ -72,6 +72,7 @@ tools/mupdf/
 tools/poppler/
 /tools/mupdf-windows.zip
 tools/esopt-venv/
+tools/esopt/upstream-linux/
 tools/esopt/work/DCOPF/build/CMakeFiles/
 tools/esopt/work/DCOPF/build/CMakeCache.txt
 tools/esopt/work/DCOPF/build/cmake_install.cmake

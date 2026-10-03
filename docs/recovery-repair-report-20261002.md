@@ -21,7 +21,7 @@
 |13|百炼拒绝PPT配音|修复：用户新CSV的key、Workspace ID、域名写入私有配置；短音频与真实系统PPTX/MP4流程成功|
 |14|baseURL未生效/空空间回退|修复：TS到Python真实客户端贯通；显式空值回归通过；旧个人空间默认已移除|
 |15|DataV生产路由遗漏|修复：三个路由构建并保护，登录后均200；地图JSON改为本地缓存、重定向使用当前访问源的绝对URL，南海图片使用已有静态资源，真实浏览器资源失败数0。更正原审计：screen空容器由全局DatavScreenHost显示大屏，不是组件缺失|
-|16|原生求解资源/案例/Mapbox|部分修复：从可信旧部署恢复97项模型/案例/二进制资源，并私下恢复Mapbox token，实际服务验证200；Linux高级ESOPT仍缺供应商Linux SDK，Windows EXE不能充当Linux能力|
+|16|原生求解资源/案例/Mapbox|部分修复：从可信旧部署恢复97项模型/案例/二进制资源，并私下恢复Mapbox token，实际服务验证200；已从用户指定的官方仓库接入Linux ESOPT SDK，LP/MIP/DCOPF与PSLP已实测；未授权限300变量/约束，二次/非线性接口未接入|
 |17|预测预训练权重|恢复旧部署现存hdf5/keras资源并记录哈希；未做真实验证集精度验收，不声称预测结果与原版相同|
 |18|两页PPT依赖外部Codex运行时|修复：接入用户两种技能及4个真实论文参考PPT；PptxGenJS/MathJax离线构建与跨平台公式修改、LibreOffice渲染通过|
 |19|38个缺失npm脚本|修复：补回路由审计、可移植审计、SQLite迁移；移除35个过时入口并记录清单，不伪造未执行测试|
@@ -45,7 +45,7 @@ Windows源码：npm ci、typecheck、lint、bundle:server、build、API注册107
 
 配音通过系统自己的上传→备注解析→配音构建→下载流程验收，不是绕开业务系统手工拼装：一页测试输出PPTX 113648字节、MP4 93823字节；ffprobe确认H264视频8秒及AAC音轨约5.44秒。测试项目已删除，验收文件保存在发布目录storage.repair-tests-20261002，key/CSV未入库。
 
-全部科研业务未做耗时完整验收：未运行完整多阶段专利/指南/综述生成、所有预测模型精度、OpenModelica全部仿真及GPU完整MGPlan。剩余必要输入是合法完整Gurobi许可证；如果需要Linux高级ESOPT原生能力，还需供应商Linux SDK。复杂MGPlan选项的专用extraData仍应由具体业务算例提供。
+全部科研业务未做耗时完整验收：未运行完整多阶段专利/指南/综述生成、所有预测模型精度、OpenModelica全部仿真及GPU完整MGPlan。剩余必要输入是合法完整Gurobi许可证；大型原生ESOPT模型仍需作者提供的完整许可证。复杂MGPlan选项的专用extraData仍应由具体业务算例提供。
 
 ## 密钥与回退
 

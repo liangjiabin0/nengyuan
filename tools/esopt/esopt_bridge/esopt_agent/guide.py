@@ -104,11 +104,12 @@ GUIDE: dict[str, Any] = {
         "presolve": "on/off. Keep on unless debugging a tiny model.",
         "output_flag": "Usually false; the CLI/MCP already returns JSON.",
             "time_limit": "MPS/LP HiGHS time cap. Default 3600 seconds (1 hour). 0 means no solver time cap.",
-        "pslp": "Not available with official Windows HiGHS.",
+        "pslp": "Optional Linux ESOPT SDK supports PSLP. Check esopt_capabilities first; large native models require a full ESOPT license.",
     },
     "limits": {
         "runnable_now": ["DCOPF via HiGHS", "linear LP", "linear MIP (integer/binary)"],
-        "api_exists_but_no_runtime": ["Ipopt nonlinear", "Knitro", "Gurobi", "quadratic constraints", "PSLP"],
+        "api_exists_but_no_runtime": ["Ipopt nonlinear", "Knitro", "Gurobi", "quadratic constraints"],
+        "optional_native": "Linux ESOPT SDK provides LP/MIP/DCOPF and PSLP; without a full license, at most 300 variables and 300 constraints. Larger auto-mode models use clearly labelled HiGHS. Explicit PSLP cannot fall back.",
         "how_to_talk_about_it": (
             "If the user needs AC-OPF, sin/cos, or x^2, explain that ESOPT can model it in C++ "
             "but this agent interface cannot solve it until those solver DLLs are installed."

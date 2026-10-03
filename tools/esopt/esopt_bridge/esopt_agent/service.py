@@ -161,6 +161,15 @@ def solve_dcopf(
     timeout: int = 600,
 ) -> dict[str, Any]:
     case_path = resolve_case(case)
+    if os.name != "nt":
+        from . import native_backend
+        from .highspy_backend import solve_dcopf_case
+        def solve_spec(spec: dict[str, Any], timeout: int) -> dict[str, Any]:
+            return native_backend.solve({**spec, "pslp": pslp, "presolve": highs_pre}, timeout)
+        result = solve_dcopf_case(case_path, timeout=timeout, solve_spec=solve_spec)
+        if not with_generators:
+            result.pop("generator_outputs", None)
+        return result
     native = paths.esoptc_exe().exists() and paths.highs_dll().exists()
     if native:
         args = [
@@ -225,6 +234,9 @@ def solve_model(model: dict[str, Any] | str, timeout: int = 120) -> dict[str, An
         else:
             model = json.loads(model)
     spec = _expand_expr_fields(dict(model))
+    if os.name != "nt":
+        from .native_backend import solve
+        return solve(spec, timeout)
     spec.setdefault("highs_lib", paths.native_path(paths.highs_dll()))
     if paths.esoptc_exe().exists() and paths.highs_dll().exists():
         try:
@@ -318,8 +330,8 @@ def _pack_mps_result(
     payload = {
         "ok": status == 7,
         "success": status == 7,
-        "engine": "esopt",
-        "solver": "ESOPT / HiGHS",
+        "engine": "highs",
+        "solver": "HiGHS",
         "backend": backend,
         "mode": "lp" if path.suffix.lower() == ".lp" else "mps",
         "modelFile": path.name,
@@ -519,12 +531,15 @@ def compare_reference(case: str, objective: float | None = None) -> dict[str, An
 
 def capabilities() -> dict[str, Any]:
     from .highspy_backend import highspy_available
+    from .native_backend import installation
 
     install = paths.esopt_install()
     highs = paths.highs_dll()
     exe = paths.esoptc_exe()
     hp = highspy_available()
-    highs_ready = highs.exists() or hp
+    native = installation() if os.name != "nt" else {"ready": False}
+    native_ready = native["ready"]
+    highs_ready = native_ready or highs.exists() or hp
     headers = {
         "highs": (install / "include" / "model_highs.h").exists(),
         "ipopt": (install / "include" / "model_ipopt.h").exists(),
@@ -540,15 +555,16 @@ def capabilities() -> dict[str, Any]:
         "highs_dll": str(highs),
         "highs_ready": highs_ready,
         "highspy_ready": hp,
-        "pslp_dll": str(install / "bin" / "libPSLP.dll"),
-        "pslp_ready": (install / "bin" / "libPSLP.dll").exists(),
+        "native_esopt": native,
+        "pslp_dll": str(Path(native["executable"]).parents[1] / "esopt-install/lib/libPSLP.so") if os.name != "nt" else str(install / "bin/libPSLP.dll"),
+        "pslp_ready": native_ready if os.name != "nt" else (install / "bin/libPSLP.dll").exists(),
         "available_on_this_machine": {
-            "dcopf_highs": (exe.exists() and highs.exists()) or hp,
-            "generic_linear_model": (exe.exists() and highs.exists()) or hp,
+            "dcopf_highs": native_ready or (exe.exists() and highs.exists()) or hp,
+            "generic_linear_model": native_ready or (exe.exists() and highs.exists()) or hp,
             "mps_or_lp_file": highs.exists() or hp,
             "quadratic_or_nonlinear": False,
-            "pslp_presolve": False,
-            "note": "Native esoptc is Windows-only. Linux uses highspy for DCOPF / LP / MIP. PSLP and quadratic/NL remain unavailable without extra solvers.",
+            "pslp_presolve": native_ready,
+            "note": "Linux can use the official ESOPT SDK for LP/MIP and DCOPF, with a 300-variable/constraint trial limit. Large unlicensed models and MPS/LP files use explicitly labelled HiGHS. Quadratic/NL are not exposed by this bridge.",
         },
         "solver_headers_present": headers,
         "api": {
