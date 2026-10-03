@@ -1,7 +1,9 @@
 # 能元（AI4ES）系统架构、功能目录与基础技术说明
 
-**仓库：** https://github.com/liangjiabin0/nengyuan-recovery-merged  
-**源码基线：** `fix/recovery-20261002` 分支的 `990a210`，包含恢复修复和 Linux 原生 ESOPT 接入。  
+**仓库：** [liangjiabin0/nengyuan-recovery-merged](https://github.com/liangjiabin0/nengyuan-recovery-merged)
+
+**源码基线：** `fix/recovery-20261002` 分支的 `990a210`，包含恢复修复和 Linux 原生 ESOPT 接入。
+
 **整理日期：** 2026-10-03。本文依据源码及已有验收记录编写；运行路径、端口和模型配置可以随部署变化。
 
 本文用于项目交接、开发定位和部署理解。“基础技术”同时指网页框架、AI 编排方式、数据处理库和实际执行的数值算法。完整入口清单见[页面、API 与技能源码索引](system-source-index.md)。
