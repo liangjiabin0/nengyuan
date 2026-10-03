@@ -1,5 +1,7 @@
 # 能源系统恢复（合并版）
 
+系统框架、各功能的源码目录和基础技术见 [系统架构与功能说明](docs/system-architecture-and-features.md)；完整页面、API、技能及工具入口见 [源码索引](docs/system-source-index.md)。
+
 能元（AI4ES）系统的**可编译、可运行**重建源码。这一版把两份恢复成果合在一起，各取所长：
 
 - **claude 版**（`liangjiabin0/nengyuan-recovery-full-claude`）：TypeScript 源码最新、最全，逐模块对照线上部署产物校正过。
