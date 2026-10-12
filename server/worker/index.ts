@@ -68,6 +68,9 @@ async function main() {
   await ensureDb();
   const { startChatWorkspaceRetentionScheduler } = await import('../../src/lib/chat-workspace-retention');
   startChatWorkspaceRetentionScheduler();
+  // 期刊追踪：每天定时抓取订阅期刊的新文章（JOURNAL_WATCH_ENABLED=0 可关闭）
+  const { startJournalWatchScheduler } = await import('../../src/lib/journal-watch/scheduler');
+  startJournalWatchScheduler();
   console.log(
     `[ai4es-worker] started id=${WORKER_ID} role=${process.env.AI4ES_ROLE} queue=${process.env.AI4ES_USE_JOB_QUEUE}`
   );

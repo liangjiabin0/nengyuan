@@ -108,6 +108,8 @@ export async function registerApiRoutes(app: Hono) {
     ['/api/skills/agent', () => import('../../src/app/api/skills/agent/route')],
     ['/api/self-learning', () => import('../../src/app/api/self-learning/route')],
     ['/api/self-learning/agent', () => import('../../src/app/api/self-learning/agent/route')],
+    ['/api/journal-watch', () => import('../../src/app/api/journal-watch/route')],
+    ['/api/journal-watch/fulltext', () => import('../../src/app/api/journal-watch/fulltext/route')],
     ['/api/skills/:id', () => import('../../src/app/api/skills/[id]/route')],
     ['/api/chat/attachments', () => import('../../src/app/api/chat/attachments/route')],
     [

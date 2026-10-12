@@ -649,6 +649,17 @@ function countCorpusKind(root: string, kind: CorpusKind) {
   return fs.readdirSync(dir).filter((name) => /^[a-f0-9]{24}\.md$/i.test(name)).length;
 }
 
+/** 删除一篇论文在知识库与 parsed 目录里的 Markdown（期刊追踪的摘要记录被全文取代时用）。 */
+export function removePaperFromCorpus(paperKey: string, title: string) {
+  const kind = paperKind(paperKey);
+  fs.rmSync(path.join(getCorpusRoot(), corpusDirectory(kind), corpusRecordFileName(paperKey)), { force: true });
+  const parsedKind = kind === 'book' ? 'books' : kind === 'patent' ? 'patents' : 'papers';
+  const digest = crypto.createHash('sha256').update(paperKey).digest('hex').slice(0, 10);
+  fs.rmSync(path.join(getParsedDocumentsDir(parsedKind), `${sanitizeParsedStem(title || paperKey)}_${digest}.md`), {
+    force: true
+  });
+}
+
 function writePatentIndexSync(
   dir: string,
   rows: Array<{ paper_key: string; title: string; authors?: string | null; keywords?: string | null }>

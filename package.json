@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "import:readonly": "tsx scripts/run-import-readonly.ts",
     "import:nkrd": "tsx scripts/import-nkrd.ts",
+    "journal:watch": "tsx scripts/journal-watch.ts",
     "corpus:export": "tsx scripts/export-knowledge-corpus.ts",
     "test:corpus": "tsx scripts/test-markdown-corpus.ts",
     "test:llm-gateway-transport": "tsx scripts/test-llm-gateway-transport.ts",
@@ -124,6 +125,9 @@
   },
   "overrides": {
     "image-size": "2.0.3",
-    "@xmldom/xmldom": "0.9.12"
+    "@xmldom/xmldom": "0.9.12",
+    "mammoth": {
+      "@xmldom/xmldom": "0.8.15"
+    }
   }
 }

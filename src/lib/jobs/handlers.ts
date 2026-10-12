@@ -14,6 +14,7 @@ import { runDispatchSolve } from '@/lib/scheme-solve/dispatch-runner';
 import { runLossSolve } from '@/lib/scheme-solve/loss-runner';
 import { runModelicaSolve } from '@/lib/scheme-solve/modelica-runner';
 import { runForecastSolve } from '@/lib/scheme-solve/forecast-runner';
+import { attachFulltext, runJournalWatch } from '@/lib/journal-watch/run';
 import type { FastImportOptions } from '@/lib/fast-import';
 import type { BackgroundJob, JobType } from './types';
 import { updateJobProgress } from './queue';
@@ -176,6 +177,15 @@ const HANDLERS: Record<JobType, JobHandler> = {
     const ideaId = String(job.payload.ideaId || '');
     if (!sessionId || !ideaId) throw new Error('forecast-run payload requires sessionId and ideaId');
     return runForecastSolve(sessionId, ideaId);
+  },
+  'journal-watch': async (job) => {
+    if (job.payload.action === 'fulltext') return attachFulltext(String(job.payload.doi || ''));
+    const backfillDays = Number(job.payload.backfillDays) || undefined;
+    return runJournalWatch({
+      trigger: String(job.payload.trigger || 'manual'),
+      backfillDays,
+      onProgress: (progress) => updateJobProgress(job.id, progress)
+    });
   }
 };
 

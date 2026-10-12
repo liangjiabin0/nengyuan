@@ -11,6 +11,7 @@ const WARM_HREFS = [
   '/ppt-voice',
   '/graph',
   '/corpus',
+  '/journal-watch',
   '/skills',
   '/self-learning'
 ] as const;

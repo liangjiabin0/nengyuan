@@ -637,4 +637,44 @@ CREATE INDEX IF NOT EXISTS idx_paper_chunks_role ON paper_chunks (chunk_role);
 CREATE INDEX IF NOT EXISTS idx_corpus_file_comments_path ON corpus_file_comments (relative_path);
 CREATE INDEX IF NOT EXISTS idx_corpus_file_comments_record ON corpus_file_comments (record_key);
 CREATE INDEX IF NOT EXISTS idx_corpus_file_comments_domain ON corpus_file_comments (domain, created_at);
+
+CREATE TABLE IF NOT EXISTS journal_watch_articles (
+  -- 期刊追踪：每天从 Crossref / IEEE Xplore / OpenAlex 抓取订阅期刊的新文章（语句不能以注释开头，否则会被跳过）
+  doi TEXT PRIMARY KEY,
+  journal_code TEXT NOT NULL,
+  title TEXT NOT NULL,
+  authors TEXT,
+  abstract TEXT,
+  abstract_source TEXT,
+  keywords TEXT,
+  volume TEXT,
+  issue TEXT,
+  pages TEXT,
+  pub_date TEXT,
+  url TEXT,
+  alt_id TEXT,
+  open_access INTEGER NOT NULL DEFAULT 0,
+  oa_pdf_url TEXT,
+  paper_key TEXT,
+  fulltext INTEGER NOT NULL DEFAULT 0,
+  first_seen_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS journal_watch_runs (
+  id TEXT PRIMARY KEY,
+  trigger TEXT NOT NULL,
+  status TEXT NOT NULL,
+  started_at TEXT NOT NULL,
+  finished_at TEXT,
+  summary_json TEXT,
+  error TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_journal_watch_articles_journal ON journal_watch_articles (journal_code, pub_date);
+ALTER TABLE journal_watch_articles ADD COLUMN IF NOT EXISTS pdf_source TEXT;
+ALTER TABLE journal_watch_articles ADD COLUMN IF NOT EXISTS pdf_attempts INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE journal_watch_articles ADD COLUMN IF NOT EXISTS pdf_error TEXT;
+CREATE INDEX IF NOT EXISTS idx_journal_watch_articles_seen ON journal_watch_articles (first_seen_at);
+CREATE INDEX IF NOT EXISTS idx_journal_watch_runs_started ON journal_watch_runs (started_at);
 `;

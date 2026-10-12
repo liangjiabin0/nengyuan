@@ -12,7 +12,8 @@ export type JobType =
   | 'dispatch-run'
   | 'loss-calc'
   | 'modelica-sim'
-  | 'forecast-run';
+  | 'forecast-run'
+  | 'journal-watch';
 
 export type JobStatus = 'queued' | 'running' | 'done' | 'error' | 'cancelled';
 
@@ -37,7 +38,8 @@ export const SERIAL_JOB_TYPES: ReadonlySet<JobType> = new Set([
   'data-import',
   'excel-ingest',
   'graph-rebuild',
-  'reindex'
+  'reindex',
+  'journal-watch'
 ]);
 
 export const EXCLUSIVE_CLAIM_JOB_TYPES: ReadonlySet<JobType> = new Set([

@@ -13,6 +13,7 @@ import {
   Lightbulb,
   MessageSquareText,
   Network,
+  Newspaper,
   Settings,
   Sparkles,
   Table2,
@@ -37,6 +38,7 @@ const primaryNav: NavItem[] = [
 const researchNav: NavItem[] = [
   { href: '/graph', label: '学科研究图谱', icon: Network },
   { href: '/corpus', label: '数据库', icon: Files },
+  { href: '/journal-watch', label: '期刊追踪', icon: Newspaper },
   { href: '/skills', label: '技能库', icon: Sparkles },
   { href: '/self-learning', label: '自学习记忆', icon: BrainCircuit }
 ];
