@@ -30,7 +30,7 @@ def renderable_copy(source, target):
             if rels not in names:
                 continue
             targets = {
-                r.attrib["Id"]: posixpath.normpath(posixpath.join(posixpath.dirname(slide), r.attrib["Target"]))
+                r.attrib["Id"]: posixpath.normpath(posixpath.join(posixpath.dirname(slide), r.attrib["Target"])).lstrip("/")
                 for r in ElementTree.fromstring(deck.read(rels))
                 if r.attrib.get("TargetMode") != "External"
             }
