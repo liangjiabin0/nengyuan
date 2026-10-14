@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 1,
+  "profile": "operation",
+  "nodes": [
+    {
+      "id": "pv",
+      "type": "device",
+      "label": "分布式光伏",
+      "evidenceRef": "PDF p.24 Fig.2-1"
+    },
+    {
+      "id": "load",
+      "type": "device",
+      "label": "EV与负荷",
+      "evidenceRef": "PDF p.24 Fig.2-1"
+    },
+    {
+      "id": "network",
+      "type": "bus",
+      "label": "配变 / 线路",
+      "evidenceRef": "PDF pp.24,27–32"
+    },
+    {
+      "id": "thermal",
+      "type": "operation",
+      "label": "电流、环境温度\n热模型与老化速率",
+      "evidenceRef": "PDF pp.28–30"
+    },
+    {
+      "id": "assessment",
+      "type": "operation",
+      "label": "日寿命损失 / 六项指标",
+      "evidenceRef": "PDF pp.30–35"
+    },
+    {
+      "id": "regime",
+      "type": "decision",
+      "label": "治理\n类型",
+      "evidenceRef": "PDF pp.22–23"
+    },
+    {
+      "id": "users",
+      "type": "agent",
+      "label": "用户选择",
+      "evidenceRef": "PDF pp.39–41"
+    },
+    {
+      "id": "logit",
+      "type": "operation",
+      "label": "Logit\n响应度 εev",
+      "evidenceRef": "PDF pp.40–41"
+    },
+    {
+      "id": "rbess",
+      "type": "optimizer",
+      "label": "AIW-PSO\n配置与充放电",
+      "evidenceRef": "PDF pp.46–50"
+    },
+    {
+      "id": "battery",
+      "type": "device",
+      "label": "退役储能",
+      "evidenceRef": "PDF pp.42–50"
+    },
+    {
+      "id": "clusters",
+      "type": "input",
+      "label": "DPV 集群\nK-means",
+      "evidenceRef": "PDF pp.60–62"
+    },
+    {
+      "id": "collection",
+      "type": "optimizer",
+      "label": "汇集站\n选址定容",
+      "evidenceRef": "PDF pp.62–65"
+    },
+    {
+      "id": "expansion",
+      "type": "optimizer",
+      "label": "配变 / 线路\n扩容",
+      "evidenceRef": "PDF pp.65–70"
+    },
+    {
+      "id": "plan",
+      "type": "output",
+      "label": "汇集＋扩容",
+      "evidenceRef": "PDF pp.69–73"
+    }
+  ],
+  "edges": [
+    {
+      "id": "pv-power",
+      "from": "pv",
+      "to": "network",
+      "kind": "power",
+      "label": "光伏出力",
+      "evidenceRef": "PDF p.24"
+    },
+    {
+      "id": "load-power",
+      "from": "network",
+      "to": "load",
+      "kind": "power",
+      "label": "供电功率",
+      "evidenceRef": "PDF p.24"
+    },
+    {
+      "id": "measure",
+      "from": "network",
+      "to": "thermal",
+      "kind": "information",
+      "label": "时序运行状态",
+      "evidenceRef": "PDF pp.28–30"
+    },
+    {
+      "id": "aging",
+      "from": "thermal",
+      "to": "assessment",
+      "kind": "data",
+      "label": "累积损伤",
+      "evidenceRef": "PDF pp.29–32"
+    },
+    {
+      "id": "diagnosis",
+      "from": "assessment",
+      "to": "regime",
+      "kind": "information",
+      "label": "风险诊断",
+      "evidenceRef": "PDF pp.22–23,33"
+    },
+    {
+      "id": "short",
+      "from": "regime",
+      "to": "users",
+      "kind": "decision",
+      "label": "短时治理",
+      "evidenceRef": "PDF pp.22–23,37"
+    },
+    {
+      "id": "long",
+      "from": "regime",
+      "to": "clusters",
+      "kind": "decision",
+      "label": "长期治理",
+      "evidenceRef": "PDF pp.22–23,60"
+    },
+    {
+      "id": "utility",
+      "from": "users",
+      "to": "logit",
+      "kind": "information",
+      "label": "电价 / 等待",
+      "evidenceRef": "PDF pp.39–41"
+    },
+    {
+      "id": "ev-profile",
+      "from": "logit",
+      "to": "rbess",
+      "kind": "data",
+      "label": "混合充电负荷",
+      "evidenceRef": "PDF pp.41,46"
+    },
+    {
+      "id": "storage-plan",
+      "from": "rbess",
+      "to": "battery",
+      "kind": "decision",
+      "label": "容量 / 出力",
+      "evidenceRef": "PDF pp.49–50"
+    },
+    {
+      "id": "candidate",
+      "from": "clusters",
+      "to": "collection",
+      "kind": "data",
+      "label": "候选汇集点",
+      "evidenceRef": "PDF pp.61–62"
+    },
+    {
+      "id": "net-load",
+      "from": "collection",
+      "to": "expansion",
+      "kind": "iteration",
+      "label": "修正净负荷",
+      "evidenceRef": "PDF p.70"
+    },
+    {
+      "id": "capacity",
+      "from": "expansion",
+      "to": "collection",
+      "kind": "iteration",
+      "label": "更新容量边界",
+      "evidenceRef": "PDF p.70"
+    },
+    {
+      "id": "joint-plan",
+      "from": "expansion",
+      "to": "plan",
+      "kind": "decision",
+      "label": "联合方案",
+      "evidenceRef": "PDF pp.70,73"
+    },
+    {
+      "id": "short-review",
+      "from": "battery",
+      "to": "assessment",
+      "kind": "feedback",
+      "label": "短时治理后再评估",
+      "evidenceRef": "PDF p.56"
+    },
+    {
+      "id": "long-review",
+      "from": "plan",
+      "to": "assessment",
+      "kind": "feedback",
+      "label": "长期治理后再评估",
+      "evidenceRef": "PDF p.74"
+    }
+  ],
+  "mechanisms": [
+    {
+      "id": "two-regimes",
+      "kind": "branch",
+      "nodeIds": [
+        "regime",
+        "users",
+        "clusters"
+      ],
+      "edgeIds": [
+        "short",
+        "long"
+      ],
+      "evidenceRef": "PDF pp.22–23"
+    },
+    {
+      "id": "joint-iteration",
+      "kind": "feedback",
+      "nodeIds": [
+        "collection",
+        "expansion"
+      ],
+      "edgeIds": [
+        "net-load",
+        "capacity"
+      ],
+      "evidenceRef": "PDF p.70 Fig.4-4"
+    },
+    {
+      "id": "physical-system",
+      "kind": "physical-network",
+      "nodeIds": [
+        "pv",
+        "network",
+        "load"
+      ],
+      "edgeIds": [
+        "pv-power",
+        "load-power"
+      ],
+      "evidenceRef": "PDF p.24 Fig.2-1"
+    },
+    {
+      "id": "short-reassessment",
+      "kind": "feedback",
+      "nodeIds": [
+        "assessment",
+        "regime",
+        "users",
+        "logit",
+        "rbess",
+        "battery"
+      ],
+      "edgeIds": [
+        "diagnosis",
+        "short",
+        "utility",
+        "ev-profile",
+        "storage-plan",
+        "short-review"
+      ],
+      "evidenceRef": "PDF pp.22–23,56"
+    }
+  ],
+  "formulaLinks": [
+    {
+      "formulaId": "aging",
+      "nodeIds": [
+        "assessment"
+      ],
+      "edgeIds": [],
+      "evidenceRef": "PDF p.29 Eq.2-7"
+    },
+    {
+      "formulaId": "response",
+      "nodeIds": [
+        "logit"
+      ],
+      "edgeIds": [],
+      "evidenceRef": "PDF p.41 Eqs.3-13,3-14; n abbreviates n_ev"
+    },
+    {
+      "formulaId": "short-objective",
+      "nodeIds": [
+        "rbess"
+      ],
+      "edgeIds": [],
+      "evidenceRef": "PDF pp.43,46 Eqs.3-23,3-34"
+    },
+    {
+      "formulaId": "long-objective",
+      "nodeIds": [
+        "collection",
+        "expansion"
+      ],
+      "edgeIds": [],
+      "evidenceRef": "PDF p.69 Eq.4-19"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+interface:
+  display_name: "Reproduction-Oriented Paper Review"
+  short_description: "Classified paper review with reusable human-feedback lessons"
+  brand_color: "#315F72"
+  default_prompt: "Use $paper-peer-review to classify and review the manuscript with source evidence, appropriate principle tests and current literature. In every review, apply the common and triggered reusable knowledge checks; for human strengthened reviews, trace annotations to source verification and review changes. Produce the requested matched reports and preserve the full-review two-slide PPT workflow when it is within scope."
+
+policy:
+  allow_implicit_invocation: true

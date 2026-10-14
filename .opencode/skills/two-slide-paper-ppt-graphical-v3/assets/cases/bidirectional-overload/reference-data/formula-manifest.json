@@ -1,0 +1,61 @@
+{
+  "sourcePptx": "../../../reference-pptx/多章节示例/配电网双向重过载_两页图形版.pptx",
+  "formulas": [
+    {
+      "id": "aging",
+      "latex": "F_{\\mathrm{eq,h}}=\\sum\\nolimits_{n=1}^{N}V_{(n)}\\Delta t",
+      "evidenceRef": "PDF p.29 Eq.2-7",
+      "slide": 1,
+      "targetShapeName": "formula-aging",
+      "position": {
+        "left": 115.47355134151354,
+        "top": 764,
+        "width": 259.0528973169729,
+        "height": 48
+      },
+      "color": "#07368C"
+    },
+    {
+      "id": "response",
+      "latex": "F_{\\mathrm{order}}^{n}=\\frac{e^{f_{n,1}^{\\mathrm{charge}}}}{e^{f_{n,1}^{\\mathrm{charge}}}+1},\\quad\\varepsilon_{\\mathrm{ev}}=\\frac{1}{N_{\\mathrm{EV}}}\\sum\\nolimits_n F_{\\mathrm{order}}^{n}",
+      "evidenceRef": "PDF p.41 Eqs.3-13,3-14; n abbreviates n_ev",
+      "slide": 1,
+      "targetShapeName": "formula-response",
+      "position": {
+        "left": 707.633616603467,
+        "top": 452,
+        "width": 345.73276679306605,
+        "height": 53
+      },
+      "color": "#07368C"
+    },
+    {
+      "id": "short-objective",
+      "latex": "\\min\\Delta F_{\\mathrm{eq}},\\quad\\min E,\\qquad E=C-I",
+      "evidenceRef": "PDF pp.43,46 Eqs.3-23,3-34",
+      "slide": 1,
+      "targetShapeName": "formula-short-objective",
+      "position": {
+        "left": 1165,
+        "top": 456.1053725826678,
+        "width": 465,
+        "height": 30.78925483466438
+      },
+      "color": "#07368C"
+    },
+    {
+      "id": "long-objective",
+      "latex": "\\min C_{\\mathrm{gh}}=C_{\\mathrm{hj}}+C_{\\mathrm{kr}}",
+      "evidenceRef": "PDF p.69 Eq.4-19",
+      "slide": 1,
+      "targetShapeName": "formula-long-objective",
+      "position": {
+        "left": 699.7071050264815,
+        "top": 773,
+        "width": 342.5857899470371,
+        "height": 39
+      },
+      "color": "#07368C"
+    }
+  ]
+}

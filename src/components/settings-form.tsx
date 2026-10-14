@@ -22,6 +22,7 @@ import { usePageContentReady } from '@/components/page-nav-loading';
 import { PptVoiceSettingsPanel } from '@/components/ppt-voice-settings-panel';
 import { SettingsDataPanel } from '@/components/settings-data-panel';
 import { SubagentRouterPanel } from '@/components/subagent-router-panel';
+import { PaperReviewModelSettings } from '@/components/paper-review-model-settings';
 import { cn } from '@/lib/utils';
 import { aliyunAnthropicBaseUrl, aliyunOpenAIBaseUrl } from '@/lib/openai-anthropic-compat';
 
@@ -645,6 +646,7 @@ export function SettingsForm({ area = 'system' }: { area?: SettingsArea }) {
                     </button>
                   );
                 })}
+                <PaperReviewModelSettings />
               </div>
               <div className="mt-3 border-t border-border">
                 <SubagentRouterPanel />

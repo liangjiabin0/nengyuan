@@ -1,0 +1,26 @@
+{
+  "sourcePath": "20261010170602.pdf",
+  "sha256": "6c9fd587da8bad65260d82ddb968f520bba292d77afb95d174fcb85830d90f83",
+  "pdfPages": 85,
+  "printedPageOffset": 13,
+  "sections": [
+    {
+      "chapter": "2",
+      "role": "core",
+      "contributionId": "assessment",
+      "evidenceRef": "PDF pp.24–36"
+    },
+    {
+      "chapter": "3",
+      "role": "core",
+      "contributionId": "short",
+      "evidenceRef": "PDF pp.37–59"
+    },
+    {
+      "chapter": "4",
+      "role": "core",
+      "contributionId": "long",
+      "evidenceRef": "PDF pp.60–75"
+    }
+  ]
+}

@@ -1,0 +1,322 @@
+{
+  "skill": "two-slide-paper-ppt-graphical-v3",
+  "originalName": "two-slide-paper-ppt-codegen",
+  "version": null,
+  "sourceZip": "two-slide-paper-ppt-codegen-graphical-v3-with-templates.zip",
+  "zipSha256": "fa2220c104768a530c8d89bfa9a626cc1f1f0824c0b57cee03f5097e40edad97",
+  "importedAt": "2026-10-12T07:20:48.729Z",
+  "excluded": [],
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "bytes": 564,
+      "sha256": "8569e0e1356a6300298505c6d7c6fc0eed14821362ca8aa39a579d2043e2edb3"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/build.mjs",
+      "bytes": 11006,
+      "sha256": "c994f9d2795fb2970662e089dc1a993b9e940816a7facf2caf8fc8d3ee5c9b66"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/finalize.mjs",
+      "bytes": 1664,
+      "sha256": "ed4174a5a938b2a8773cbfbd7a4599cf8a796b142391340d51bbd299654228ee"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/finish_package.py",
+      "bytes": 2889,
+      "sha256": "38f197d371440c5423b0ea0b1f9b99b9efb32ba29a989848ea158977a7630ece"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/prepare.py",
+      "bytes": 15945,
+      "sha256": "241938d504ba7de6b6d06f0df7ad49269125659edf7d0ffe593e3216eb3c10a5"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/README.md",
+      "bytes": 3074,
+      "sha256": "ffb91714ca6f63b305e6c94941f8c34e1277de0b253a20a73cd988df19759223"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/contribution-map.json",
+      "bytes": 4382,
+      "sha256": "3ded1f91f5d3513a0ad80f7db89e2c2cb0cf80eeb0c92d57af382a80fee28c8d"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/diagram-layout.json",
+      "bytes": 7970,
+      "sha256": "1a84b80298600047b08fd76573483fa6e37d5c1aedff0b63832a5dba72fe63dd"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/evidence-ledger.json",
+      "bytes": 13027,
+      "sha256": "0530c008bcb417202d6eabc226f2e6f84c5d1776eea0f6b54b35b3acfd3cc7af"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/formula-manifest.json",
+      "bytes": 1921,
+      "sha256": "58339efe85ade804cd5fc24fc1e39cd30e0c7dc115f16cfe67f06d5299df53fa"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/formula-svg/aging.svg",
+      "bytes": 9051,
+      "sha256": "8f45272763b05fafc6c673ac5306071b441ac6e7a79d87379fb7cfea808a3846"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/formula-svg/long-objective.svg",
+      "bytes": 9366,
+      "sha256": "5f3c311269c55ad36bbba1c8be05a3d4b982141c81208b366c174d9c54f5c137"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/formula-svg/response.svg",
+      "bytes": 28359,
+      "sha256": "0486c8b43bd896b24fe58fb9aa24bc4bb2cd7cbbb08c57d6909986bb0aea9f00"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/formula-svg/short-objective.svg",
+      "bytes": 10988,
+      "sha256": "b3186c6c86343d6cbc8e72b2da80f78261ad42c8b054eb5013e8b86845a89c33"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/planning-model.md",
+      "bytes": 1429,
+      "sha256": "b834072ed887a28b0882d5655b51458df5969ba8a0ab14f051c6a3da9d1a2fb1"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/semantic-graph.json",
+      "bytes": 7117,
+      "sha256": "187bac3d4d50b389a2858239356f26ed946fc29233ae526c34e3d30d5d2ba983"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/source-index.json",
+      "bytes": 598,
+      "sha256": "85936d25f2a0622cd63844d8b904388d88dc2c5ae1525cf25eb0115acb129a57"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/spec.json",
+      "bytes": 7567,
+      "sha256": "de4303cf7cdf6a1e8e1b30afa91d4b074dd5316ef4d2b448dcdeffd1f29e652e"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/reference-data/visual-design-spec.md",
+      "bytes": 917,
+      "sha256": "cfe5eabab7955c97f842c5f5ea51b152ea7b0252bcb794591d9d56cea1234997"
+    },
+    {
+      "path": "assets/cases/bidirectional-overload/render.ps1",
+      "bytes": 709,
+      "sha256": "ecc345db4b60f7e3cc6d38deb2a40c5203434ec0782491f6b24e4ebc1b18ecef"
+    },
+    {
+      "path": "assets/formula-editor/app.js",
+      "bytes": 1761,
+      "sha256": "ee5ff488d8f72c7a0e9420eb292e12899968b844c457e30ba6a466b5ea419485"
+    },
+    {
+      "path": "assets/formula-editor/index.html",
+      "bytes": 951,
+      "sha256": "442c11baef37c519ffa9c092d63d183cdd572f9447d05ec0863e4ea72d6c6dd3"
+    },
+    {
+      "path": "assets/formula-editor/styles.css",
+      "bytes": 2105,
+      "sha256": "8cb1790cb6c0207d486a2467842e88a8054af343ef835dace6861174e9230362"
+    },
+    {
+      "path": "assets/reference-pptx/多章节示例/配电网双向重过载_两页图形版.pptx",
+      "bytes": 66998,
+      "sha256": "10842a2888a229a185ee097d13f54f2712f4b183ca7ae195df593e7ae2e54718"
+    },
+    {
+      "path": "assets/reference-pptx/规划类/多阶段输配电一体化扩展规划_数学模型与结果_可编辑复刻_v1.pptx",
+      "bytes": 768013,
+      "sha256": "c85e570dde9f1ab79f91fcf164ce3a710753aa0b0a5dad9bb9ab084321c2a001"
+    },
+    {
+      "path": "assets/reference-pptx/规划类/PV-grid-EV协同规划_原理与实验结果_可编辑复刻_v3.pptx",
+      "bytes": 912689,
+      "sha256": "1de2d286a96ce9b57965d6856cff09347f92a98073e2e692236f7f3a127784bd"
+    },
+    {
+      "path": "assets/reference-pptx/图形框架基准/01_复合风光低出力_关键负荷调度.pptx",
+      "bytes": 325216,
+      "sha256": "17e2c71fc03149257f3253f3b4e8266af7963b9f35f19d10dc402ce221047999"
+    },
+    {
+      "path": "assets/reference-pptx/图形框架基准/02_GFM变流器_分层功率再分配.pptx",
+      "bytes": 49688,
+      "sha256": "478dd73f7f7be5cf44ee24d047a27f4972ce02d37f69195ade957223976c3c33"
+    },
+    {
+      "path": "assets/reference-pptx/图形框架基准/03_主动孤岛检测_运行可行性协调.pptx",
+      "bytes": 58404,
+      "sha256": "973f2a7ad22d97d552da5cf7da704cc518dd77becc82c9db4bd9cbe052c5d338"
+    },
+    {
+      "path": "assets/reference-pptx/图形框架基准/04_充放换电站群_异质用户双层优化.pptx",
+      "bytes": 51335,
+      "sha256": "9f4eb0c29f9313ad6e7d9ae46c5c39b3704a79fa7f478ee2ace0b234d0a33232"
+    },
+    {
+      "path": "assets/reference-pptx/预测类/多模态光伏预测.pptx",
+      "bytes": 1074755,
+      "sha256": "6879648a7849ddd1c15a782c6fe5f421cca1f58a113a99cceb405969ea496915"
+    },
+    {
+      "path": "assets/reference-pptx/预测类/WPFormer预测性能与优势机理.pptx",
+      "bytes": 727912,
+      "sha256": "4e7c5d1c7c1c0b13abee22184e7c1b31110ea06b74730a98229c01163561801d"
+    },
+    {
+      "path": "references/control-paper.md",
+      "bytes": 1836,
+      "sha256": "6e6e4cbda236078a3613ae6d20379d91fbeb56ad2157d76c73a64755822382fd"
+    },
+    {
+      "path": "references/forecasting-paper.md",
+      "bytes": 3184,
+      "sha256": "ee8d170f2605d4c07e38dedd8f5ea6b1373173e812d15f22df1e6810db0281a1"
+    },
+    {
+      "path": "references/formula-svg-workflow.md",
+      "bytes": 3159,
+      "sha256": "22a8724276f4552217edd581fd2b074f981f5f76a05770b4961f7bc015b0e0e2"
+    },
+    {
+      "path": "references/graphic-method-workflow.md",
+      "bytes": 9211,
+      "sha256": "fc678b3fcdc269a09953795693ebb92c6601d92d0a24fbd16369a163ec85fc51"
+    },
+    {
+      "path": "references/graphic-reference-cases.md",
+      "bytes": 2472,
+      "sha256": "17f256f0490e40a0687a980dfc02a0f83b6e9277ec4255d58fe17e129eac1109"
+    },
+    {
+      "path": "references/method-graph-workflow.md",
+      "bytes": 4511,
+      "sha256": "02302126f7805fdb8cca5a9b762e358f426e78218c0f32f11a6aefc93e973d51"
+    },
+    {
+      "path": "references/multi-contribution-paper.md",
+      "bytes": 7764,
+      "sha256": "64b780ac8bfd5963dcdc71f7154265c2368592ac91d3833c40543f5d2f08c7af"
+    },
+    {
+      "path": "references/planning-paper.md",
+      "bytes": 5180,
+      "sha256": "3815422e3e62eaf323f8298a669144541de6f7b9dbf4cab2b972862130c38a0e"
+    },
+    {
+      "path": "references/result-chart-style.md",
+      "bytes": 4004,
+      "sha256": "c4ece488e08337dffd514d42c5a9483347c6dd97e29a6e522935dc97797f89d3"
+    },
+    {
+      "path": "references/two-slide-spec.md",
+      "bytes": 7518,
+      "sha256": "7f0aa1e0ccdd3528343efa1399f488aef2a9af316f1436c1eeeb4dad5e1d7e78"
+    },
+    {
+      "path": "scripts/apply_formula_manifest.mjs",
+      "bytes": 4049,
+      "sha256": "8d511cd6fbdafc12b0d2731f0ac648d9a0949d61f8851f8cf202dfb37b0ffffa"
+    },
+    {
+      "path": "scripts/apply_result_chart_style.ps1",
+      "bytes": 4983,
+      "sha256": "4f247b0b2fd894fe10fd3a2c00a4db3faf7d53f1f2e60fcb3612fe42c99e5bf5"
+    },
+    {
+      "path": "scripts/audit_graphic_delivery.py",
+      "bytes": 6297,
+      "sha256": "5f65512c5cc5b4a63b71b63ad705e9bb85f1be89dc0de46596a8b57d2fdbafa1"
+    },
+    {
+      "path": "scripts/audit_plot_axes.py",
+      "bytes": 3649,
+      "sha256": "78b26962ee854a7adc1949a4617862494b4667628b32ecac4348a09755dbef03"
+    },
+    {
+      "path": "scripts/audit_template_bindings.py",
+      "bytes": 2367,
+      "sha256": "62c4e5351fa19bba476a78e00b24b07d2a2b6044b0e9b4fa098abacb9f0943bc"
+    },
+    {
+      "path": "scripts/audit_visible_pptx.py",
+      "bytes": 1658,
+      "sha256": "af1caddfc54cd853d9619c51852ebe22b50e961a7c666d3eb13bf1215733e6b2"
+    },
+    {
+      "path": "scripts/build_two_slide_deck.mjs",
+      "bytes": 17061,
+      "sha256": "76bcef20e222e168a64eb4465657148bb3f80e9ad50092a8890d13c28c91d353"
+    },
+    {
+      "path": "scripts/compare_render_regions.py",
+      "bytes": 1469,
+      "sha256": "b92565df74f9dd47eb4bb19f7a8050d26248efc9499097a1ab4193d37dbcaf3e"
+    },
+    {
+      "path": "scripts/draw_semantic_diagram.mjs",
+      "bytes": 5666,
+      "sha256": "237839f8156e2fb129cbf6c50c19bebed33d82972319942be574a533ae0c80cc"
+    },
+    {
+      "path": "scripts/formula_editor_server.mjs",
+      "bytes": 3695,
+      "sha256": "dd58d3df0931ef677588f8a3de1994f6947e63990c1ad6137f8b2a4a163bb1ad"
+    },
+    {
+      "path": "scripts/render_latex_svg.mjs",
+      "bytes": 5218,
+      "sha256": "a0871679e3070bf97718f76e5f2999b92de06c22cb2bb2fc93f9ded7ca9e4290"
+    },
+    {
+      "path": "scripts/replace_formula_shapes.ps1",
+      "bytes": 2081,
+      "sha256": "018dcdd16e5b2214ec159d2e5b6e8be3045d75e3a25db8f86e5305b55ca7efdd"
+    },
+    {
+      "path": "scripts/test_contribution_map.py",
+      "bytes": 5272,
+      "sha256": "ce7a5e0f3393e079029b85126cebdacd5622a8512c84414a0e416cab80120f9c"
+    },
+    {
+      "path": "scripts/test_graphic_gates.py",
+      "bytes": 7822,
+      "sha256": "533c57df9d231c6a7c31e08df3928e0bffb1a0dbfd3ba68695ec93e1c78f74b9"
+    },
+    {
+      "path": "scripts/test_template_bindings.py",
+      "bytes": 2173,
+      "sha256": "94efc3a710c0a2b0826803f793668a0e8b9061dc231534ee82d46ba32d4b042a"
+    },
+    {
+      "path": "scripts/validate_contribution_map.py",
+      "bytes": 7000,
+      "sha256": "67b363c81a60e1b8626ac2149919eba223220856dba5b44e2f8a79c478af0e3a"
+    },
+    {
+      "path": "scripts/validate_method_graph.py",
+      "bytes": 6431,
+      "sha256": "74539f6d2664ff78fe3a16c7eb26c33b6ebfa8911ce7262fe9c2b85d23e32b7e"
+    },
+    {
+      "path": "scripts/validate_semantic_graph.py",
+      "bytes": 9571,
+      "sha256": "cd259a75094226e503dddb2c0e21b6dbdfff301d64e3523592509f54f4937408"
+    },
+    {
+      "path": "scripts/validate_two_slide_spec.py",
+      "bytes": 9395,
+      "sha256": "267c9c18871c08dccf55a03dad813f067c010f0b8aec3ad0712b0723605dca27"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 14392,
+      "sha256": "2103da5df3b68e81b8f145a39937b39415362a5d6fb4dcae0868a899db532fd5"
+    }
+  ],
+  "contentSha256": "b0f1efe2f324faca8e89891603bfbda60d65e4661f81d85b15c8a64256dddc2c"
+}

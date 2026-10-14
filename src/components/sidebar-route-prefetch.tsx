@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 const WARM_HREFS = [
   '/chat',
+  '/paper-review',
   '/grid-guide',
   '/scheme-solve',
   '/virtual-sim',

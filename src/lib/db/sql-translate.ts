@@ -10,7 +10,8 @@ const SERIAL_INSERT_TABLES = new Set([
   'patent_generation_events',
   'scheme_events',
   'ppt_voice_events',
-  'ppt_voice_messages'
+  'ppt_voice_messages',
+  'paper_review_events'
 ]);
 
 export function quoteCamelAliases(sql: string) {

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Two-slide Academic Paper PPT"
+  short_description: "以模板和语义图制作两页论文PPT，覆盖多章贡献，核对结果口径并逐页渲染验收"
+  brand_color: "#0B438C"
+  default_prompt: "使用 $two-slide-paper-ppt-codegen 阅读论文，参考内置模板与图形框架基准，建立可追溯的语义关系图；多章论文先核对贡献覆盖、治理分支和结果比较口径。制作两页可编辑PPT，完成模板引用、图形覆盖、图表及最终PowerPoint渲染验收，不降级为纯文字页。"

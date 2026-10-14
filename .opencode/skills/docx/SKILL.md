@@ -165,7 +165,7 @@ instead of probing tools one by one.
 
 - 本技能源码：`tools/docx`
 - Node 模块：`node_modules`（`docx`、`pptxgenjs`）
-- Python 解释器：`tools/office-docs-venv/bin/python`
+- Python 解释器：`tools/office-docs-venv/Scripts/python.exe`
 
 Windows：`$env:NODE_PATH="$env:AI4ES_PROJECT_ROOT\node_modules"`；`& "$env:AI4ES_PROJECT_ROOT\tools\office-docs-venv\Scripts\python.exe"`
 Linux：`NODE_PATH="$AI4ES_PROJECT_ROOT/node_modules"`；`"$AI4ES_PROJECT_ROOT/tools/office-docs-venv/bin/python"`

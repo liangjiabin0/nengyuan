@@ -1,2 +1,6 @@
 *.sh text eol=lf
 *.py text eol=lf
+
+# Imported skill manifests verify exact file bytes, including line endings.
+.opencode/skills/paper-peer-review-v8/** -text
+.opencode/skills/two-slide-paper-ppt-graphical-v3/** -text
