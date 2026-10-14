@@ -172,6 +172,23 @@ export async function enqueueJob(type: JobType, payload: Record<string, unknown>
     }
   }
 
+  // 论文智能评审：同一任务只允许一个排队/运行中的作业，防止双击重复启动
+  if (type === 'paper-review') {
+    const taskId = String(payload.taskId || '').trim();
+    if (taskId) {
+      const existing = await db
+        .prepare(
+          `SELECT * FROM background_jobs
+           WHERE type = 'paper-review'
+             AND status IN ('queued', 'running')
+             AND position(? in payload_json) > 0
+           ORDER BY created_at ASC LIMIT 1`
+        )
+        .get<JobRow>(`"taskId":"${taskId}"`);
+      if (existing) return rowToJob(existing);
+    }
+  }
+
   const id = randomUUID();
   const ts = nowIso();
   await db.prepare(

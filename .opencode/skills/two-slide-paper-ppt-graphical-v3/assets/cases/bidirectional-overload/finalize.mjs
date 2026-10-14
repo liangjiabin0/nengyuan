@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+const root=path.dirname(fileURLToPath(import.meta.url)),B=path.join(root,'build');
+const runtime=process.env.CODEX_RUNTIME_ROOT;
+if(!runtime)throw new Error('Set CODEX_RUNTIME_ROOT');
+process.env.RUNTIME_NODE_MODULES=path.join(runtime,'node/node_modules');
+const sk=process.env.PRESENTATIONS_SKILL_ROOT;
+if(!sk)throw new Error('Set PRESENTATIONS_SKILL_ROOT');
+const {finalizePresentation}=await import(pathToFileURL(sk+'/container_tools/artifact_tool_utils.mjs'));
+await fs.mkdir(path.join(root,'output'),{recursive:true});
+const result=await finalizePresentation({workspaceDir:root,candidatePath:B+'/candidate.pptx',finalPath:path.join(root,'output','配电网双向重过载_两页图形版'+(process.argv[2]||'')+'.pptx'),pythonExecutable:process.env.ARTIFACT_PYTHON||path.join(runtime,'python/python.exe'),integrityValidatorPath:sk+'/container_tools/inspect_presentation_package_integrity.py',layoutValidatorPath:sk+'/container_tools/inspect_presentation_layout_geometry.py',layoutArgs:['--expected-slide-size-emu','15925800,8963025','--validate-heading-fit','--require-native-table-slide','2'],explicitTotalSlideCount:2,requiredNativeTableOwnerSlides:[2],requiredNativeChartOwnerSlides:[2],materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:['Microsoft YaHei']},verifyArtifactToolImport:true,receiptPath:B+'/final-validation'+(process.argv[2]||'')+'.json'});
+console.log(JSON.stringify({finalPath:result.finalPath,package:result.packageIntegrity.status,layout:result.presentationLayout.finding_count}));

@@ -7,7 +7,9 @@ import {
   AudioLines,
   BrainCircuit,
   BookOpen,
+  Cpu,
   CircuitBoard,
+  FileSearch,
   Files,
   Home,
   Lightbulb,
@@ -29,6 +31,7 @@ type NavItem = { href: string; label: string; icon: LucideIcon; adminOnly?: bool
 const primaryNav: NavItem[] = [
   { href: '/', label: '首页', icon: Home },
   { href: '/chat', label: '能元Agent', icon: MessageSquareText },
+  { href: '/paper-review', label: '论文智能评审', icon: FileSearch },
   { href: '/grid-guide', label: '国网指南设计', icon: BookOpen },
   { href: '/scheme-solve', label: '方案求解', icon: Lightbulb },
   { href: '/virtual-sim', label: '虚拟仿真', icon: CircuitBoard },
@@ -45,6 +48,7 @@ const researchNav: NavItem[] = [
 
 const adminNav: NavItem[] = [
   { href: '/tables', label: '科研数据表', icon: Table2, adminOnly: true },
+  { href: '/models', label: '模型配置', icon: Cpu, adminOnly: true },
   { href: '/settings', label: '系统设置', icon: Settings, adminOnly: true },
   { href: '/admin/users', label: '账号管理', icon: Users, adminOnly: true }
 ];

@@ -109,6 +109,15 @@ export async function registerApiRoutes(app: Hono) {
     ['/api/self-learning', () => import('../../src/app/api/self-learning/route')],
     ['/api/self-learning/agent', () => import('../../src/app/api/self-learning/agent/route')],
     ['/api/journal-watch', () => import('../../src/app/api/journal-watch/route')],
+    ['/api/paper-review/model', () => import('../../src/app/api/paper-review/model/route')],
+    ['/api/paper-review', () => import('../../src/app/api/paper-review/route')],
+    ['/api/paper-review/:id', () => import('../../src/app/api/paper-review/[id]/route')],
+    ['/api/paper-review/:id/run', () => import('../../src/app/api/paper-review/[id]/run/route')],
+    [
+      '/api/paper-review/:id/artifacts/:artifactId',
+      () => import('../../src/app/api/paper-review/[id]/artifacts/[artifactId]/route')
+    ],
+    ['/api/paper-review/:id/proposals', () => import('../../src/app/api/paper-review/[id]/proposals/route')],
     ['/api/journal-watch/fulltext', () => import('../../src/app/api/journal-watch/fulltext/route')],
     ['/api/skills/:id', () => import('../../src/app/api/skills/[id]/route')],
     ['/api/chat/attachments', () => import('../../src/app/api/chat/attachments/route')],

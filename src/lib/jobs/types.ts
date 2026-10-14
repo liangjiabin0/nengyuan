@@ -13,7 +13,8 @@ export type JobType =
   | 'loss-calc'
   | 'modelica-sim'
   | 'forecast-run'
-  | 'journal-watch';
+  | 'journal-watch'
+  | 'paper-review';
 
 export type JobStatus = 'queued' | 'running' | 'done' | 'error' | 'cancelled';
 

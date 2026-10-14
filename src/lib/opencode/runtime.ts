@@ -138,14 +138,15 @@ function withIsolatedWorkingDirectory(
     path.resolve(process.cwd(), 'storage', 'research-review'),
     path.resolve(process.cwd(), 'storage', 'grid-guides'),
     path.resolve(process.cwd(), 'storage', 'scheme-solve'),
-    path.resolve(process.cwd(), 'storage', 'chat-workspaces')
+    path.resolve(process.cwd(), 'storage', 'chat-workspaces'),
+    path.resolve(process.cwd(), 'storage', 'paper-review')
   ];
   const requested = path.resolve(requestedDirectory);
   const allowedRoot = allowedRoots.find(
     (root) => requested === root || requested.startsWith(`${root}${path.sep}`)
   );
   if (!allowedRoot) {
-    throw new Error('能元隔离工作目录必须位于 storage/patents、storage/research-review、storage/grid-guides、storage/scheme-solve 或 storage/chat-workspaces 下。');
+    throw new Error('能元隔离工作目录必须位于 storage/patents、storage/research-review、storage/grid-guides、storage/scheme-solve、storage/chat-workspaces 或 storage/paper-review 下。');
   }
   fs.mkdirSync(requested, { recursive: true });
   const realDirectory = fs.realpathSync(requested);

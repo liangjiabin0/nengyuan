@@ -1,0 +1,517 @@
+{
+  "source": "20261010170602.pdf",
+  "method": {
+    "schemaVersion": 1,
+    "profile": "operation",
+    "nodes": [
+      {
+        "id": "pv",
+        "type": "device",
+        "label": "分布式光伏",
+        "evidenceRef": "PDF p.24 Fig.2-1"
+      },
+      {
+        "id": "load",
+        "type": "device",
+        "label": "EV与负荷",
+        "evidenceRef": "PDF p.24 Fig.2-1"
+      },
+      {
+        "id": "network",
+        "type": "bus",
+        "label": "配变 / 线路",
+        "evidenceRef": "PDF pp.24,27–32"
+      },
+      {
+        "id": "thermal",
+        "type": "operation",
+        "label": "电流、环境温度\n热模型与老化速率",
+        "evidenceRef": "PDF pp.28–30"
+      },
+      {
+        "id": "assessment",
+        "type": "operation",
+        "label": "日寿命损失 / 六项指标",
+        "evidenceRef": "PDF pp.30–35"
+      },
+      {
+        "id": "regime",
+        "type": "decision",
+        "label": "治理\n类型",
+        "evidenceRef": "PDF pp.22–23"
+      },
+      {
+        "id": "users",
+        "type": "agent",
+        "label": "用户选择",
+        "evidenceRef": "PDF pp.39–41"
+      },
+      {
+        "id": "logit",
+        "type": "operation",
+        "label": "Logit\n响应度 εev",
+        "evidenceRef": "PDF pp.40–41"
+      },
+      {
+        "id": "rbess",
+        "type": "optimizer",
+        "label": "AIW-PSO\n配置与充放电",
+        "evidenceRef": "PDF pp.46–50"
+      },
+      {
+        "id": "battery",
+        "type": "device",
+        "label": "退役储能",
+        "evidenceRef": "PDF pp.42–50"
+      },
+      {
+        "id": "clusters",
+        "type": "input",
+        "label": "DPV 集群\nK-means",
+        "evidenceRef": "PDF pp.60–62"
+      },
+      {
+        "id": "collection",
+        "type": "optimizer",
+        "label": "汇集站\n选址定容",
+        "evidenceRef": "PDF pp.62–65"
+      },
+      {
+        "id": "expansion",
+        "type": "optimizer",
+        "label": "配变 / 线路\n扩容",
+        "evidenceRef": "PDF pp.65–70"
+      },
+      {
+        "id": "plan",
+        "type": "output",
+        "label": "汇集＋扩容",
+        "evidenceRef": "PDF pp.69–73"
+      }
+    ],
+    "edges": [
+      {
+        "id": "pv-power",
+        "from": "pv",
+        "to": "network",
+        "kind": "power",
+        "label": "光伏出力",
+        "evidenceRef": "PDF p.24"
+      },
+      {
+        "id": "load-power",
+        "from": "network",
+        "to": "load",
+        "kind": "power",
+        "label": "供电功率",
+        "evidenceRef": "PDF p.24"
+      },
+      {
+        "id": "measure",
+        "from": "network",
+        "to": "thermal",
+        "kind": "information",
+        "label": "时序运行状态",
+        "evidenceRef": "PDF pp.28–30"
+      },
+      {
+        "id": "aging",
+        "from": "thermal",
+        "to": "assessment",
+        "kind": "data",
+        "label": "累积损伤",
+        "evidenceRef": "PDF pp.29–32"
+      },
+      {
+        "id": "diagnosis",
+        "from": "assessment",
+        "to": "regime",
+        "kind": "information",
+        "label": "风险诊断",
+        "evidenceRef": "PDF pp.22–23,33"
+      },
+      {
+        "id": "short",
+        "from": "regime",
+        "to": "users",
+        "kind": "decision",
+        "label": "短时治理",
+        "evidenceRef": "PDF pp.22–23,37"
+      },
+      {
+        "id": "long",
+        "from": "regime",
+        "to": "clusters",
+        "kind": "decision",
+        "label": "长期治理",
+        "evidenceRef": "PDF pp.22–23,60"
+      },
+      {
+        "id": "utility",
+        "from": "users",
+        "to": "logit",
+        "kind": "information",
+        "label": "电价 / 等待",
+        "evidenceRef": "PDF pp.39–41"
+      },
+      {
+        "id": "ev-profile",
+        "from": "logit",
+        "to": "rbess",
+        "kind": "data",
+        "label": "混合充电负荷",
+        "evidenceRef": "PDF pp.41,46"
+      },
+      {
+        "id": "storage-plan",
+        "from": "rbess",
+        "to": "battery",
+        "kind": "decision",
+        "label": "容量 / 出力",
+        "evidenceRef": "PDF pp.49–50"
+      },
+      {
+        "id": "candidate",
+        "from": "clusters",
+        "to": "collection",
+        "kind": "data",
+        "label": "候选汇集点",
+        "evidenceRef": "PDF pp.61–62"
+      },
+      {
+        "id": "net-load",
+        "from": "collection",
+        "to": "expansion",
+        "kind": "iteration",
+        "label": "修正净负荷",
+        "evidenceRef": "PDF p.70"
+      },
+      {
+        "id": "capacity",
+        "from": "expansion",
+        "to": "collection",
+        "kind": "iteration",
+        "label": "更新容量边界",
+        "evidenceRef": "PDF p.70"
+      },
+      {
+        "id": "joint-plan",
+        "from": "expansion",
+        "to": "plan",
+        "kind": "decision",
+        "label": "联合方案",
+        "evidenceRef": "PDF pp.70,73"
+      },
+      {
+        "id": "short-review",
+        "from": "battery",
+        "to": "assessment",
+        "kind": "feedback",
+        "label": "短时治理后再评估",
+        "evidenceRef": "PDF p.56"
+      },
+      {
+        "id": "long-review",
+        "from": "plan",
+        "to": "assessment",
+        "kind": "feedback",
+        "label": "长期治理后再评估",
+        "evidenceRef": "PDF p.74"
+      }
+    ],
+    "mechanisms": [
+      {
+        "id": "two-regimes",
+        "kind": "branch",
+        "nodeIds": [
+          "regime",
+          "users",
+          "clusters"
+        ],
+        "edgeIds": [
+          "short",
+          "long"
+        ],
+        "evidenceRef": "PDF pp.22–23"
+      },
+      {
+        "id": "joint-iteration",
+        "kind": "feedback",
+        "nodeIds": [
+          "collection",
+          "expansion"
+        ],
+        "edgeIds": [
+          "net-load",
+          "capacity"
+        ],
+        "evidenceRef": "PDF p.70 Fig.4-4"
+      },
+      {
+        "id": "physical-system",
+        "kind": "physical-network",
+        "nodeIds": [
+          "pv",
+          "network",
+          "load"
+        ],
+        "edgeIds": [
+          "pv-power",
+          "load-power"
+        ],
+        "evidenceRef": "PDF p.24 Fig.2-1"
+      },
+      {
+        "id": "short-reassessment",
+        "kind": "feedback",
+        "nodeIds": [
+          "assessment",
+          "regime",
+          "users",
+          "logit",
+          "rbess",
+          "battery"
+        ],
+        "edgeIds": [
+          "diagnosis",
+          "short",
+          "utility",
+          "ev-profile",
+          "storage-plan",
+          "short-review"
+        ],
+        "evidenceRef": "PDF pp.22–23,56"
+      }
+    ],
+    "formulaLinks": [
+      {
+        "formulaId": "aging",
+        "nodeIds": [
+          "assessment"
+        ],
+        "edgeIds": [],
+        "evidenceRef": "PDF p.29 Eq.2-7"
+      },
+      {
+        "formulaId": "response",
+        "nodeIds": [
+          "logit"
+        ],
+        "edgeIds": [],
+        "evidenceRef": "PDF p.41 Eqs.3-13,3-14; n abbreviates n_ev"
+      },
+      {
+        "formulaId": "short-objective",
+        "nodeIds": [
+          "rbess"
+        ],
+        "edgeIds": [],
+        "evidenceRef": "PDF pp.43,46 Eqs.3-23,3-34"
+      },
+      {
+        "formulaId": "long-objective",
+        "nodeIds": [
+          "collection",
+          "expansion"
+        ],
+        "edgeIds": [],
+        "evidenceRef": "PDF p.69 Eq.4-19"
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "assessment-results",
+      "caseIds": [
+        "historical-seasons"
+      ],
+      "claimStatus": "validated",
+      "title": "评估：识别典型日风险差异",
+      "conclusion": "夏季风险最高，秋季最低\n同一指标支撑治理前后再评估",
+      "evidenceRef": "PDF pp.35–36",
+      "visuals": [
+        {
+          "type": "chart",
+          "id": "season",
+          "title": "四季典型日综合得分",
+          "categories": [
+            "春",
+            "夏",
+            "秋",
+            "冬"
+          ],
+          "series": [
+            {
+              "name": "综合得分",
+              "values": [
+                1.5978,
+                1.674,
+                1.5569,
+                1.5828
+              ]
+            }
+          ],
+          "xTitle": "场景 / 设备",
+          "yTitle": "综合得分",
+          "yMin": 0,
+          "yMax": 2,
+          "yMajorUnit": 0.4,
+          "evidenceRef": "PDF p.35 Table2-1"
+        }
+      ]
+    },
+    {
+      "id": "short-results",
+      "caseIds": [
+        "short-summer"
+      ],
+      "claimStatus": "validated",
+      "title": "短时：荷储协同减少配储需求",
+      "conclusion": "容量减少27.96%，年净成本降低46.90%\n综合得分 1.7258 → 0.2479",
+      "evidenceRef": "PDF pp.53–58",
+      "visuals": [
+        {
+          "type": "chart",
+          "id": "storage",
+          "title": "储能配置容量",
+          "categories": [
+            "无序充电",
+            "80%有序"
+          ],
+          "series": [
+            {
+              "name": "储能容量",
+              "values": [
+                27.4,
+                19.74
+              ]
+            }
+          ],
+          "xTitle": "场景 / 设备",
+          "yTitle": "容量 / MWh",
+          "yMin": 0,
+          "yMax": 30,
+          "yMajorUnit": 5,
+          "evidenceRef": "PDF pp.53,55 Tables3-5,3-6"
+        },
+        {
+          "type": "chart",
+          "id": "netcost",
+          "title": "储能年净成本",
+          "categories": [
+            "新电池",
+            "退役电池"
+          ],
+          "series": [
+            {
+              "name": "年净成本",
+              "values": [
+                298.65,
+                158.57
+              ]
+            }
+          ],
+          "xTitle": "场景 / 设备",
+          "yTitle": "万元 / 年",
+          "yMin": 0,
+          "yMax": 350,
+          "yMajorUnit": 70,
+          "evidenceRef": "PDF p.58 Table3-7"
+        }
+      ]
+    },
+    {
+      "id": "long-results",
+      "caseIds": [
+        "long-growth"
+      ],
+      "claimStatus": "validated",
+      "title": "长期：汇集与扩容协同改造",
+      "conclusion": "综合得分 43.1630 → 0.3638\n部分设备仍略高于24 h参考值",
+      "evidenceRef": "PDF pp.73–74",
+      "visuals": [
+        {
+          "type": "chart",
+          "id": "longaging",
+          "title": "关键设备日寿命损失",
+          "categories": [
+            "台区配变",
+            "线路20-21",
+            "线路31-32"
+          ],
+          "series": [
+            {
+              "name": "治理前",
+              "values": [
+                125.25,
+                115.57,
+                113.12
+              ]
+            },
+            {
+              "name": "治理后",
+              "values": [
+                23.11,
+                25.12,
+                25.95
+              ]
+            }
+          ],
+          "xTitle": "场景 / 设备",
+          "yTitle": "日寿命损失 / h",
+          "yMin": 0,
+          "yMax": 150,
+          "yMajorUnit": 30,
+          "evidenceRef": "PDF p.74 text below Fig.4-8"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "决策",
+            "方案"
+          ],
+          "rows": [
+            [
+              "汇集变",
+              "节点14 / 3150 kVA"
+            ],
+            [
+              "台区配变",
+              "2500 → 3150 kVA"
+            ],
+            [
+              "汇集线路",
+              "LGJ-120 / 18.988 km"
+            ]
+          ],
+          "evidenceRef": "PDF p.73 Section4.4.2"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    "第二章1.6740与第三章1.7258不得混用",
+    "GM(1,1)未用于第4章算例预测验证",
+    "142.63年规划成本与651.76年净成本不可计算降幅",
+    "23.11、25.12、25.95小时是接近24小时，不是全部低于参考值",
+    "汇集模型MILP与集成MINLP线性化细节未充分展示，幻灯片不强化全局最优保证"
+  ],
+  "comparisons": [
+    {
+      "id": "capacity-saving",
+      "left": "capacity0",
+      "right": "capacity08",
+      "mode": "percent-reduction",
+      "value": 27.96,
+      "evidenceRef": "PDF p.56"
+    },
+    {
+      "id": "net-cost-saving",
+      "left": "costnew",
+      "right": "costretired",
+      "mode": "percent-reduction",
+      "value": 46.9,
+      "evidenceRef": "PDF pp.58,76"
+    }
+  ]
+}

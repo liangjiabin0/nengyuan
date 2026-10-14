@@ -1,0 +1,144 @@
+{
+  "skill": "paper-peer-review-v8",
+  "originalName": "paper-peer-review",
+  "version": "8.0",
+  "sourceZip": "paper-peer-review_v8_integrated-memory.zip",
+  "zipSha256": "d6d4d97d40a31938c20abbdaf9c92a14bb69ffefb21b6cd08eadc7da68999259",
+  "importedAt": "2026-10-12T07:20:48.607Z",
+  "excluded": [
+    "/^integrations\\/two-slide-paper-ppt-codegen\\//"
+  ],
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "bytes": 654,
+      "sha256": "3f5d0cc5a348eba9a46269244e022415ca4a54ec7836c002f1f359b35170cf29"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 4405,
+      "sha256": "d5202c19542631b708314ea817cff165c8794cfb1e11c435f41fbb8015e8c9f2"
+    },
+    {
+      "path": "references/batch-word-delivery.md",
+      "bytes": 3610,
+      "sha256": "a00637dc507bdc94eb2a78e329d026204ef24e4b1a51b4b0635b2efde51cd100"
+    },
+    {
+      "path": "references/data-availability-reproduction.md",
+      "bytes": 1715,
+      "sha256": "bc64dbbec637bbdaabc05e2a6e4a00c35d7dfd8148d20a9d57721e5b5dda68a1"
+    },
+    {
+      "path": "references/data-science-review.md",
+      "bytes": 2540,
+      "sha256": "5c2e41793de05a95404a42c59f52d202aa57d8b282b8b73f16c5b58f2384f9aa"
+    },
+    {
+      "path": "references/experimental-support-reproducibility.md",
+      "bytes": 1808,
+      "sha256": "6337f760afd3a08281c50f8804a8104342f02afe944d7d518002481d91cae859"
+    },
+    {
+      "path": "references/latest-literature-comparison.md",
+      "bytes": 1851,
+      "sha256": "76f5ba8c13bbaac40afe797f5b2411db02f42b74259c4aae829f9af93b6fbab7"
+    },
+    {
+      "path": "references/literature-fulltext-acquisition.md",
+      "bytes": 1383,
+      "sha256": "82c7550f27def3acd5af06c20878be937fbe9db33093a31c81c7f1114a024316"
+    },
+    {
+      "path": "references/optimization-esopt-review.md",
+      "bytes": 2523,
+      "sha256": "5803e8015aa8f3f0468c66ecbd3053e816d1d26e70f4b3e0a196dd289a37590b"
+    },
+    {
+      "path": "references/paper-classification.md",
+      "bytes": 2175,
+      "sha256": "1d9cde0fd2a03f27712d20dffa8901280838249b5a725425e1a6490c8f34311d"
+    },
+    {
+      "path": "references/power-system-review-memory.md",
+      "bytes": 11545,
+      "sha256": "cca9811d55a6a6eaa11448bbcee2a5fe2589e42c4e7d5ef9c8587d75e00f0645"
+    },
+    {
+      "path": "references/report-schema.md",
+      "bytes": 11126,
+      "sha256": "676f891f897d7048d58e63b97c67980aeceee515d0aaa599e3efda1020031e05"
+    },
+    {
+      "path": "references/review-protocol.md",
+      "bytes": 2225,
+      "sha256": "a9eedafe30b098ca863b80f162a97631def43f95b70ca72a38aa963d806bf89b"
+    },
+    {
+      "path": "references/stability-modelica-review.md",
+      "bytes": 2042,
+      "sha256": "7aa0c9a8f1f8c314bc02106a36ad9ef5277ac5aa15cdb6e64832234d80f26f1f"
+    },
+    {
+      "path": "references/theoretical-analysis.md",
+      "bytes": 1400,
+      "sha256": "49b9e41125b6cace6aa871a6b0f4fd1991500dd80ca7c927f80e3b838e93a499"
+    },
+    {
+      "path": "references/two-slide-review-ppt.md",
+      "bytes": 7424,
+      "sha256": "ea3dba63a901f132891edebb91f40eba251b26b5391695f4f3be34175a7ecaab"
+    },
+    {
+      "path": "references/v7-change-notes.md",
+      "bytes": 1240,
+      "sha256": "6e7d6c2b5f828874de32fb3ba207efdb7082a5c53ee321a4daae26fbb8c74839"
+    },
+    {
+      "path": "references/variable-symbol-audit.md",
+      "bytes": 1886,
+      "sha256": "f563b98249bd8e14b94109f30fb8ffb2116d0671f7ee84391c83468b0a46a774"
+    },
+    {
+      "path": "scripts/download_public_literature.py",
+      "bytes": 3035,
+      "sha256": "38328a7b0bba09a9ffa674f504eb6196bf63e6d4de0730cf63f05f9a53b7f064"
+    },
+    {
+      "path": "scripts/extract_review_feedback.py",
+      "bytes": 2628,
+      "sha256": "a2775c6e7752321ab2bf234c6afc3e664ce37c0ad951f66ccda725ed6986b249"
+    },
+    {
+      "path": "scripts/package_batch_reviews.py",
+      "bytes": 5988,
+      "sha256": "0d3fc60a91176712a91fdfaeb1c4e68fff3c52dc467a9b0b118eaad793c84200"
+    },
+    {
+      "path": "scripts/render_paired_review.py",
+      "bytes": 9927,
+      "sha256": "63e9f47fe442628913dee685510a3c6da1dff08382258d5114f6459a3a40f49a"
+    },
+    {
+      "path": "scripts/render_report.py",
+      "bytes": 18768,
+      "sha256": "99e7d95a35775c51f1b98a267c0df851dd9f6e67309648c4b4ed555d7ae6ea83"
+    },
+    {
+      "path": "scripts/render_word_report.py",
+      "bytes": 10115,
+      "sha256": "e1eab93c8d99ff4e4253fe683bb0146a97d18348dfd7734d2709f6b55a43a573"
+    },
+    {
+      "path": "scripts/validate_review.py",
+      "bytes": 6554,
+      "sha256": "a0f15d89459c67e070593aec1c97c82ca38b7211fa852008eee6895afe8839a0"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 32271,
+      "sha256": "a9f0b1b72a3b104086f73531a084761367430d232d3bce843456683ae9bc4ef0"
+    }
+  ],
+  "contentSha256": "f31fb3d65c72a413972ec9fead2b78bddc532db183dbff5c9b37b7dc9e1cdfc4"
+}

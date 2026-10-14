@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "sourceStructure": [
+    {
+      "chapter": "2",
+      "role": "core",
+      "contributionId": "assessment",
+      "evidenceRef": "PDF pp.24–36"
+    },
+    {
+      "chapter": "3",
+      "role": "core",
+      "contributionId": "short",
+      "evidenceRef": "PDF pp.37–59"
+    },
+    {
+      "chapter": "4",
+      "role": "core",
+      "contributionId": "long",
+      "evidenceRef": "PDF pp.60–75"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "assessment",
+      "title": "热老化量化评估",
+      "evidenceRef": "Chapter2",
+      "methodNodeIds": [
+        "thermal",
+        "assessment"
+      ],
+      "resultModuleIds": [
+        "assessment-results"
+      ],
+      "validationStatus": "simulated"
+    },
+    {
+      "id": "short",
+      "title": "EV-RBESS短时治理",
+      "evidenceRef": "Chapter3",
+      "methodNodeIds": [
+        "logit",
+        "rbess",
+        "battery"
+      ],
+      "resultModuleIds": [
+        "short-results"
+      ],
+      "validationStatus": "simulated"
+    },
+    {
+      "id": "long",
+      "title": "汇集-扩容长期规划",
+      "evidenceRef": "Chapter4",
+      "methodNodeIds": [
+        "clusters",
+        "collection",
+        "expansion"
+      ],
+      "resultModuleIds": [
+        "long-results"
+      ],
+      "validationStatus": "simulated"
+    }
+  ],
+  "relations": [
+    {
+      "kind": "alternative",
+      "decisionNodeId": "regime",
+      "targetNodeIds": [
+        "users",
+        "clusters"
+      ],
+      "evidenceRef": "PDF pp.22–23 Section1.3"
+    }
+  ],
+  "cases": [
+    {
+      "id": "historical-seasons",
+      "inputStatus": "historical",
+      "description": "第二章历史源荷与气象典型日；夏季分数1.6740",
+      "evidenceRef": "PDF pp.33–35"
+    },
+    {
+      "id": "short-summer",
+      "inputStatus": "constructed",
+      "description": "第三章EV混合充电模拟；无序基线1.7258，主要治理εev=0.8",
+      "evidenceRef": "PDF pp.51–56"
+    },
+    {
+      "id": "long-growth",
+      "inputStatus": "constructed",
+      "description": "第四章新增6个DPV、4个EV站和20%基荷；未采用灰色预测生成算例",
+      "evidenceRef": "PDF p.71"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "capacity0",
+      "value": 27.4,
+      "metric": "installed-storage-capacity",
+      "unit": "MWh",
+      "basis": "rated-capacity",
+      "horizon": "configuration",
+      "caseId": "short-summer",
+      "evidenceRef": "Table3-6"
+    },
+    {
+      "id": "capacity08",
+      "value": 19.74,
+      "metric": "installed-storage-capacity",
+      "unit": "MWh",
+      "basis": "rated-capacity",
+      "horizon": "configuration",
+      "caseId": "short-summer",
+      "evidenceRef": "Table3-5"
+    },
+    {
+      "id": "costnew",
+      "value": 298.65,
+      "metric": "annual-net-cost",
+      "unit": "wan-CNY/year",
+      "basis": "investment-minus-benefits",
+      "horizon": "annual",
+      "caseId": "short-summer",
+      "evidenceRef": "Table3-7"
+    },
+    {
+      "id": "costretired",
+      "value": 158.57,
+      "metric": "annual-net-cost",
+      "unit": "wan-CNY/year",
+      "basis": "investment-minus-benefits",
+      "horizon": "annual",
+      "caseId": "short-summer",
+      "evidenceRef": "Table3-7"
+    },
+    {
+      "id": "longplan",
+      "value": 142.63,
+      "metric": "annual-planning-cost",
+      "unit": "wan-CNY/year",
+      "basis": "collection-plus-expansion-cost",
+      "horizon": "annual",
+      "caseId": "long-growth",
+      "evidenceRef": "Table4-3"
+    },
+    {
+      "id": "longstorage",
+      "value": 651.76,
+      "metric": "annual-net-cost",
+      "unit": "wan-CNY/year",
+      "basis": "investment-minus-benefits",
+      "horizon": "annual",
+      "caseId": "long-growth",
+      "evidenceRef": "PDF p.74"
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "capacity-saving",
+      "left": "capacity0",
+      "right": "capacity08",
+      "mode": "percent-reduction",
+      "value": 27.96,
+      "evidenceRef": "PDF p.56"
+    },
+    {
+      "id": "net-cost-saving",
+      "left": "costnew",
+      "right": "costretired",
+      "mode": "percent-reduction",
+      "value": 46.9,
+      "evidenceRef": "PDF pp.58,76"
+    }
+  ]
+}

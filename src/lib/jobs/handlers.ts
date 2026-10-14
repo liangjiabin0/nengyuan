@@ -178,6 +178,28 @@ const HANDLERS: Record<JobType, JobHandler> = {
     if (!sessionId || !ideaId) throw new Error('forecast-run payload requires sessionId and ideaId');
     return runForecastSolve(sessionId, ideaId);
   },
+  'paper-review': async (job) => {
+    const taskId = String(job.payload.taskId || '');
+    if (!taskId) throw new Error('paper-review payload requires taskId');
+    const { startPaperReview } = await import('@/lib/paper-review/runner');
+    const { PAPER_REVIEW_STAGES } = await import('@/lib/paper-review/types');
+    const fromStage = PAPER_REVIEW_STAGES.find((s) => s === job.payload.fromStage);
+    // 作业心跳：长任务期间每 20 秒刷新一次，避免被当作失联作业重新排队
+    const stop = startHeartbeat(20_000, async () => {
+      const { getPaperReviewTask } = await import('@/lib/paper-review/store');
+      const task = await getPaperReviewTask(taskId);
+      await updateJobProgress(job.id, { stage: task?.stage, progress: task?.progress, detail: task?.progressDetail });
+    });
+    try {
+      await startPaperReview(taskId, { fromStage, force: job.payload.force === true });
+      const { getPaperReviewTask } = await import('@/lib/paper-review/store');
+      const task = await getPaperReviewTask(taskId);
+      if (task?.status === 'cancelled') throw new DOMException('用户取消论文评审', 'AbortError');
+      return { taskId, status: task?.status };
+    } finally {
+      stop();
+    }
+  },
   'journal-watch': async (job) => {
     if (job.payload.action === 'fulltext') return attachFulltext(String(job.payload.doi || ''));
     const backfillDays = Number(job.payload.backfillDays) || undefined;
