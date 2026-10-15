@@ -696,6 +696,302 @@
     flex-shrink: 0;
   }
 
+  .rag-model-menu {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .rag-model-menu-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 32px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    color: rgb(var(--foreground));
+    font-size: 13px;
+    line-height: 20px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .rag-model-menu-trigger:hover,
+  .rag-model-menu-trigger.is-open {
+    background: rgb(var(--accent));
+  }
+
+  .rag-model-menu-trigger:focus-visible,
+  .rag-tp-panel button:focus-visible,
+  .rag-tp-track:focus-visible {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 2px;
+  }
+
+  .rag-model-menu-trigger-level {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .rag-model-menu-chevron {
+    width: 15px;
+    height: 15px;
+    margin-left: 2px;
+    transition: transform 160ms ease;
+  }
+
+  .rag-model-menu-chevron.is-open {
+    transform: rotate(180deg);
+  }
+
+  .rag-tp-panel {
+    position: fixed;
+    z-index: 1000;
+    overflow: hidden;
+    border: 1px solid rgb(var(--border));
+    border-radius: 8px;
+    background: rgb(var(--card));
+    color: rgb(var(--card-foreground));
+    box-shadow: 0 12px 28px rgb(0 0 0 / 0.14);
+    padding: 10px;
+  }
+
+  .rag-tp-viewport {
+    overflow: hidden;
+    transition: height 180ms ease;
+  }
+
+  .rag-tp-view {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .rag-tp-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 25px;
+  }
+
+  .rag-tp-level {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .rag-tp-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    color: rgb(var(--muted-foreground));
+    cursor: pointer;
+  }
+
+  .rag-tp-reset svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .rag-tp-reset:hover:not(:disabled),
+  .rag-tp-model:hover:not(:disabled),
+  .rag-tp-back:hover,
+  .rag-tp-model-row:hover:not(:disabled) {
+    background: rgb(var(--accent));
+    color: rgb(var(--foreground));
+  }
+
+  .rag-tp-reset:disabled,
+  .rag-tp-model:disabled,
+  .rag-tp-model-row:disabled {
+    cursor: default;
+    opacity: 0.65;
+  }
+
+  .rag-tp-model,
+  .rag-tp-back,
+  .rag-tp-model-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 32px;
+    padding: 6px 8px;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .rag-tp-model {
+    margin-bottom: 4px;
+    background: rgb(var(--muted));
+  }
+
+  .rag-tp-back {
+    justify-content: flex-start;
+    gap: 6px;
+    color: rgb(var(--muted-foreground));
+  }
+
+  .rag-tp-back-icon,
+  .rag-tp-model-icon,
+  .rag-tp-check {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  .rag-tp-model-row.is-on {
+    background: rgb(var(--muted));
+    font-weight: 600;
+  }
+
+  .rag-tp-track {
+    position: relative;
+    width: 100%;
+    height: 26px;
+    border-radius: 999px;
+    background: rgb(var(--muted));
+    cursor: pointer;
+    touch-action: none;
+  }
+
+  .rag-tp-track.is-locked {
+    cursor: default;
+    opacity: 0.65;
+  }
+
+  .rag-tp-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: calc(15px + (100% - 30px) * var(--tp-ratio));
+    border-radius: inherit;
+    background: var(--tp-accent);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .rag-tp-stop {
+    position: absolute;
+    top: 50%;
+    left: calc(15px + (100% - 30px) * var(--tp-stop));
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgb(var(--muted-foreground));
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .rag-tp-stop.is-on {
+    background: rgb(var(--foreground));
+  }
+
+  .rag-tp-knob {
+    position: absolute;
+    top: 50%;
+    left: calc(15px + (100% - 30px) * var(--tp-ratio));
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgb(var(--border));
+    border-radius: 50%;
+    background: rgb(var(--card));
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .rag-tp-sparks,
+  .rag-tp-spark {
+    display: none;
+  }
+
+  .rag-oc-ask {
+    @apply my-3 min-w-0 rounded-xl border border-border bg-card p-4 text-card-foreground;
+  }
+
+  .rag-oc-ask-head {
+    @apply flex items-start gap-2;
+  }
+
+  .rag-oc-ask-icon {
+    @apply mt-0.5 h-4 w-4 shrink-0 text-muted-foreground;
+  }
+
+  .rag-oc-ask-title {
+    @apply text-sm font-semibold;
+  }
+
+  .rag-oc-ask-hint {
+    @apply mt-1 text-xs leading-5 text-muted-foreground;
+  }
+
+  .rag-oc-ask-list {
+    @apply mt-4 space-y-4;
+  }
+
+  .rag-oc-ask-item {
+    @apply min-w-0 space-y-2;
+  }
+
+  .rag-oc-ask-question {
+    @apply mb-2 text-sm leading-6;
+  }
+
+  .rag-oc-ask-header {
+    @apply mr-2 inline-block rounded bg-muted px-1.5 text-xs text-muted-foreground;
+  }
+
+  .rag-oc-ask-options {
+    @apply flex flex-col gap-2;
+  }
+
+  .rag-oc-ask-option {
+    @apply flex w-full items-start gap-2 rounded-lg border border-border px-3 py-2 text-left transition hover:bg-accent;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .rag-oc-ask-option.is-active {
+    @apply border-primary bg-accent;
+  }
+
+  .rag-oc-ask-option:focus-visible {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 2px;
+  }
+
+  .rag-oc-ask-check {
+    @apply mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-input;
+  }
+
+  .rag-oc-ask-option.is-active .rag-oc-ask-check {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+
+  .rag-oc-ask-option-label {
+    @apply block text-sm leading-6;
+    overflow-wrap: anywhere;
+  }
+
+  .rag-oc-ask-option-desc {
+    @apply mt-0.5 block text-xs leading-5 text-muted-foreground;
+    overflow-wrap: anywhere;
+  }
+
+  .rag-oc-ask-custom {
+    @apply text-sm;
+  }
+
+  .rag-oc-ask-error {
+    @apply mt-3 text-xs text-destructive;
+  }
+
+  .rag-oc-ask-actions {
+    @apply mt-4 flex justify-end;
+  }
+
   .rag-thunder-capsule {
     display: inline-flex;
     align-items: center;
