@@ -268,7 +268,7 @@ function ApplicantDetailsCard({
             />
           </label>
         ))}
-        <button type="submit" disabled={saving} className="ui-button-primary sm:col-span-2">
+        <button type="submit" disabled={saving} className="ui-btn-primary sm:col-span-2">
           {saving ? '保存中…' : '保存申请主体信息'}
         </button>
       </form>

@@ -177,7 +177,6 @@ export function ChatComposerToolMenu({
         <div
           className="rag-composer-tool-menu"
           aria-label="对话功能"
-          onMouseLeave={() => setSkillSubmenuOpen(false)}
         >
           {skillSubmenuOpen ? (
             <div className="rag-composer-skill-menu" role="menu" aria-label="技能列表">
