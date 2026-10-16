@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 /** 开发模式允许局域网 IP 访问 /_next/*。通配只支持 *.domain，IP 段写法无效。 */
 function getAllowedDevOrigins() {
-  const hosts = new Set(['127.0.0.1', 'localhost', '::1']);
+  const hosts = new Set(['127.0.0.1', 'localhost', '::1', ...(process.env.AI4ES_ALLOWED_DEV_ORIGINS || '').split(',').filter(Boolean)]);
   try {
     hosts.add(os.hostname());
   } catch {
@@ -24,6 +24,7 @@ function getAllowedDevOrigins() {
 }
 
 const nextConfig = {
+  distDir: process.env.AI4ES_NEXT_DIST_DIR || '.next',
   serverExternalPackages: ['better-sqlite3', 'pg', 'pdf-parse', 'pdfjs-dist', 'unzipper', 'graphology', 'graphology-shortest-path', 'graphology-components'],
   allowedDevOrigins: getAllowedDevOrigins(),
   devIndicators: false,

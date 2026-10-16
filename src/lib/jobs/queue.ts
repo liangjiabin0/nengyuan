@@ -31,7 +31,7 @@ const GRID_GUIDE_STALE_MS = Number(process.env.AI4ES_GRID_GUIDE_STALE_MS || 8 * 
 const DEFAULT_MAX_ATTEMPTS = Math.max(1, Number(process.env.AI4ES_JOB_MAX_ATTEMPTS || 3) || 3);
 const RETRY_BASE_MS = Math.max(1_000, Number(process.env.AI4ES_JOB_RETRY_BASE_MS || 5_000) || 5_000);
 
-async function ensureJobsTable() {
+export async function ensureJobsTable() {
   const db = getDb();
   await db.exec(`
     CREATE TABLE IF NOT EXISTS background_jobs (
@@ -390,7 +390,7 @@ export async function finishJob(id: string, result?: unknown) {
       `UPDATE background_jobs
        SET status = 'done', result_json = ?, error = NULL,
            locked_by = NULL, locked_at = NULL, updated_at = ?
-       WHERE id = ?`
+       WHERE id = ? AND status = 'running'`
     )
     .run(result === undefined ? null : JSON.stringify(result), ts, id);
 }
@@ -453,7 +453,7 @@ export async function recoverStaleJobs(staleMs = STALE_MS): Promise<number> {
   const ts = nowIso();
   for (const row of running) {
     const rowStaleMs =
-      row.type === 'scheme-research'
+      row.type === 'power-compute' ? 60000 : row.type === 'scheme-research'
         ? SCHEME_RESEARCH_STALE_MS
         : row.type === 'grid-guide-task'
           ? GRID_GUIDE_STALE_MS

@@ -10,6 +10,10 @@ import {
   Sparkles
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import { useAuth } from '@/components/auth-provider';
+import { readWorkbenchState, saveWorkbenchState, updateWorkbenchUrl } from '@/lib/workbench-state';
+import { SchemeModelPicker } from '@/components/scheme-model-picker';
+import type { ChatModelId } from '@/lib/model-ids';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNotifyError } from '@/components/app-notify';
 import { usePageContentReady } from '@/components/page-nav-loading';
@@ -145,6 +149,8 @@ function keepSessionIdeas(prev: SchemeSessionSnapshot | null, next: SchemeSessio
 type LiveTraceItem = SchemeLiveTraceItem;
 
 export function SchemeSolveWorkbench() {
+  const {user} = useAuth();
+  const [modelConfig, setModelConfig] = useState<{ chatModel: ChatModelId; thinkingId: string }>({ chatModel: 'thunder', thinkingId: 'medium' });
   const [sessions, setSessions] = useState<SchemeSession[]>([]);
   const [session, setSession] = useState<SchemeSessionSnapshot | null>(null);
   const [search, setSearch] = useState('');
@@ -209,14 +215,26 @@ export function SchemeSolveWorkbench() {
   }, []);
 
   useEffect(() => {
-    refreshSessions()
-      .then((list) => {
-        if (!list.length) return;
-        eventAfterRef.current = 0;
-        return loadSession(list[0].id, 0);
-      })
-      .catch((reason) => setError(reason instanceof Error ? reason.message : '加载失败。'));
-  }, [refreshSessions, loadSession]);
+    if (!user?.id) return;
+    const saved=readWorkbenchState<{sessionId:string;selection:SchemeCanvasSelection;fresh:boolean}>(user.id,'scheme');
+    const params=new URL(window.location.href).searchParams;
+    const desired=params.get('schemeId') || saved.sessionId;
+    void refreshSessions().then(async list=>{
+      const target=list.find(item=>item.id===desired) || (!saved.fresh ? list[0] : undefined);
+      if (!target)return;
+      eventAfterRef.current=0;
+      const next=await loadSession(target.id,0);
+      const ideaId=params.get('schemeIdea');
+      if (saved.sessionId===target.id && saved.selection && saved.selection.ideaId===ideaId && !params.has('powerRun')) setSelection(saved.selection);
+      else if (ideaId && next.ideas.some(item=>item.id===ideaId)) setSelection({kind:'stage',ideaId,stageKey:'design',title:'设计求解',headline:'设计与计算'});
+      else { const selection=saved.selection; if(selection && (selection.kind==='root' || next.ideas.some(item=>item.id===selection.ideaId))) setSelection(selection); }
+    }).catch(reason=>setError(reason instanceof Error?reason.message:'加载失败。'));
+  }, [refreshSessions,loadSession,user?.id]);
+  useEffect(()=>{
+    if(!user?.id || !session)return;
+    saveWorkbenchState(user.id,'scheme',{sessionId:session.id,selection});
+    updateWorkbenchUrl({schemeId:session.id,schemeIdea:selection?.ideaId||null});
+  },[user?.id,session?.id,selection]);
 
   useEffect(() => {
     const active = session?.status === 'brainstorming' || session?.status === 'researching'
@@ -271,6 +289,8 @@ export function SchemeSolveWorkbench() {
     try {
       const form = new FormData();
       form.set('idea', text);
+      form.set('chatModel', modelConfig.chatModel);
+      form.set('thinkingId', modelConfig.thinkingId);
       for (const file of files) form.append('files', file);
       const response = await fetch('/api/scheme-solve', { method: 'POST', body: form });
       const data = await response.json();
@@ -440,6 +460,8 @@ export function SchemeSolveWorkbench() {
         onSearch={setSearch}
         searchPlaceholder="搜索方案..."
         onNew={() => {
+          saveWorkbenchState(user?.id||'','scheme',{fresh:true});
+          updateWorkbenchUrl({schemeId:null,schemeIdea:null,powerRun:null});
           setSession(null);
           setSelection(null);
           setError('');
@@ -539,6 +561,7 @@ export function SchemeSolveWorkbench() {
               </div>
             </div>
             <WorkbenchComposer>
+              <div className="mb-2"><SchemeModelPicker value={modelConfig} onChange={setModelConfig} disabled={busy}/></div>
               {files.length ? (
                 <div className="mb-2 text-xs text-muted-foreground">{files.map((file) => file.name).join('、')}</div>
               ) : null}

@@ -28,6 +28,8 @@ import {
 import { deleteSchemeSolveWorkspace } from './workspace';
 
 type SessionRow = {
+  chat_model?: SchemeSession["chatModel"] | null;
+  thinking_id?: string | null;
   id: string;
   title: string;
   seed_idea: string;
@@ -96,6 +98,8 @@ function mapSession(row: SessionRow): SchemeSession {
     id: row.id,
     title: row.title,
     seedIdea: row.seed_idea,
+    chatModel: row.chat_model || undefined,
+    thinkingId: row.thinking_id || undefined,
     status: row.status,
     progress: row.progress,
     progressDetail: row.progress_detail || undefined,
@@ -165,16 +169,16 @@ function mapEvent(row: EventRow): SchemeEvent {
 export async function createSchemeSession(
   seedIdea: string,
   userId: string,
-  options?: { source?: SchemeSessionSource; toolId?: SchemeProblemClass }
+  options?: { source?: SchemeSessionSource; toolId?: SchemeProblemClass; chatModel?: SchemeSession["chatModel"]; thinkingId?: string }
 ) {
   const id = crypto.randomUUID();
   const compact = seedIdea.replace(/\s+/g, ' ').trim();
   if (compact.length < 4) throw new Error('请至少用几句话描述想法。');
   const title = compact.length > 28 ? `${compact.slice(0, 28)}…` : compact;
   await run(
-    `INSERT INTO scheme_sessions (id, title, seed_idea, status, user_id, source, tool_id)
-     VALUES (?, ?, ?, 'draft', ?, ?, ?)`,
-    [id, title, compact, userId, options?.source || 'scheme-solve', options?.toolId || null]
+    `INSERT INTO scheme_sessions (id, title, seed_idea, status, user_id, source, tool_id, chat_model, thinking_id)
+     VALUES (?, ?, ?, 'draft', ?, ?, ?, ?, ?)`,
+    [id, title, compact, userId, options?.source || 'scheme-solve', options?.toolId || null, options?.chatModel || null, options?.thinkingId || null]
   );
   return await getSchemeSession(id);
 }

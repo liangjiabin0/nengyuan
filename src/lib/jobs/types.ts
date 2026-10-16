@@ -1,4 +1,5 @@
 export type JobType =
+  | 'power-compute'
   | 'data-import'
   | 'excel-ingest'
   | 'graph-rebuild'
@@ -45,6 +46,7 @@ export const SERIAL_JOB_TYPES: ReadonlySet<JobType> = new Set([
 
 export const EXCLUSIVE_CLAIM_JOB_TYPES: ReadonlySet<JobType> = new Set([
   ...SERIAL_JOB_TYPES,
+  'power-compute',
   'mgplan-solve',
   'tdmg-solve',
   'dispatch-run',

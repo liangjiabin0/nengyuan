@@ -1,21 +1,24 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useState } from 'react';
-import Link from 'next/link';
-import { LogOut } from 'lucide-react';
-import { AppBootstrap } from '@/components/app-bootstrap';
-import { AuthProvider, useAuth } from '@/components/auth-provider';
-import { DashboardNav } from '@/components/dashboard-nav';
-import { ImportLoadingOverlay } from '@/components/import-loading-overlay';
-import { PageNavLoadingEffects, PageNavLoadingOverlay } from '@/components/page-nav-loading';
-import { SidebarRoutePrefetch } from '@/components/sidebar-route-prefetch';
-import { BrandMark } from '@/components/brand-mark';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { LogOut } from "lucide-react";
+import { AppBootstrap } from "@/components/app-bootstrap";
+import { AuthProvider, useAuth } from "@/components/auth-provider";
+import { DashboardNav } from "@/components/dashboard-nav";
+import { ImportLoadingOverlay } from "@/components/import-loading-overlay";
+import {
+  PageNavLoadingEffects,
+  PageNavLoadingOverlay,
+} from "@/components/page-nav-loading";
+import { SidebarRoutePrefetch } from "@/components/sidebar-route-prefetch";
+import { BrandMark } from "@/components/brand-mark";
 
-const BRAND_SUBTITLE = ['A', 'I', '4', 'E', 'S'] as const;
+const BRAND_SUBTITLE = ["A", "I", "4", "E", "S"] as const;
 
 function BrandLockup({
   markClassName,
-  subtitleClassName
+  subtitleClassName,
 }: {
   markClassName: string;
   subtitleClassName: string;
@@ -23,7 +26,10 @@ function BrandLockup({
   return (
     <div className="w-fit min-w-0">
       <BrandMark className={markClassName} />
-      <div className={`mt-1 flex w-full justify-between ${subtitleClassName}`} aria-label="AI4ES">
+      <div
+        className={`mt-1 flex w-full justify-between ${subtitleClassName}`}
+        aria-label="AI4ES"
+      >
         {BRAND_SUBTITLE.map((ch) => (
           <span key={ch} aria-hidden="true">
             {ch}
@@ -34,92 +40,15 @@ function BrandLockup({
   );
 }
 
-type SidecarHealth = {
-  healthy: boolean;
-  version?: string | null;
-  error?: string;
-};
-
-const SIDECAR_POLL_MS = 20_000;
-
-function SidecarStatusDot() {
-  const [health, setHealth] = useState<SidecarHealth | null>(null);
-  const [checking, setChecking] = useState(true);
-
-  const poll = useCallback(async (signal?: AbortSignal) => {
-    try {
-      const response = await fetch('/api/opencode/health', { cache: 'no-store', signal });
-      const data = (await response.json().catch(() => ({}))) as SidecarHealth & { error?: string };
-      if (signal?.aborted) return;
-      if (!response.ok) {
-        setHealth({
-          healthy: false,
-          error: typeof data.error === 'string' ? data.error : '无法检测能元状态'
-        });
-        return;
-      }
-      setHealth({
-        healthy: Boolean(data.healthy),
-        version: data.version,
-        error: data.error
-      });
-    } catch (error) {
-      if ((error as Error).name === 'AbortError') return;
-      setHealth({ healthy: false, error: '无法检测能元状态' });
-    } finally {
-      if (!signal?.aborted) setChecking(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    let inFlight = false;
-    const tick = async () => {
-      if (inFlight) return;
-      inFlight = true;
-      try {
-        await poll(controller.signal);
-      } finally {
-        inFlight = false;
-      }
-    };
-    void tick();
-    const timer = window.setInterval(() => void tick(), SIDECAR_POLL_MS);
-    return () => {
-      controller.abort();
-      window.clearInterval(timer);
-    };
-  }, [poll]);
-
-  const tip = checking
-    ? '正在检测能元…'
-    : health?.healthy
-      ? `能元：运行正常${health.version ? ` · v${health.version}` : ''}`
-      : `能元：未连接${health?.error ? `（${health.error}）` : '。请运行 npm run opencode:start'}`;
-
-  const className = checking
-    ? 'rag-oc-status-dot is-checking'
-    : health?.healthy
-      ? 'rag-oc-status-dot'
-      : 'rag-oc-status-dot is-down';
-
-  return (
-    <span
-      className={`${className} mt-0.5 shrink-0`}
-      title={tip}
-      aria-label={tip}
-      role="status"
-    />
-  );
-}
-
 function SidebarUser() {
   const { user, loading, localAdmin, isAdmin, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const displayName = mounted ? user?.username || (loading ? '…' : '未登录') : '…';
+  const displayName = mounted
+    ? user?.username || (loading ? "…" : "未登录")
+    : "…";
   const initial = displayName.slice(0, 1).toUpperCase();
-  const roleLabel = localAdmin ? '本机管理员' : isAdmin ? '管理员' : '科研用户';
+  const roleLabel = localAdmin ? "本机管理员" : isAdmin ? "管理员" : "科研用户";
 
   return (
     <div className="mt-auto shrink-0 border-t border-sidebar-border px-3 py-3">
@@ -132,12 +61,16 @@ function SidebarUser() {
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex min-w-0 items-center gap-1.5">
-            <div className="truncate text-sm font-medium text-sidebar-foreground" suppressHydrationWarning>
+            <div
+              className="truncate text-sm font-medium text-sidebar-foreground"
+              suppressHydrationWarning
+            >
               {displayName}
             </div>
-            {mounted ? <SidecarStatusDot /> : <span className="rag-oc-status-dot is-checking mt-0.5 shrink-0" />}
           </div>
-          <div className="text-xs text-muted-foreground">{mounted ? roleLabel : ' '}</div>
+          <div className="text-xs text-muted-foreground">
+            {mounted ? roleLabel : " "}
+          </div>
         </div>
         {mounted && !localAdmin ? (
           <button
@@ -151,19 +84,19 @@ function SidebarUser() {
           </button>
         ) : null}
       </div>
-      <div className="mt-1 flex min-h-[52px] flex-col gap-0.5 px-1">
+      <div className="mt-1 flex min-h-8 items-center justify-between gap-2 px-1">
         {mounted ? (
           <>
             <Link
               href="/account/password"
-              className="rounded-md px-2 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              className="whitespace-nowrap rounded-md px-2 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               修改密码
             </Link>
             {isAdmin ? (
               <Link
                 href="/admin/users"
-                className="rounded-md px-2 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                className="whitespace-nowrap rounded-md px-2 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
                 账号管理
               </Link>
@@ -175,7 +108,11 @@ function SidebarUser() {
   );
 }
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <AuthProvider>
       <AppBootstrap>

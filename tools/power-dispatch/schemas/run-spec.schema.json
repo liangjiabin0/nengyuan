@@ -17,15 +17,12 @@
   "properties": {
     "version": {
       "type": "string",
-      "const": "1.0"
+      "enum": ["1.0", "1.1"]
     },
     "task": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "mode",
-        "name"
-      ],
+      "required": ["mode", "name"],
       "properties": {
         "name": {
           "type": "string",
@@ -49,19 +46,12 @@
     "case": {
       "type": "object",
       "additionalProperties": true,
-      "required": [
-        "case_id"
-      ],
+      "required": ["case_id"],
       "properties": {
         "case_id": {
-          "enum": [
-            "ieee14",
-            "ieee30",
-            "ieee57",
-            "ieee118",
-            "case33bw",
-            "main_dist_micro_demo"
-          ]
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
         },
         "source": {
           "type": "string"
@@ -89,11 +79,7 @@
     "capabilities": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "hierarchy",
-        "time_scales",
-        "power_control"
-      ],
+      "required": ["hierarchy", "time_scales", "power_control"],
       "properties": {
         "hierarchy": {
           "enum": [
@@ -111,20 +97,11 @@
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "enum": [
-              "single_period",
-              "day_ahead",
-              "intra_day",
-              "real_time"
-            ]
+            "enum": ["single_period", "day_ahead", "intra_day", "real_time"]
           }
         },
         "power_control": {
-          "enum": [
-            "P",
-            "Q",
-            "PQ"
-          ]
+          "enum": ["P", "Q", "PQ"]
         },
         "rolling_optimization": {
           "type": "boolean",
@@ -189,9 +166,7 @@
     "solver": {
       "type": "object",
       "additionalProperties": true,
-      "required": [
-        "backend"
-      ],
+      "required": ["backend"],
       "properties": {
         "backend": {
           "type": "string",
@@ -221,5 +196,34 @@
       "type": "object",
       "additionalProperties": true
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "version": {
+            "const": "1.0"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "case": {
+            "properties": {
+              "case_id": {
+                "enum": [
+                  "ieee14",
+                  "ieee30",
+                  "ieee57",
+                  "ieee118",
+                  "case33bw",
+                  "main_dist_micro_demo"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

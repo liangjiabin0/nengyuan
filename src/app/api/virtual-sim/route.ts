@@ -16,6 +16,8 @@ import {
   VIRTUAL_SIM_CAPABILITY_GROUPS,
   inferVirtualSimRouting,
   isVirtualSimToolId,
+  isVirtualSimCapabilityId,
+  getVirtualSimCapability,
   listVirtualSimCapabilities,
   listVirtualSimTools
 } from '@/lib/virtual-sim/tools';
@@ -24,6 +26,8 @@ export const runtime = 'nodejs';
 export const maxDuration = 60;
 
 const createSchema = z.object({
+  chatModel: z.enum(['arc','thunder','storm']).optional(),
+  thinkingId: z.enum(['off','low','medium','high','xhigh','max']).optional(),
   idea: z.string().trim().min(4).max(20_000),
   toolId: z.string().trim().optional(),
   capabilityId: z.string().trim().optional()
@@ -79,6 +83,8 @@ export async function POST(request: Request) {
 
     const contentType = request.headers.get('content-type') || '';
     let idea = '';
+    let chatModel: 'arc' | 'thunder' | 'storm' | undefined;
+    let thinkingId: string | undefined;
     let toolId = '';
     let capabilityId = '';
     const files: File[] = [];
@@ -86,6 +92,10 @@ export async function POST(request: Request) {
     if (contentType.includes('multipart/form-data')) {
       const form = await request.formData();
       idea = String(form.get('idea') || '').trim();
+      const model = createSchema.shape.chatModel.safeParse(form.get('chatModel') || undefined);
+      const thinking = createSchema.shape.thinkingId.safeParse(form.get('thinkingId') || undefined);
+      if (!model.success || !thinking.success) return NextResponse.json({ error: '无效模型或思考配置' }, {status:422});
+      chatModel = model.data; thinkingId = thinking.data;
       toolId = String(form.get('toolId') || '').trim();
       capabilityId = String(form.get('capabilityId') || '').trim();
       for (const entry of form.getAll('files')) {
@@ -97,6 +107,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: '请用几句话描述仿真任务。' }, { status: 422 });
       }
       idea = parsed.data.idea;
+      chatModel = parsed.data.chatModel; thinkingId = parsed.data.thinkingId;
       toolId = parsed.data.toolId || '';
       capabilityId = parsed.data.capabilityId || '';
     }
@@ -117,12 +128,18 @@ export async function POST(request: Request) {
       }
     }
 
-    const routing = inferVirtualSimRouting(ideaParsed.data.idea, files.map((file) => file.name));
+    if ((toolId && !isVirtualSimToolId(toolId)) || (capabilityId && !isVirtualSimCapabilityId(capabilityId)))
+      return NextResponse.json({error:'未知的仿真工具或能力'}, {status:422});
+    const selected = capabilityId ? getVirtualSimCapability(capabilityId) : null;
+    if (selected && toolId && selected.toolId !== toolId) return NextResponse.json({error:'能力与求解工具不匹配'}, {status:422});
+    const routing = selected ? { capabilityId: selected.id, toolId: selected.toolId, confidence: 'high' as const, reason: '使用已确认的实验能力' }
+      : inferVirtualSimRouting(ideaParsed.data.idea, files.map((file) => file.name), isVirtualSimToolId(toolId) ? toolId : undefined);
     const created = await createVirtualSimSession(
       ideaParsed.data.idea,
       auth.user!.id,
       routing.toolId,
-      routing.capabilityId
+      routing.capabilityId,
+      { chatModel, thinkingId }
     );
     createdId = created.session.id;
     for (const file of files) {
@@ -140,7 +157,7 @@ export async function POST(request: Request) {
       await deleteSchemeSession(createdId).catch(() => undefined);
     }
     const message = error instanceof Error ? error.message : '创建仿真任务失败。';
-    const status = /最多|超过|仅支持|空文件|无效|未知/.test(message) ? 422 : 500;
+    const status = /最多|超过|仅支持|不支持|空文件|无效|未知/.test(message) ? 422 : 500;
     return NextResponse.json({ error: message }, { status });
   }
 }

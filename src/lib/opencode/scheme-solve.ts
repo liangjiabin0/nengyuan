@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { getSchemeSession } from '@/lib/scheme-solve/store';
 import path from 'node:path';
 import { runOpenCodeQuestion } from './runtime';
 import {
@@ -105,6 +106,11 @@ async function runSchemeModel(
   options: OpenCodeRunOptions,
   modelRole: 'small' | 'large'
 ) {
+  const sessionId = options.conversationId?.split(':')[1];
+  const session = sessionId ? await getSchemeSession(sessionId) : null;
+  if (session?.chatModel && !options.sessionTitle?.startsWith('scheme-reviewer')) {
+    return runOpenCodeQuestion(prompt, { ...options, chatModel: session.chatModel, thinkingId: session.thinkingId || 'medium' });
+  }
   if (modelRole === 'small') {
     return runOpenCodeQuestion(prompt, { ...options, modelRole: 'small' });
   }

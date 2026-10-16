@@ -19,6 +19,7 @@ async function main() {
   const path = await import('node:path');
   const { ensureDb } = await import('../../src/lib/db');
   const { cancelJob, claimNextJob, failJob, finishJob, recoverStaleJobs } = await import('../../src/lib/jobs/queue');
+  const { recoverPowerRuns } = await import('../../src/lib/power-compute/store');
   const { executeJob } = await import('../../src/lib/jobs/handlers');
 
   const WORKER_ID = process.env.WORKER_ID || `${os.hostname()}-${process.pid}`;
@@ -79,6 +80,7 @@ async function main() {
   while (!stopping) {
     try {
       await recoverStaleJobs();
+      await recoverPowerRuns();
       const job = await claimNextJob(WORKER_ID);
       if (!job) {
         writeHeartbeat({ status: 'idle' });

@@ -1,3 +1,4 @@
+import type { ChatModelId } from '@/lib/model-ids';
 import type { ChatAttachment } from '@/lib/chat-attachments';
 import type { SCHEME_STAGE_KEYS } from './constants';
 
@@ -80,6 +81,8 @@ export function readStageAgentTrace(stage?: { artifactJson?: unknown } | null): 
 export type SchemeSessionSource = 'scheme-solve' | 'virtual-sim';
 
 export type SchemeSession = {
+  chatModel?: ChatModelId;
+  thinkingId?: string;
   id: string;
   title: string;
   seedIdea: string;

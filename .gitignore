@@ -101,3 +101,16 @@ logs/
 !.opencode/tools/
 !.opencode/tools/**
 !.opencode/subagent-router.json
+
+tools/power-mcp-venv/
+
+# Local preview builds and generated test outputs
+/.next-*/
+.ruff_cache/
+/coverage/
+/playwright-report/
+/test-results/
+
+# Environment-specific validation reports and source delivery manifest
+/docs/power-mcp-validation.json
+/docs/power-mcp-change-manifest.json

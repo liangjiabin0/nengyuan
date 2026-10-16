@@ -1,3 +1,4 @@
+import { runPowerCompute } from '@/lib/power-compute/runner';
 import { runDataImport } from '@/lib/data-import';
 import { ingestExcelAndCsv } from '@/lib/excel-ingest';
 import { crossLinkKnowledgeGraph } from '@/lib/kg/cross-link';
@@ -144,6 +145,7 @@ async function handlePptVoiceBuild(job: BackgroundJob) {
 }
 
 const HANDLERS: Record<JobType, JobHandler> = {
+  'power-compute': runPowerCompute,
   'data-import': handleDataImport,
   'excel-ingest': handleExcelIngest,
   'graph-rebuild': handleGraphRebuild,

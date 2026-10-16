@@ -31,12 +31,15 @@ import {
   type SchemeStageKey,
   type SchemeStageStatus
 } from '@/lib/scheme-solve/types';
+import { useAuth } from '@/components/auth-provider';
+import { readWorkbenchState, saveWorkbenchState } from '@/lib/workbench-state';
+import { PowerComputePanel } from '@/components/power-compute-panel';
 import { cn } from '@/lib/utils';
 import { RagThinkCollapse } from '@/components/rag-think-collapse';
 
 export type { SchemeArtifactFiles, SchemeLiveTraceItem };
 
-type InspectorTab = 'chat' | 'data';
+type InspectorTab = 'chat' | 'data' | 'compute';
 type DataPane = string;
 
 type ChatTurn = {
@@ -364,7 +367,10 @@ export function SchemeNodeInspector({
   onResearchIdea: (ideaId: string) => void;
   onExportReport: (ideaId?: string) => void;
 }) {
+  const {user} = useAuth();
+  const tabKey='inspector:'+session.id+':'+selection.kind+':'+selection.ideaId+':'+selection.stageKey;
   const [tab, setTab] = useState<InspectorTab>('chat');
+  const chooseTab=(value:InspectorTab)=>{setTab(value);saveWorkbenchState(user?.id||'',tabKey,{tab:value});};
   const [dataPane, setDataPane] = useState<DataPane>('overview');
   const endRef = useRef<HTMLDivElement>(null);
   const idea = session.ideas.find((item) => item.id === selection.ideaId);
@@ -410,9 +416,11 @@ export function SchemeNodeInspector({
   }, [selection.kind, selection.stageKey]);
 
   useEffect(() => {
-    setTab('chat');
+    const saved=readWorkbenchState<{tab:InspectorTab}>(user?.id||'',tabKey);
+    const fallback=new URL(window.location.href).searchParams.has('powerRun') && selection.stageKey==='design'?'compute':'chat';
+    setTab(saved.tab || fallback);
     setDataPane('overview');
-  }, [selection.kind, selection.ideaId, selection.stageKey]);
+  }, [selection.kind,selection.ideaId,selection.stageKey,tabKey,user?.id]);
 
   useEffect(() => {
     if (tab !== 'chat') return;
@@ -444,17 +452,18 @@ export function SchemeNodeInspector({
 
       <div className="shrink-0 border-b border-border px-3 py-2">
         <div className="scheme-inspector-tabs" role="tablist">
-          <button type="button" className={cn('scheme-inspector-tab', tab === 'chat' && 'scheme-inspector-tab-active')} onClick={() => setTab('chat')}>
+          <button type="button" className={cn('scheme-inspector-tab', tab === 'chat' && 'scheme-inspector-tab-active')} onClick={() => chooseTab('chat')}>
             对话
           </button>
-          <button type="button" className={cn('scheme-inspector-tab', tab === 'data' && 'scheme-inspector-tab-active')} onClick={() => setTab('data')}>
+          <button type="button" className={cn('scheme-inspector-tab', tab === 'data' && 'scheme-inspector-tab-active')} onClick={() => chooseTab('data')}>
             数据
           </button>
+          {idea && selection.stageKey === 'design' ? <button type="button" className={cn('scheme-inspector-tab', tab === 'compute' && 'scheme-inspector-tab-active')} onClick={() => chooseTab('compute')}>计算扩展</button> : null}
         </div>
       </div>
 
       <div className="scrollbar-thin min-h-0 flex-1 overflow-y-auto">
-        {tab === 'chat' ? (
+        {tab === 'compute' && idea ? <PowerComputePanel key={idea.id} sessionId={session.id} ideaId={idea.id} engines={['pandapower', 'pypsa']} /> : tab === 'chat' ? (
           <div className="flex flex-col gap-4 p-4">
             <div className="flex justify-end">
               <div className="rag-user-bubble max-w-[92%]">

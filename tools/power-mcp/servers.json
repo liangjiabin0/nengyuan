@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "power-mcp-registry/v1",
+  "servers": {
+    "pandapower": {
+      "entry": "server.py",
+      "arguments": ["pandapower"],
+      "allowedTools": ["load_network", "run_power_flow", "run_static_analysis"]
+    },
+    "pypsa": {
+      "entry": "server.py",
+      "arguments": ["pypsa"],
+      "allowedTools": [
+        "load_network",
+        "optimize_network",
+        "run_planning_analysis"
+      ]
+    },
+    "andes": {
+      "entry": "server.py",
+      "arguments": ["andes"],
+      "allowedTools": [
+        "run_power_flow",
+        "run_time_domain_simulation",
+        "run_small_signal_analysis"
+      ]
+    }
+  }
+}
