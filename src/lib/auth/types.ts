@@ -18,7 +18,7 @@ export type AuthUserPublic = {
   localAdmin: boolean;
 };
 
-export const SESSION_COOKIE = 'dy_session';
+export const SESSION_COOKIE = process.env.AI4ES_SESSION_COOKIE || 'dy_session';
 /** 拆分架构下 Next rewrite/proxy 可能丢掉 Cookie，用该头把会话交给 API 进程 */
 export const SESSION_HEADER = 'x-ai4es-session';
 export const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 14; // 14 days

@@ -467,6 +467,9 @@ CREATE TABLE IF NOT EXISTS scheme_sessions (
   updated_at TEXT NOT NULL DEFAULT (to_char(NOW(), 'YYYY-MM-DD HH24:MI:SS'))
 );
 
+ALTER TABLE scheme_sessions ADD COLUMN IF NOT EXISTS chat_model TEXT;
+ALTER TABLE scheme_sessions ADD COLUMN IF NOT EXISTS thinking_id TEXT;
+
 CREATE TABLE IF NOT EXISTS scheme_ideas (
   id TEXT PRIMARY KEY,
   session_id TEXT NOT NULL,

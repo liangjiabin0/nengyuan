@@ -1,20 +1,32 @@
-'use client';
+"use client";
 
-import { MessageSquare, Plus, Search, Trash2 } from 'lucide-react';
-import { useEffect, useState, type DragEventHandler, type ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import { MessageSquare, Plus, Search, Trash2 } from "lucide-react";
+import {
+  useEffect,
+  useState,
+  type DragEventHandler,
+  type ReactNode,
+} from "react";
+import { PowerTaskIndicator } from "@/components/power-task-indicator";
+import { cn } from "@/lib/utils";
 
-export function WelcomeTypewriter({ text, ready }: { text: string; ready: boolean }) {
-  const [shown, setShown] = useState('');
+export function WelcomeTypewriter({
+  text,
+  ready,
+}: {
+  text: string;
+  ready: boolean;
+}) {
+  const [shown, setShown] = useState("");
   const [done, setDone] = useState(false);
 
   useEffect(() => {
     if (!ready || !text) {
-      setShown('');
+      setShown("");
       setDone(false);
       return;
     }
-    setShown('');
+    setShown("");
     setDone(false);
     let index = 0;
     const timer = window.setInterval(async () => {
@@ -62,7 +74,7 @@ export function WorkbenchPageShell({
   onDragOver,
   onDragLeave,
   onDrop,
-  dragOverlay
+  dragOverlay,
 }: {
   crumb: string;
   title: string;
@@ -87,7 +99,9 @@ export function WorkbenchPageShell({
         <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
           {crumb}
         </div>
-        <h1 className="mt-1 text-2xl font-bold tracking-tight text-foreground">{title}</h1>
+        <h1 className="mt-1 text-2xl font-bold tracking-tight text-foreground">
+          {title}
+        </h1>
         <p className="mt-1 text-sm text-muted-foreground">{description}</p>
       </div>
       <div className="rag-chat-card min-h-0 flex-1">{children}</div>
@@ -107,7 +121,8 @@ export function WorkbenchSidebar({
   emptyIcon,
   emptyTitle,
   emptyHint,
-  children
+  className,
+  children,
 }: {
   historyOpen: boolean;
   search: string;
@@ -120,10 +135,17 @@ export function WorkbenchSidebar({
   emptyIcon: ReactNode;
   emptyTitle: string;
   emptyHint: string;
+  className?: string;
   children: ReactNode;
 }) {
   return (
-    <aside className={`rag-conv-list ${historyOpen ? 'flex' : 'hidden md:flex'}`}>
+    <aside
+      className={cn(
+        "rag-conv-list",
+        historyOpen ? "flex" : "hidden md:flex",
+        className,
+      )}
+    >
       <div className="shrink-0 space-y-3 border-b border-border p-3">
         <div className="relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -150,7 +172,9 @@ export function WorkbenchSidebar({
         ) : (
           <div className="flex h-full min-h-48 flex-col items-center justify-center px-4 text-center">
             {emptyIcon}
-            <p className="mt-3 text-sm font-medium text-foreground">{emptyTitle}</p>
+            <p className="mt-3 text-sm font-medium text-foreground">
+              {emptyTitle}
+            </p>
             <p className="mt-1 text-xs text-muted-foreground">{emptyHint}</p>
           </div>
         )}
@@ -166,7 +190,7 @@ export function WorkbenchConvItem({
   subtitle,
   onOpen,
   onDelete,
-  deleteLabel
+  deleteLabel,
 }: {
   active: boolean;
   title: string;
@@ -177,12 +201,21 @@ export function WorkbenchConvItem({
   deleteLabel: string;
 }) {
   return (
-    <div className={cn('group relative', active ? 'rag-conv-item rag-conv-item-active' : 'rag-conv-item')}>
+    <div
+      className={cn(
+        "group relative",
+        active ? "rag-conv-item rag-conv-item-active" : "rag-conv-item",
+      )}
+    >
       <div className="min-w-0 flex-1">
         <button type="button" onClick={onOpen} className="w-full text-left">
           <div className="flex items-start justify-between gap-2">
-            <span className="min-w-0 flex-1 truncate text-sm font-medium leading-5 text-foreground">{title}</span>
-            <span className="shrink-0 pt-0.5 text-[10px] leading-4 text-muted-foreground">{time}</span>
+            <span className="min-w-0 flex-1 truncate text-sm font-medium leading-5 text-foreground">
+              {title}
+            </span>
+            <span className="shrink-0 pt-0.5 text-[10px] leading-4 text-muted-foreground">
+              {time}
+            </span>
           </div>
         </button>
         <div className="mt-0.5 flex items-center justify-between gap-2">
@@ -209,13 +242,15 @@ export function WorkbenchConvItem({
 
 export function WorkbenchMain({
   historyOpen,
-  children
+  children,
 }: {
   historyOpen: boolean;
   children: ReactNode;
 }) {
   return (
-    <main className={`min-h-0 min-w-0 flex-1 flex-col ${historyOpen ? 'hidden md:flex' : 'flex'}`}>
+    <main
+      className={`min-h-0 min-w-0 flex-1 flex-col ${historyOpen ? "hidden md:flex" : "flex"}`}
+    >
       {children}
     </main>
   );
@@ -225,8 +260,8 @@ export function WorkbenchMainHeader({
   title,
   subtitle,
   onOpenHistory,
-  historyLabel = '打开列表',
-  actions
+  historyLabel = "打开列表",
+  actions,
 }: {
   title: ReactNode;
   subtitle: string;
@@ -245,14 +280,29 @@ export function WorkbenchMainHeader({
         <MessageSquare className="h-4 w-4" />
       </button>
       <div className="min-w-0 flex-1">
-        <div className={typeof title === 'string' ? 'truncate text-sm font-semibold text-foreground' : 'text-sm font-semibold text-foreground'}>{title}</div>
+        <div
+          className={
+            typeof title === "string"
+              ? "truncate text-sm font-semibold text-foreground"
+              : "text-sm font-semibold text-foreground"
+          }
+        >
+          {title}
+        </div>
         <div className="truncate text-xs text-muted-foreground">{subtitle}</div>
       </div>
-      {actions ? <div className="flex min-w-0 shrink-0 flex-wrap items-center justify-end gap-1.5">{actions}</div> : null}
+      {actions ? (
+        <div className="flex min-w-0 shrink-0 flex-wrap items-center justify-end gap-1.5">
+          {actions}
+        </div>
+      ) : null}
+      <PowerTaskIndicator />
     </header>
   );
 }
 
 export function WorkbenchComposer({ children }: { children: ReactNode }) {
-  return <div className="shrink-0 border-t border-border px-4 py-3">{children}</div>;
+  return (
+    <div className="shrink-0 border-t border-border px-4 py-3">{children}</div>
+  );
 }

@@ -42,6 +42,7 @@ export function buildVirtualSimIdea(toolId: VirtualSimToolId, prompt: string, ca
   const remapDispatch9 = toolId === 'dispatch'
     && /ieee\s*9|9\s*节点|9-bus/i.test(compact)
     && !/14|30|33|57|118/.test(compact);
+  if (remapDispatch9) throw new Error('现有日前调度不支持 IEEE 9 模型，请选择支持的模型；IEEE 9 静态潮流可从方案设计节点的计算扩展进入。');
   return {
     title,
     summary: compact,
@@ -50,9 +51,7 @@ export function buildVirtualSimIdea(toolId: VirtualSimToolId, prompt: string, ca
     limits: tool.defaults.limits,
     goal: tool.defaults.goal,
     caseHint,
-    whySolvable: remapDispatch9
-      ? `${tool.defaults.whySolvable} 调度库没有 IEEE 9 日前模板，本题按 IEEE 14 求解。`
-      : tool.defaults.whySolvable
+    whySolvable: tool.defaults.whySolvable
   };
 }
 
@@ -60,9 +59,10 @@ export async function createVirtualSimSession(
   prompt: string,
   userId: string,
   toolId: VirtualSimToolId,
-  capabilityId?: VirtualSimCapabilityId
+  capabilityId?: VirtualSimCapabilityId,
+  modelConfig?: Pick<import("@/lib/scheme-solve/types").SchemeSession, "chatModel" | "thinkingId">
 ) {
-  const session = await createSchemeSession(prompt, userId, { source: 'virtual-sim', toolId });
+  const session = await createSchemeSession(prompt, userId, { source: 'virtual-sim', toolId, ...modelConfig });
   if (!session) throw new Error('创建仿真任务失败。');
   const idea = await createSolvableIdea(session.id, buildVirtualSimIdea(toolId, prompt, capabilityId));
   return { session, idea };

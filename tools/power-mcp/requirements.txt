@@ -1,0 +1,10 @@
+powermcp[andes]==0.4.0
+mcp==2.3.0
+pandapower==3.5.6
+pypsa==1.2.4
+andes==2.0.0
+highspy==1.15.1
+numpy==2.4.6
+pandas==2.3.3
+powerio==0.11.5
+h5py==3.15.1

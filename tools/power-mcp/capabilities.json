@@ -1,0 +1,135 @@
+{
+  "version": "1.0",
+  "tasks": [
+    {
+      "id": "ac_flow",
+      "group": "静态电网分析",
+      "label": "交流潮流",
+      "engine": "pandapower",
+      "description": "电压、线路负载与网损"
+    },
+    {
+      "id": "dc_flow",
+      "group": "静态电网分析",
+      "label": "直流潮流",
+      "engine": "pandapower",
+      "description": "线性近似下的有功潮流，不评估交流电压"
+    },
+    {
+      "id": "ac_opf",
+      "group": "静态电网分析",
+      "label": "交流最优潮流",
+      "engine": "pandapower",
+      "description": "基于算例成本与约束优化发电"
+    },
+    {
+      "id": "dc_opf",
+      "group": "静态电网分析",
+      "label": "直流最优潮流",
+      "engine": "pandapower",
+      "description": "在线性网络模型下优化发电"
+    },
+    {
+      "id": "n_minus_1",
+      "group": "静态电网分析",
+      "label": "N-1 安全校核",
+      "engine": "pandapower",
+      "description": "逐项检查线路与变压器退出后的交流潮流"
+    },
+    {
+      "id": "n_minus_2",
+      "group": "静态电网分析",
+      "label": "N-2 安全校核",
+      "engine": "pandapower",
+      "description": "检查明确选定设备集的两项同时退出"
+    },
+    {
+      "id": "storage_dispatch",
+      "group": "规划与调度",
+      "label": "储能联合调度",
+      "engine": "pypsa",
+      "description": "按时间序列优化购电与储能"
+    },
+    {
+      "id": "economic_dispatch",
+      "group": "规划与调度",
+      "label": "经济调度",
+      "engine": "pypsa",
+      "description": "机组、风光和负荷的多时段经济运行"
+    },
+    {
+      "id": "unit_commitment",
+      "group": "规划与调度",
+      "label": "机组组合",
+      "engine": "pypsa",
+      "description": "考虑启停成本、最小开停机时间与爬坡"
+    },
+    {
+      "id": "capacity_expansion",
+      "group": "规划与调度",
+      "label": "容量扩展",
+      "engine": "pypsa",
+      "description": "优化新增风光和储能容量，明确年化成本口径"
+    },
+    {
+      "id": "time_domain",
+      "group": "动态稳定",
+      "label": "故障时域分析",
+      "engine": "andes",
+      "description": "使用有效动态模型计算故障后的轨迹"
+    },
+    {
+      "id": "small_signal",
+      "group": "动态稳定",
+      "label": "小信号稳定",
+      "engine": "andes",
+      "description": "特征值、频率、阻尼与参与因子"
+    }
+  ],
+  "engines": {
+    "pandapower": {
+      "tasks": [
+        "ac_flow",
+        "dc_flow",
+        "ac_opf",
+        "dc_opf",
+        "n_minus_1",
+        "n_minus_2"
+      ],
+      "inputs": [
+        "static-network/v1",
+        "matpower",
+        "psse-raw",
+        "powerio-ir/v2",
+        "network-csv-template",
+        "network-xlsx-template"
+      ],
+      "solvers": ["Newton-Raphson", "PYPOWER OPF"],
+      "dependencies": ["powermcp", "powerio", "pandapower"],
+      "version": "3.5.6",
+      "transport": "direct",
+      "transports": ["direct", "mcp"]
+    },
+    "pypsa": {
+      "tasks": [
+        "storage_dispatch",
+        "economic_dispatch",
+        "unit_commitment",
+        "capacity_expansion"
+      ],
+      "inputs": ["structured-time-series", "pypsa-netcdf"],
+      "solvers": ["HiGHS"],
+      "dependencies": ["powermcp", "pypsa", "highspy"],
+      "version": "1.2.4",
+      "transport": "mcp"
+    },
+    "andes": {
+      "tasks": ["time_domain", "small_signal"],
+      "inputs": ["andes-xlsx", "psse-raw+dyr"],
+      "solvers": ["TDS", "EIG"],
+      "dependencies": ["powermcp", "andes"],
+      "version": "2.0.0",
+      "transport": "mcp"
+    }
+  }
+}

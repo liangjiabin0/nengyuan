@@ -17,6 +17,7 @@ const CASE_FILES: Record<string, string> = {
 
 export function resolveDispatchCaseHint(idea: Pick<SchemeIdea, 'caseHint' | 'title' | 'summary' | 'decisions'>) {
   const text = `${idea.caseHint || ''} ${idea.title} ${idea.summary} ${idea.decisions}`.toLowerCase();
+  if (/ieee\s*9|9\s*节点|9-bus/.test(text) && !/14|30|33|57|118/.test(text)) throw new Error('日前调度不支持 IEEE 9 模型，不能替换为其他网络');
   if (/118/.test(text)) return 'ieee118';
   if (/57/.test(text)) return 'ieee57';
   if (/30/.test(text) && !/24/.test(text)) return 'ieee30';

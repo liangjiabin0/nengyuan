@@ -20,6 +20,8 @@ import {
 export const runtime = 'nodejs';
 
 const createSchema = z.object({
+  chatModel: z.enum(['arc','thunder','storm']).optional(),
+  thinkingId: z.enum(['off','low','medium','high','xhigh','max']).optional(),
   idea: z.string().trim().min(4).max(20_000)
 }).strict();
 
@@ -44,11 +46,17 @@ export async function POST(request: Request) {
 
     const contentType = request.headers.get('content-type') || '';
     let idea = '';
+    let chatModel: 'arc' | 'thunder' | 'storm' | undefined;
+    let thinkingId: string | undefined;
     const files: File[] = [];
 
     if (contentType.includes('multipart/form-data')) {
       const form = await request.formData();
       idea = String(form.get('idea') || '').trim();
+      const model = createSchema.shape.chatModel.safeParse(form.get('chatModel') || undefined);
+      const thinking = createSchema.shape.thinkingId.safeParse(form.get('thinkingId') || undefined);
+      if (!model.success || !thinking.success) return NextResponse.json({ error: '无效模型或思考配置' }, {status:422});
+      chatModel = model.data; thinkingId = thinking.data;
       for (const entry of form.getAll('files')) {
         if (entry instanceof File && entry.size > 0) files.push(entry);
       }
@@ -58,6 +66,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: '请用几句话描述想法（最多 20000 字）。' }, { status: 422 });
       }
       idea = parsed.data.idea;
+      chatModel = parsed.data.chatModel; thinkingId = parsed.data.thinkingId;
     }
 
     const ideaParsed = createSchema.safeParse({ idea });
@@ -76,7 +85,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const session = await createSchemeSession(ideaParsed.data.idea, auth.user!.id);
+    const session = await createSchemeSession(ideaParsed.data.idea, auth.user!.id, { chatModel, thinkingId });
     if (!session) return NextResponse.json({ error: '创建方案失败。' }, { status: 500 });
     createdId = session.id;
 

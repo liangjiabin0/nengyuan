@@ -58,6 +58,7 @@ function needsEsoptUnlock(tool: string, args: Record<string, unknown> | undefine
 
 export const createMcpSkillGate = async ({ directory }: { directory: string }) => ({
   'tool.execute.before': async (input: ToolBeforeInput, output: ToolBeforeOutput) => {
+    if (/^power_(pandapower|pypsa|andes)_/.test(input.tool)) throw new Error('电力计算请通过参数确认与任务队列执行；ESOPT 解锁不授权这些服务。');
     if (input.tool === 'skill' && skillNameFromArgs(output.args) === ESOPT_SKILL_NAME) {
       unlockEsopt(directory);
       return;

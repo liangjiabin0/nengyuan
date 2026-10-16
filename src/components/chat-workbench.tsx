@@ -40,6 +40,8 @@ import {
   formatAttachmentSize
 } from '@/components/attachment-chips';
 import { ChatMarkdown } from '@/components/chat-markdown';
+import { PowerComputePanel } from '@/components/power-compute-panel';
+import { PowerTaskIndicator } from '@/components/power-task-indicator';
 import { ChatModelMenu } from '@/components/chat-model-menu';
 import { ChatMessageActions } from '@/components/chat-message-actions';
 import { ChatComposerToolMenu, ComposerToolChip } from '@/components/chat-composer-tool-menu';
@@ -2030,6 +2032,8 @@ export function ChatWorkbench({ config = DEFAULT_CHAT_WORKBENCH }: { config?: Ch
   const [conversations, setConversations] = useState<Conversation[]>([]);
   usePageContentReady(listReady);
   const [conversationId, setConversationId] = useState('');
+  const [powerOpen, setPowerOpen] = useState(false);
+  useEffect(()=>{if(new URL(window.location.href).searchParams.has('powerRun'))setPowerOpen(true);},[]);
   const [conversationTitle, setConversationTitle] = useState('新会话');
   const bottomRef = useRef<HTMLDivElement>(null);
   const [subagentSheetHost, setSubagentSheetHost] = useState<HTMLElement | null>(null);
@@ -5399,6 +5403,8 @@ export function ChatWorkbench({ config = DEFAULT_CHAT_WORKBENCH }: { config?: Ch
                         : '选择或开始一场对话'}
               </div>
             </div>
+            <button type="button" className="ui-btn-secondary h-8 px-3 text-xs" onClick={() => setPowerOpen(true)}>电力计算</button>
+            <PowerTaskIndicator />
             <div className="rag-reasoning-cluster">
               <ChatModelMenu
                 value={pickerModel}
@@ -5429,6 +5435,12 @@ export function ChatWorkbench({ config = DEFAULT_CHAT_WORKBENCH }: { config?: Ch
           </header>
 
           <div className="relative min-h-0 flex-1">
+          {powerOpen ? <div className="absolute inset-0 z-40 flex justify-end bg-background/50" role="dialog" aria-modal="true" aria-label="电力计算参数确认" onKeyDown={event => { if (event.key === 'Escape') setPowerOpen(false); }}>
+            <div className="flex h-full w-full max-w-2xl flex-col border-l border-border bg-background shadow-xl">
+              <header className="flex shrink-0 justify-between border-b border-border p-4 text-sm"><strong>电力计算</strong><button onClick={() => setPowerOpen(false)} aria-label="关闭电力计算">关闭</button></header>
+              <div className="min-h-0 flex-1 overflow-y-auto"><PowerComputePanel onUseResult={text => { setQuestion(text); setPowerOpen(false); }}/></div>
+            </div>
+          </div> : null}
           <StickToBottomFrame
             className="scrollbar-visible px-4 py-4"
             wrapperClassName="h-full"

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Check, CircleAlert, FileSpreadsheet, FileText, Image as ImageIcon, LoaderCircle, Minus, MoreHorizontal } from 'lucide-react';
 import { formatAttachmentSize } from '@/components/attachment-chips';
 import type { VirtualSimOutputFile } from '@/components/virtual-sim-output-preview';
@@ -48,9 +49,12 @@ export function PaperReproExecutionChain({
   outputs?: VirtualSimOutputFile[];
   onOpenOutput?: (file: VirtualSimOutputFile) => void;
 }) {
+  const [open, setOpen] = useState(false);
   return (
-    <aside
-      className="hidden w-[280px] min-w-0 shrink-0 flex-col border-l border-border bg-background xl:flex"
+    <div className="absolute right-4 top-16 z-30">
+    <button type="button" className="ui-btn-secondary h-8 px-3 text-xs" aria-expanded={open} onClick={() => setOpen(value => !value)}>执行链 {open ? "收起" : "展开"}</button>
+    {open ? <aside
+      className="absolute right-0 top-10 flex max-h-[60vh] w-[300px] max-w-[85vw] flex-col overflow-auto rounded-xl border border-border bg-background shadow-xl"
       aria-label="论文复现执行链"
     >
       <header className="shrink-0 border-b border-border px-4 py-3">
@@ -126,6 +130,7 @@ export function PaperReproExecutionChain({
           </details>
         ) : null}
       </div>
-    </aside>
+    </aside> : null}
+    </div>
   );
 }
