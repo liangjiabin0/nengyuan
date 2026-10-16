@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { publicValue } from "./public-view";
 import { powerPython, diagnosticEnvironment } from "./environment";
+import { powerStorageDirectory } from "./paths";
 export type ImportDiagnosis = {
   format: string;
   loader: string;
@@ -18,7 +19,7 @@ export type ImportDiagnosis = {
 };
 export function importDirectory(id: string) {
   if (!/^[0-9a-f-]{36}$/.test(id)) throw new Error("无效模型编号");
-  const directory = path.resolve("storage/power-imports", id);
+  const directory = path.join(powerStorageDirectory("power-imports"), id);
   if (fs.existsSync(directory) && fs.realpathSync(directory) !== directory)
     throw new Error("模型目录无效");
   return directory;
