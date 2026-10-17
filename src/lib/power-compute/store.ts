@@ -5,6 +5,7 @@ import { ensureDb, getDb } from "@/lib/db";
 import { ensureJobsTable } from "@/lib/jobs/queue";
 import { getPowerModel } from "./models";
 import { asRunSpec, asResultBundle, specView, resultView } from "./contracts";
+import { powerStorageDirectory } from "./paths";
 import {
   inputHash,
   powerRequestSchema,
@@ -85,8 +86,7 @@ function view(row: RunRow): PowerRun {
 }
 export function runDirectory(id: string) {
   if (!/^[0-9a-f-]{36}$/i.test(id)) throw new Error("无效运行编号");
-  const base = path.resolve("storage/power-runs");
-  fs.mkdirSync(base, { recursive: true, mode: 0o700 });
+  const base = powerStorageDirectory("power-runs");
   const directory = path.join(base, id);
   if (fs.existsSync(directory) && fs.realpathSync(directory) !== directory)
     throw new Error("运行目录存在非法链接");

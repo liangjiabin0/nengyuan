@@ -9,6 +9,7 @@ import {
   type ImportDiagnosis,
 } from "./imports";
 import { ensureDb, getDb } from "@/lib/db";
+import { powerStorageDirectory } from "./paths";
 
 const id = z.string().regex(/^[A-Za-z0-9_-]{1,40}$/);
 const positive = z.number().finite().positive();
@@ -111,8 +112,7 @@ export function ensureModelTable() {
 export function modelPath(model: Pick<ModelRow, "id" | "engine">) {
   if (!z.string().uuid().safeParse(model.id).success)
     throw new Error("无效模型编号");
-  const base = path.resolve("storage/power-models");
-  fs.mkdirSync(base, { recursive: true, mode: 0o700 });
+  const base = powerStorageDirectory("power-models");
   return path.join(
     base,
     model.id +
@@ -193,7 +193,7 @@ export async function storePowerModel(
   } catch (error) {
     // Only this newly allocated import directory is eligible for cleanup.
     const directory = importDirectory(modelId);
-    if (path.dirname(directory) !== path.resolve("storage/power-imports"))
+    if (path.dirname(directory) !== powerStorageDirectory("power-imports"))
       throw new Error("导入临时目录范围无效");
     fs.rmSync(directory, { recursive: true, force: true });
     throw error;
